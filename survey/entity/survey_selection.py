@@ -6,6 +6,7 @@ from survey.entity.survey_question import SurveyQuestion
 class SurveySelection(models.Model):
     id = models.AutoField(primary_key=True)
     SurveyQuestionID = models.ForeignKey(SurveyQuestion, on_delete=models.CASCADE)
+    SurveySelectionNumber = models.IntegerField(default=0)
 
     class Meta:
         db_table = "survey_selection"
