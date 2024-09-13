@@ -7,9 +7,21 @@ from survey.service.survey_service_impl import SurveyServiceImpl
 class SurveyView(viewsets.ViewSet):
     surveyService = SurveyServiceImpl.getInstance()
 
-    def createNewServey(self, request):
+    def registerNewSurvey(self, request):
         print('createNewSurvey()')
-        pass
+        try:
+            surveyID = request.data.get("surveyID")
+            surveyQuestionNumber = request.data.get("surveyQuestionNumber")
+            surveyQuestionSentence = request.data.get("surveyQuestionSentence")
+            surveySelectionList = request.data.get("surveySelectionList")
+
+            self.surveyService.registerNewSurvey(surveyID, surveyQuestionNumber, surveyQuestionSentence,
+                                                 surveySelectionList)
+
+            return Response({'response': True}, status=status.HTTP_200_OK)
+        except Exception as e:
+            print("error occured while registering survey :", e)
+            return Response({'response': e}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def saveSurveyAnswer(self, request):
         print("saveSurveyAnswer()")
@@ -23,4 +35,4 @@ class SurveyView(viewsets.ViewSet):
             return Response({'response': True}, status=status.HTTP_200_OK)
         except Exception as e:
             print("error occured while saving servey answer")
-            return Response({'response': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'response': e}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
