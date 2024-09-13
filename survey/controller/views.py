@@ -1,9 +1,11 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
+from survey.service.survey_service_impl import SurveyServiceImpl
+
 
 class SurveyView(viewsets.ViewSet):
-    surveyService = ServeyServiceImpl.getInstance()
+    surveyService = SurveyServiceImpl.getInstance()
 
     def createNewServey(self, request):
         print('createNewSurvey()')
