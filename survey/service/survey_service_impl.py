@@ -21,3 +21,7 @@ class SurveyServiceImpl(SurveyService):
     def saveSurveyAnswer(self, surveyNumber, surveyQuestionNumber, surveySelectionNumber):
         print(f"SurveyServiceImpl() -> saveSurveyAnswer()")
         self.__surveyRepository.save(surveyNumber, surveyQuestionNumber, surveySelectionNumber)
+
+    def registerNewSurvey(self, surveyID, surveyQuestionNumber, surveyQuestionSentence, surveySelectionList):
+        print(f"SurveyServiceImpl() -> registerNewSurvey()")
+        self.__surveyRepository.register(surveyID, surveyQuestionNumber, surveyQuestionSentence, surveySelectionList)
