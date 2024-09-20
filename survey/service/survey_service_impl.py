@@ -25,3 +25,7 @@ class SurveyServiceImpl(SurveyService):
     def registerNewSurvey(self, surveyID, surveyQuestionSentence, surveySelectionList):
         print(f"SurveyServiceImpl() -> registerNewSurvey()")
         return self.__surveyRepository.register(surveyID, surveyQuestionSentence, surveySelectionList)
+
+    def returnSurveyComponents(self, surveyNumber):
+        print(f"SurveyServiceImpl() -> returnSurveyComponents")
+        return self.__surveyRepository.returnComponents(surveyNumber)
