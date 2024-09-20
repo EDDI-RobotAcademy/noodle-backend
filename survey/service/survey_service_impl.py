@@ -44,3 +44,6 @@ class SurveyServiceImpl(SurveyService):
             selectionList.append(selectList)
 
         return questionList, selectionList
+    def returnSurveyComponents(self, surveyNumber):
+        print(f"SurveyServiceImpl() -> returnSurveyComponents")
+        return self.__surveyRepository.returnComponents(surveyNumber)

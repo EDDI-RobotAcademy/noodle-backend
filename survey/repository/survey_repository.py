@@ -25,3 +25,5 @@ class SurveyRepository(ABC):
     @abstractmethod
     def findSelectionByQuestion(self, question):
         pass
+    def returnComponents(self, surveyNumber):
+        pass
