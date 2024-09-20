@@ -32,22 +32,30 @@ class SurveyRepositoryImpl(SurveyRepository):
             SurveySelectionID=surveySelectionNumber.id
         )
 
-    def register(self, surveyID, surveyQuestionNumber, surveyQuestionSentence, surveySelectionList):
-        if Survey.objects.get(SurveyDocument=surveyID) is None:
+    def register(self, surveyID, surveyQuestionSentence, surveySelectionList):
+        print("repository -> register()")
+        try:
+            surveyDocumentID = SurveyDocument.objects.get(id=surveyID)
+            survey = Survey.objects.get(SurveyDocumentID=surveyDocumentID)
+        except SurveyDocument.DoesNotExist:
             surveyDocumentID = SurveyDocument.objects.create()
-            surveyNumber = Survey.objects.create(SurveyDocumentID=surveyDocumentID)
-        else:
-            surveyNumber = Survey.objects.get(SurveyDocumentID=surveyID)
+            survey = Survey.objects.create(SurveyDocumentID=surveyDocumentID)
 
-        questionNumber = SurveyQuestion.objects.create(
-            SurveyID=surveyNumber,
-            SurveyQuestionNumber=surveyQuestionNumber,
-            SurveyQuestionSentence=surveyQuestionSentence,
-        )
-
-        for i in range(len(surveySelectionList)):
-            SurveySelection.objects.create(
-                SurveyQustionID=questionNumber,
-                SurveySelectionNumber=i + 1,
-                SurveySelectionSentence=surveySelectionList[i]
+        questionList = []
+        for question in surveyQuestionSentence:
+            q = SurveyQuestion.objects.create(
+                SurveyID=survey,
+                SurveyQuestionSentence=question,
             )
+            questionList.append(q)
+
+        for selection in surveySelectionList:
+            for i in range(len(selection)):
+                for j in range(len(selection[i])):
+                    SurveySelection.objects.create(
+                        SurveyQuestionID=questionList[i],
+                        SurveySelectionNumber=j+1,
+                        SurveySelectionSentence=selection[i][j]
+                    )
+
+        return survey

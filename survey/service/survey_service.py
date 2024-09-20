@@ -7,5 +7,5 @@ class SurveyService(ABC):
         pass
 
     @abstractmethod
-    def registerNewSurvey(self, surveyID, surveyQuestionNumber, surveyQuestionSentence, surveySelectionList):
+    def registerNewSurvey(self, surveyID, surveyQuestionSentence, surveySelectionList):
         pass
