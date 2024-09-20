@@ -11,20 +11,20 @@ class SurveyView(viewsets.ViewSet):
         print('createNewSurvey()')
         try:
             surveyID = request.data.get("surveyId")
-            surveyQuestionSentence = request.data.get("questions") # list
+            surveyQuestionSentence = request.data.get("questions")  # list
             print("surveyQuestionSentence:", surveyQuestionSentence)
-            surveySelectionList = request.data.get("answers") # list(list)
+            surveySelectionList = request.data.get("answers")  # list(list)
             print("surveySelectionList:", surveySelectionList)
 
             if not surveyID or not surveyQuestionSentence or not surveySelectionList:
                 return Response({'response': 'There is no content'}, status=status.HTTP_204_NO_CONTENT)
 
             survey = self.surveyService.registerNewSurvey(surveyID, surveyQuestionSentence,
-                                                 surveySelectionList)
+                                                          surveySelectionList)
 
             return Response({'response': survey.SurveyDocumentID.id}, status=status.HTTP_201_CREATED)
         except Exception as e:
-            print("error occured while registering survey :", e)
+            print("error occurred while registering survey :", e)
             return Response({'response': e}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def saveSurveyAnswer(self, request):
@@ -35,11 +35,27 @@ class SurveyView(viewsets.ViewSet):
             surveySelectionNumber = request.data.get("surveySelectionNumber")
 
             if not surveyNumber or not surveyQuestionNumber or not surveySelectionNumber:
-                return Response({'response': 'There is no content'}, status.HTTP_204_NO_CONTENT)
+                return Response({'response': 'There is no content'}, status=status.HTTP_204_NO_CONTENT)
 
             self.surveyService.saveSurveyAnswer(surveyNumber, surveyQuestionNumber, surveySelectionNumber)
 
             return Response({'response': True}, status=status.HTTP_200_OK)
         except Exception as e:
-            print("error occured while saving servey answer")
+            print("error occurred while saving servey answer")
             return Response({'response': e}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def returnSurveyComponents(self, request):
+        print("returnSurveyComponents()")
+        try:
+            surveyNumber = request.data.get("surveyNumber")
+
+            if not surveyNumber:
+                return Response({'response': 'There is no content received'}, status=status.HTTP_204_NO_CONTENT)
+
+            questionComponents, selectionComponents = self.surveyService.returnSurveyComponents(surveyNumber)
+
+            return Response({'questionComponents': questionComponents, 'selectionComponents': selectionComponents},
+                            status=status.HTTP_200_OK)
+        except Exception as e:
+            print('error occurred while creating response Components!:', e)
+            return Response({'response': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

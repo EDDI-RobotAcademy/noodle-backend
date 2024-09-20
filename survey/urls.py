@@ -9,5 +9,7 @@ router.register(r'', SurveyView, basename='survey')
 urlpatterns = [
     path('', include(router.urls)),
     path('save-survey-answer', SurveyView.as_view({'post': 'saveSurveyAnswer'}), name='save-survey-answer'),
-    path('register', SurveyView.as_view({'post': 'registerNewSurvey'}), name='register-new-survey')
+    path('register', SurveyView.as_view({'post': 'registerNewSurvey'}), name='register-new-survey'),
+    path('return-survey-components', SurveyView.as_view({'post': 'returnSurveyComponents'}),
+         name='return-survey-components'),
 ]

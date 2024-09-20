@@ -9,3 +9,7 @@ class SurveyRepository(ABC):
     @abstractmethod
     def register(self, surveyID, surveyQuestionSentence, surveySelectionList):
         pass
+
+    @abstractmethod
+    def returnComponents(self, surveyNumber):
+        pass

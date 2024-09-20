@@ -1,3 +1,5 @@
+from requests import Response
+
 from survey.entity.survey import Survey
 from survey.entity.survey_answer import SurveyAnswer
 from survey.entity.survey_document import SurveyDocument
@@ -53,8 +55,28 @@ class SurveyRepositoryImpl(SurveyRepository):
             for j in range(len(surveySelectionList[i])):
                 SurveySelection.objects.create(
                     SurveyQuestionID=questionList[i],
-                    SurveySelectionNumber=j+1,
+                    SurveySelectionNumber=j + 1,
                     SurveySelectionSentence=surveySelectionList[i][j]
                 )
 
         return survey
+
+    def returnComponents(self, surveyNumber):
+        try:
+            surveyDocumentID = SurveyDocument.objects.get(id=surveyNumber)
+        except Exception as e:
+            print('error occurred while getting surveyDocumentID:', e)
+
+        surveyID = Survey.objects.get(SurveyDocumentID=surveyDocumentID.id)
+        surveyQuestions = SurveyQuestion.objects.filter(SurveyID=surveyID.id).order_by('id')
+        surveyQuestionList = [component.SurveyQuestionSentence for component in surveyQuestions]
+        print(surveyQuestionList)
+
+        surveySelectionDoubleList = []
+        for component in surveyQuestions:
+            surveySelections = SurveySelection.objects.filter(SurveyQuestionID=component.id).order_by('id')
+            surveySelectionList = [component.SurveySelectionSentence for component in surveySelections]
+            surveySelectionDoubleList.append(surveySelectionList)
+        print(surveySelectionDoubleList)
+
+        return surveyQuestionList, surveySelectionDoubleList
