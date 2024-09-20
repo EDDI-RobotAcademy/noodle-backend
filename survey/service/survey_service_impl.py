@@ -7,8 +7,8 @@ class SurveyServiceImpl(SurveyService):
 
     def __new__(cls):
         if cls.__instance is None:
+            cls.__instance = super().__new__(cls)
             cls.__instance.__surveyRepository = SurveyRepositoryImpl.getInstance()
-
         return cls.__instance
 
     @classmethod
@@ -22,6 +22,6 @@ class SurveyServiceImpl(SurveyService):
         print(f"SurveyServiceImpl() -> saveSurveyAnswer()")
         self.__surveyRepository.save(surveyNumber, surveyQuestionNumber, surveySelectionNumber)
 
-    def registerNewSurvey(self, surveyID, surveyQuestionNumber, surveyQuestionSentence, surveySelectionList):
+    def registerNewSurvey(self, surveyID, surveyQuestionSentence, surveySelectionList):
         print(f"SurveyServiceImpl() -> registerNewSurvey()")
-        self.__surveyRepository.register(surveyID, surveyQuestionNumber, surveyQuestionSentence, surveySelectionList)
+        return self.__surveyRepository.register(surveyID, surveyQuestionSentence, surveySelectionList)
