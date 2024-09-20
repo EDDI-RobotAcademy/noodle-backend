@@ -34,6 +34,23 @@ class SurveyRepositoryImpl(SurveyRepository):
             SurveySelectionID=surveySelectionNumber.id
         )
 
+    def findDocumentById(self, Id):
+        return SurveyDocument.objects.get(id=Id)
+
+    def findSurveyByDocument(self, document):
+        return Survey.objects.get(SurveyDocumentID=document)
+
+    def findQuestionBySurvey(self, survey):
+        return SurveyQuestion.objects.filter(SurveyID=survey)
+
+    def findSelectionByQuestion(self, question):
+        selections = []
+        for q in question:
+            selection = SurveySelection.objects.filter(SurveyQuestionID=q)
+            selections.append(selection)
+
+        return selections
+
     def register(self, surveyID, surveyQuestionSentence, surveySelectionList):
         print("repository -> register()")
         try:
