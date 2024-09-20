@@ -28,11 +28,11 @@ class SurveyView(viewsets.ViewSet):
             return Response({'response': e}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def saveSurveyAnswer(self, request):
-        print("saveSurveyAnswer()")
+        print("controller -> saveSurveyAnswer()")
         try:
-            surveyNumber = request.data.get("surveyNumber")
-            surveyQuestionNumber = request.data.get("surveyQuestionNumber")
-            surveySelectionNumber = request.data.get("surveySelectionNumber")
+            surveyNumber = request.data.get("surveyId")
+            surveySelectionNumber = request.data.get("answer")
+            surveyQuestionNumber = [i+1 for i in range(len(surveySelectionNumber))]
 
             if not surveyNumber or not surveyQuestionNumber or not surveySelectionNumber:
                 return Response({'response': 'There is no content'}, status=status.HTTP_204_NO_CONTENT)
@@ -47,7 +47,7 @@ class SurveyView(viewsets.ViewSet):
     def read(self, request, surveyId=None):
         questionList, selectionList = self.surveyService.readSurvey(surveyId)
 
-        return Response({'questions': questionList, 'selections': selectionList}, status=status.HTTP_200_OK)
+        return Response({'surveyId': surveyId, 'questions': questionList, 'selections': selectionList}, status=status.HTTP_200_OK)
     def returnSurveyComponents(self, request):
         print("returnSurveyComponents()")
         try:

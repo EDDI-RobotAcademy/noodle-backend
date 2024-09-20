@@ -14,5 +14,6 @@ class SurveyService(ABC):
     def readSurvey(self, Id):
         pass
 
+    @abstractmethod
     def returnSurveyComponents(self, surveyNumber):
         pass
