@@ -9,3 +9,8 @@ class SurveyService(ABC):
     @abstractmethod
     def registerNewSurvey(self, surveyID, surveyQuestionSentence, surveySelectionList):
         pass
+
+    @abstractmethod
+    def readSurvey(self, Id):
+        pass
+
