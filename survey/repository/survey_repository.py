@@ -7,5 +7,5 @@ class SurveyRepository(ABC):
         pass
 
     @abstractmethod
-    def register(self, surveyID, surveyQuestionNumber, surveyQuestionSentence, surveySelectionList):
+    def register(self, surveyID, surveyQuestionSentence, surveySelectionList):
         pass
