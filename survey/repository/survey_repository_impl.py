@@ -24,10 +24,10 @@ class SurveyRepositoryImpl(SurveyRepository):
         return cls.__instance
 
     def save(self, surveyNumber, surveyQuestionNumber, surveySelectionNumber):
+        surveyDocument = SurveyDocument.objects.get(id=surveyNumber)
+        survey = Survey.objects.get(SurveyDocumentID=surveyDocument)
         surveyQuestion = SurveyQuestion.objects.get(SurveyID=surveyNumber)
-        surveyQuestionNumber = surveyQuestion.objects.get(SurveyQuestionNumber=surveyQuestionNumber)
         surveySelection = SurveySelection.objects.get(SurveyQuestionID=surveyQuestionNumber.id)
-        surveySelectionNumber = surveySelection.objects.get(SurveySelectionNumber=surveySelectionNumber)
 
         SurveyAnswer.objects.create(
             SurveyQuestionID=surveyQuestionNumber.id,
