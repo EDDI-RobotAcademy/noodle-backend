@@ -44,6 +44,10 @@ class SurveyView(viewsets.ViewSet):
             print("error occurred while saving servey answer")
             return Response({'response': e}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    def read(self, request, surveyId=None):
+        questionList, selectionList = self.surveyService.readSurvey(surveyId)
+
+        return Response({'questions': questionList, 'selections': selectionList}, status=status.HTTP_200_OK)
     def returnSurveyComponents(self, request):
         print("returnSurveyComponents()")
         try:

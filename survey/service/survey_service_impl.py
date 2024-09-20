@@ -26,6 +26,24 @@ class SurveyServiceImpl(SurveyService):
         print(f"SurveyServiceImpl() -> registerNewSurvey()")
         return self.__surveyRepository.register(surveyID, surveyQuestionSentence, surveySelectionList)
 
+    def readSurvey(self, Id):
+        document = self.__surveyRepository.findDocumentById(Id) # document class자체가 들어옴
+        survey = self.__surveyRepository.findSurveyByDocument(document)
+        questions = self.__surveyRepository.findQuestionBySurvey(survey)
+        selections = self.__surveyRepository.findSelectionByQuestion(questions)
+
+        questionList = []
+        for question in questions:
+            questionList.append(question.SurveyQuestionSentence)
+
+        selectionList = []
+        for selection in selections:
+            selectList = []
+            for select in selection:
+                selectList.append(select.SurveySelectionSentence)
+            selectionList.append(selectList)
+
+        return questionList, selectionList
     def returnSurveyComponents(self, surveyNumber):
         print(f"SurveyServiceImpl() -> returnSurveyComponents")
         return self.__surveyRepository.returnComponents(surveyNumber)
