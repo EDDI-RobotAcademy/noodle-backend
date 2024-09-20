@@ -49,13 +49,12 @@ class SurveyRepositoryImpl(SurveyRepository):
             )
             questionList.append(q)
 
-        for selection in surveySelectionList:
-            for i in range(len(selection)):
-                for j in range(len(selection[i])):
-                    SurveySelection.objects.create(
-                        SurveyQuestionID=questionList[i],
-                        SurveySelectionNumber=j+1,
-                        SurveySelectionSentence=selection[i][j]
-                    )
+        for i in range(len(questionList)):
+            for j in range(len(surveySelectionList[i])):
+                SurveySelection.objects.create(
+                    SurveyQuestionID=questionList[i],
+                    SurveySelectionNumber=j+1,
+                    SurveySelectionSentence=surveySelectionList[i][j]
+                )
 
         return survey
