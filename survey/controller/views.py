@@ -41,7 +41,7 @@ class SurveyView(viewsets.ViewSet):
 
             return Response({'response': True}, status=status.HTTP_200_OK)
         except Exception as e:
-            print("error occurred while saving servey answer")
+            print("error occurred while saving survey answer")
             return Response({'response': e}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def read(self, request, surveyId=None):
