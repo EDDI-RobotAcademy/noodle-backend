@@ -27,7 +27,7 @@ class SurveyServiceImpl(SurveyService):
         return self.__surveyRepository.register(surveyID, surveyQuestionSentence, surveySelectionList)
 
     def readSurvey(self, Id):
-        document = self.__surveyRepository.findDocumentById(Id) # document class자체가 들어옴
+        document = self.__surveyRepository.findDocumentById(Id)  # document class자체가 들어옴
         survey = self.__surveyRepository.findSurveyByDocument(document)
         questions = self.__surveyRepository.findQuestionBySurvey(survey)
         selections = self.__surveyRepository.findSelectionByQuestion(questions)
@@ -44,6 +44,7 @@ class SurveyServiceImpl(SurveyService):
             selectionList.append(selectList)
 
         return questionList, selectionList
+
     def returnSurveyComponents(self, surveyNumber):
         print(f"SurveyServiceImpl() -> returnSurveyComponents")
         return self.__surveyRepository.returnComponents(surveyNumber)
