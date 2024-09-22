@@ -23,17 +23,6 @@ class SurveyRepositoryImpl(SurveyRepository):
             cls.__instance = cls()
         return cls.__instance
 
-    def save(self, surveyNumber, surveyQuestionNumber, surveySelectionNumber):
-        surveyDocument = SurveyDocument.objects.get(id=surveyNumber)
-        survey = Survey.objects.get(SurveyDocumentID=surveyDocument)
-        surveyQuestion = SurveyQuestion.objects.get(SurveyID=surveyNumber)
-        surveySelection = SurveySelection.objects.get(SurveyQuestionID=surveyQuestionNumber.id)
-
-        SurveyAnswer.objects.create(
-            SurveyQuestionID=surveyQuestionNumber.id,
-            SurveySelectionID=surveySelectionNumber.id
-        )
-
     def findDocumentById(self, Id):
         return SurveyDocument.objects.get(id=Id)
 

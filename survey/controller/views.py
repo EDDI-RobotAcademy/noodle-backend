@@ -32,22 +32,23 @@ class SurveyView(viewsets.ViewSet):
         try:
             surveyNumber = request.data.get("surveyId")
             surveySelectionNumber = request.data.get("answer")
-            surveyQuestionNumber = [i+1 for i in range(len(surveySelectionNumber))]
 
-            if not surveyNumber or not surveyQuestionNumber or not surveySelectionNumber:
+            if not surveyNumber or not surveySelectionNumber:
                 return Response({'response': 'There is no content'}, status=status.HTTP_204_NO_CONTENT)
 
-            self.surveyService.saveSurveyAnswer(surveyNumber, surveyQuestionNumber, surveySelectionNumber)
+            self.surveyService.saveSurveyAnswer(surveyNumber, surveySelectionNumber)
 
             return Response({'response': True}, status=status.HTTP_200_OK)
         except Exception as e:
-            print("error occurred while saving survey answer")
-            return Response({'response': e}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            print("error occurred while saving survey answer:", e)
+            return Response({'response': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def read(self, request, surveyId=None):
         questionList, selectionList = self.surveyService.readSurvey(surveyId)
 
-        return Response({'surveyId': surveyId, 'questions': questionList, 'selections': selectionList}, status=status.HTTP_200_OK)
+        return Response({'surveyId': surveyId, 'questions': questionList, 'selections': selectionList},
+                        status=status.HTTP_200_OK)
+
     def returnSurveyComponents(self, request):
         print("returnSurveyComponents()")
         try:

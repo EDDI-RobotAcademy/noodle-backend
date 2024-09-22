@@ -1,3 +1,4 @@
+from survey.entity.survey_answer import SurveyAnswer
 from survey.repository.survey_repository_impl import SurveyRepositoryImpl
 from survey.service.survey_service import SurveyService
 
@@ -18,9 +19,26 @@ class SurveyServiceImpl(SurveyService):
 
         return cls.__instance
 
-    def saveSurveyAnswer(self, surveyNumber, surveyQuestionNumber, surveySelectionNumber):
+    def saveSurveyAnswer(self, surveyNumber, surveySelectionNumber):
         print(f"SurveyServiceImpl() -> saveSurveyAnswer()")
-        self.__surveyRepository.save(surveyNumber, surveyQuestionNumber, surveySelectionNumber)
+        documentNumber = self.__surveyRepository.findDocumentById(surveyNumber)
+        surveyID = self.__surveyRepository.findSurveyByDocument(documentNumber.id)
+
+        surveyQuestions = self.__surveyRepository.findQuestionBySurvey(surveyID.id)
+        surveyQuestionList = [component for component in surveyQuestions]
+
+        if len(surveyQuestionList) != len(surveySelectionNumber):
+            print('error occurred while saving answers! invalid matching components!')
+
+        for i in range(len(surveyQuestionList)):
+            surveyQuestion = surveyQuestionList[i]
+            surveySelection = self.__surveyRepository.findSelectionBySurveyQuestionIDAndSelectionNumber(
+                surveyQuestion, surveySelectionNumber[i])
+            print(surveyQuestion, "<-->", surveySelection.id)
+            SurveyAnswer.objects.create(
+                SurveyQuestionID=surveyQuestion,
+                SurveySelectionID=surveySelection
+            )
 
     def registerNewSurvey(self, surveyID, surveyQuestionSentence, surveySelectionList):
         print(f"SurveyServiceImpl() -> registerNewSurvey()")
