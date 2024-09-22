@@ -61,9 +61,12 @@ class SurveyRepositoryImpl(SurveyRepository):
             survey = Survey.objects.create(SurveyDocumentID=surveyDocumentID)
 
         questionList = []
+        cnt = 0
         for question in surveyQuestionSentence:
+            cnt += 1
             q = SurveyQuestion.objects.create(
                 SurveyID=survey,
+                SurveyQuestionNumber=cnt,
                 SurveyQuestionSentence=question,
             )
             questionList.append(q)
@@ -97,3 +100,6 @@ class SurveyRepositoryImpl(SurveyRepository):
         print(surveySelectionDoubleList)
 
         return surveyQuestionList, surveySelectionDoubleList
+
+    def findSelectionBySurveyQuestionIDAndSelectionNumber(self, questionID, selectionNumber):
+        return SurveySelection.objects.get(SurveyQuestionID=questionID, SurveySelectionNumber=selectionNumber)
