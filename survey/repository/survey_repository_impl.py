@@ -30,15 +30,13 @@ class SurveyRepositoryImpl(SurveyRepository):
         return Survey.objects.get(SurveyDocumentID=document)
 
     def findQuestionBySurvey(self, survey):
-        return SurveyQuestion.objects.filter(SurveyID=survey)
+        return SurveyQuestion.objects.filter(SurveyID=survey).order_by('id')
 
     def findSelectionByQuestion(self, question):
         selections = []
         for q in question:
             selection = SurveySelection.objects.filter(SurveyQuestionID=q)
             selections.append(selection)
-
-        return selections
 
     def register(self, surveyID, surveyQuestionSentence, surveySelectionList):
         print("repository -> register()")
@@ -70,7 +68,7 @@ class SurveyRepositoryImpl(SurveyRepository):
 
         return survey
 
-    def returnComponents(self, surveyNumber):
+    def returnComponents(self, surveyNumber, flag):
         try:
             surveyDocumentID = SurveyDocument.objects.get(id=surveyNumber)
         except Exception as e:
@@ -82,11 +80,23 @@ class SurveyRepositoryImpl(SurveyRepository):
         print(surveyQuestionList)
 
         surveySelectionDoubleList = []
+        surveyQuantityDoubleList = []
         for component in surveyQuestions:
             surveySelections = SurveySelection.objects.filter(SurveyQuestionID=component.id).order_by('id')
             surveySelectionList = [component.SurveySelectionSentence for component in surveySelections]
             surveySelectionDoubleList.append(surveySelectionList)
+            if flag == 1:
+                surveyQuantityList = []
+                surveySelectionComponentList = [component for component in surveySelections]
+                for surveySelection in surveySelectionComponentList:
+                    surveySelectionQuantity = SurveyAnswer.objects.filter(SurveySelectionID=surveySelection).count()
+                    surveyQuantityList.append(surveySelectionQuantity)
+                surveyQuantityDoubleList.append(surveyQuantityList)
         print(surveySelectionDoubleList)
+
+        if flag == 1:
+            print(surveyQuantityDoubleList)
+            return surveyQuestionList, surveySelectionDoubleList, surveyQuantityDoubleList
 
         return surveyQuestionList, surveySelectionDoubleList
 

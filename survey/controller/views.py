@@ -64,3 +64,21 @@ class SurveyView(viewsets.ViewSet):
         except Exception as e:
             print('error occurred while creating response Components!:', e)
             return Response({'response': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def readSurveyResult(self, request):
+        print("readSurveyResult()")
+        try:
+            surveyNumber = request.data.get("surveyNumber")
+
+            if not surveyNumber:
+                return Response({'response': 'There is no content received'}, status=status.HTTP_204_NO_CONTENT)
+
+            questionList, selectionList, selectionQuantity = self.surveyService.readSurveyResult(surveyNumber)
+
+            return Response(
+                {'questionList': questionList, 'selectionList': selectionList, "selectionQuantity": selectionQuantity},
+                status=status.HTTP_200_OK)
+
+        except Exception as e:
+            print('error occurred while abstracting survey result!: ', e)
+            return Response({'response': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
