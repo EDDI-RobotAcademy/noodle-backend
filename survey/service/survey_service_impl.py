@@ -65,4 +65,8 @@ class SurveyServiceImpl(SurveyService):
 
     def returnSurveyComponents(self, surveyNumber):
         print(f"SurveyServiceImpl() -> returnSurveyComponents")
-        return self.__surveyRepository.returnComponents(surveyNumber)
+        return self.__surveyRepository.returnComponents(surveyNumber, 0)
+
+    def readSurveyResult(self, surveyNumber):
+        print(f"SurveyServiceImpl()-> readSurveyResult")
+        return self.__surveyRepository.returnComponents(surveyNumber, 1)

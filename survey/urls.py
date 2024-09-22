@@ -13,4 +13,5 @@ urlpatterns = [
     path('read/<int:surveyId>', SurveyView.as_view({'get': 'read'}), name='read-survey'),
     path('return-survey-components', SurveyView.as_view({'post': 'returnSurveyComponents'}),
          name='return-survey-components'),
+    path('result', SurveyView.as_view({'post': 'readSurveyResult'}), name='read-survey-result'),
 ]

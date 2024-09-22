@@ -28,5 +28,5 @@ class SurveyRepository(ABC):
         pass
 
     @abstractmethod
-    def returnComponents(self, surveyNumber):
+    def returnComponents(self, surveyNumber, flag):
         pass
