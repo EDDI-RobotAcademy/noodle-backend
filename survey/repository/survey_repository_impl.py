@@ -23,17 +23,6 @@ class SurveyRepositoryImpl(SurveyRepository):
             cls.__instance = cls()
         return cls.__instance
 
-    def save(self, surveyNumber, surveyQuestionNumber, surveySelectionNumber):
-        surveyDocument = SurveyDocument.objects.get(id=surveyNumber)
-        survey = Survey.objects.get(SurveyDocumentID=surveyDocument)
-        surveyQuestion = SurveyQuestion.objects.get(SurveyID=surveyNumber)
-        surveySelection = SurveySelection.objects.get(SurveyQuestionID=surveyQuestionNumber.id)
-
-        SurveyAnswer.objects.create(
-            SurveyQuestionID=surveyQuestionNumber.id,
-            SurveySelectionID=surveySelectionNumber.id
-        )
-
     def findDocumentById(self, Id):
         return SurveyDocument.objects.get(id=Id)
 
@@ -61,9 +50,12 @@ class SurveyRepositoryImpl(SurveyRepository):
             survey = Survey.objects.create(SurveyDocumentID=surveyDocumentID)
 
         questionList = []
+        cnt = 0
         for question in surveyQuestionSentence:
+            cnt += 1
             q = SurveyQuestion.objects.create(
                 SurveyID=survey,
+                SurveyQuestionNumber=cnt,
                 SurveyQuestionSentence=question,
             )
             questionList.append(q)
@@ -97,3 +89,6 @@ class SurveyRepositoryImpl(SurveyRepository):
         print(surveySelectionDoubleList)
 
         return surveyQuestionList, surveySelectionDoubleList
+
+    def findSelectionBySurveyQuestionIDAndSelectionNumber(self, questionID, selectionNumber):
+        return SurveySelection.objects.get(SurveyQuestionID=questionID, SurveySelectionNumber=selectionNumber)
