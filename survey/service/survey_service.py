@@ -21,3 +21,11 @@ class SurveyService(ABC):
     @abstractmethod
     def readSurveyResult(self, surveyNumber):
         pass
+
+    @abstractmethod
+    def makeBulkInjection(self, questionList, answerList):
+        pass
+
+    @abstractmethod
+    def operateBulkInjection(self, bulkInjectionQueryList):
+        pass

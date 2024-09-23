@@ -70,3 +70,26 @@ class SurveyServiceImpl(SurveyService):
     def readSurveyResult(self, surveyNumber):
         print(f"SurveyServiceImpl()-> readSurveyResult")
         return self.__surveyRepository.returnComponents(surveyNumber, 1)
+
+    def makeBulkInjection(self, questionList, answerList):
+        print(f"SurveyServiceImpl() -> makeBulkInjection")
+        queryInfo = []
+
+        try:
+            for i in range(len(questionList)):
+                for answer in answerList:
+                    print(questionList[i])
+                    print(answer[i])
+                    questionObject = self.__surveyRepository.findQuestionByQuestionSentence(questionList[i])
+                    selectionObject = self.__surveyRepository.findSelectionBySelectionSentence(questionObject,
+                                                                                               answer[i])
+                    queryInfo.append(
+                        SurveyAnswer(SurveyQuestionID=questionObject, SurveySelectionID=selectionObject))
+
+            return queryInfo
+        except Exception as e:
+            print("error occured while creating queryInfo: ", e)
+
+    def operateBulkInjection(self, bulkInjectionQueryList):
+        print(f"SurveyServiceImpl() -> operateBulkInjection")
+        self.__surveyRepository.operateBulkInjection(bulkInjectionQueryList)

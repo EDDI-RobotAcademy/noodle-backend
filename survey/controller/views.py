@@ -1,3 +1,6 @@
+import os
+
+import pandas
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
@@ -81,4 +84,27 @@ class SurveyView(viewsets.ViewSet):
 
         except Exception as e:
             print('error occurred while abstracting survey result!: ', e)
+            return Response({'response': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def saveFirstSurveyCSVData(self, request):
+        print("saveFirstSurveyCSVData")
+        try:
+            if request.data.get('password') == os.getenv('PASSWORD'):
+                file = pandas.read_csv(request.data.get("file"), encoding='utf-8')
+
+                questionList = list(file.columns)
+                answerList = []
+                for i, row in file.iterrows():
+                    answerList.append(tuple(row))
+
+                bulkInjectionList = self.surveyService.makeBulkInjection(questionList, answerList)
+                self.surveyService.operateBulkInjection(bulkInjectionList)
+
+                return Response({'response': True}, status=status.HTTP_200_OK)
+            else:
+                print("not authorized request!")
+                return Response({'response': False}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+
+        except Exception as e:
+            print("error occurred while saving csv data!: ", e)
             return Response({'response': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

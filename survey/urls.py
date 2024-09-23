@@ -14,4 +14,5 @@ urlpatterns = [
     path('return-survey-components', SurveyView.as_view({'post': 'returnSurveyComponents'}),
          name='return-survey-components'),
     path('result', SurveyView.as_view({'post': 'readSurveyResult'}), name='read-survey-result'),
+    path('save-csv', SurveyView.as_view({'post': 'saveFirstSurveyCSVData'}), name='save-first-survey-csv-data'),
 ]
