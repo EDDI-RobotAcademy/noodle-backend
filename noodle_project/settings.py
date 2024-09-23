@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "survey",
+    "github_oauth",
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,15 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+GITHUB = {
+    "LOGIN_URL": os.getenv("GITHUB_LOGIN_URL"),
+    "CLIENT_ID": os.getenv("GITHUB_CLIENT_ID"),
+    "CLIENT_SECRET": os.getenv("GITHUB_CLIENT_SECRET"),
+    "REDIRECT_URI": os.getenv("GITHUB_REDIRECT_URI"),
+    "TOKEN_REQUEST_URL": os.getenv("GITHUB_TOKEN_REQUEST_URL"),
+    "USERINFO_REQUEST_URL": os.getenv("GITHUB_USERINFO_REQUEST_URL")
+}
 
 CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', '').split(',')
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
