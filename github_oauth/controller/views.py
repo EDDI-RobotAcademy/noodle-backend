@@ -19,14 +19,14 @@ class OauthView(viewsets.ViewSet):
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
     def githubAccessTokenURL(self, request):
-        serializer = GithubOauthAccessTokenSerializer(code=request.data)
+        serializer = GithubOauthAccessTokenSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         code = serializer.validated_data['code']
 
         try:
             accessToken = self.githubOauthService.requestAccessToken(code)
             print(f"accessToken: {accessToken}")
-            return Response(serializer.validated_data, status=status.HTTP_200_OK)
+            return Response({"code": accessToken['access_token']}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
