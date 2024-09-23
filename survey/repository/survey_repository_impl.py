@@ -38,6 +38,8 @@ class SurveyRepositoryImpl(SurveyRepository):
             selection = SurveySelection.objects.filter(SurveyQuestionID=q)
             selections.append(selection)
 
+        return selections
+
     def register(self, surveyID, surveyQuestionSentence, surveySelectionList):
         print("repository -> register()")
         try:
@@ -102,6 +104,10 @@ class SurveyRepositoryImpl(SurveyRepository):
 
     def findSelectionBySurveyQuestionIDAndSelectionNumber(self, questionID, selectionNumber):
         return SurveySelection.objects.get(SurveyQuestionID=questionID, SurveySelectionNumber=selectionNumber)
+
+    def list(self):
+        return SurveyDocument.objects.all()
+
 
     def findQuestionByQuestionSentence(self, questionSentence):
         return SurveyQuestion.objects.get(SurveyQuestionSentence=questionSentence)

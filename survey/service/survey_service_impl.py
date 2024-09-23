@@ -32,8 +32,10 @@ class SurveyServiceImpl(SurveyService):
 
         for i in range(len(surveyQuestionList)):
             surveyQuestion = surveyQuestionList[i]
+
             surveySelection = self.__surveyRepository.findSelectionBySurveyQuestionIDAndSelectionNumber(
-                surveyQuestion, surveySelectionNumber[i])
+                surveyQuestion, surveySelectionNumber[i] + 1)
+
             print(surveyQuestion, "<-->", surveySelection.id)
             SurveyAnswer.objects.create(
                 SurveyQuestionID=surveyQuestion,
@@ -53,6 +55,7 @@ class SurveyServiceImpl(SurveyService):
         questionList = []
         for question in questions:
             questionList.append(question.SurveyQuestionSentence)
+        print("selections:", selections)
 
         selectionList = []
         for selection in selections:
@@ -70,6 +73,13 @@ class SurveyServiceImpl(SurveyService):
     def readSurveyResult(self, surveyNumber):
         print(f"SurveyServiceImpl()-> readSurveyResult")
         return self.__surveyRepository.returnComponents(surveyNumber, 1)
+
+    def list(self):
+        weekNumbers = self.__surveyRepository.list()
+
+        weekNumberList = [week.id for week in weekNumbers]
+        return weekNumberList
+
 
     def makeBulkInjection(self, questionList, answerList):
         print(f"SurveyServiceImpl() -> makeBulkInjection")
