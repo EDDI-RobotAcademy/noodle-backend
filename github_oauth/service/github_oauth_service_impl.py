@@ -36,17 +36,23 @@ class GithubOauthServiceImpl(GithubOauthService):
         accessTokenRequestForm = {
             "client_id": self.clientId,
             "client_secret": self.clientSecret,
-            "code": githubAuthCode
+            "code": githubAuthCode,
+            "redirect_uri": self.redirectUri
+        }
+        headers = {
+            "Accept": "application/json"
         }
 
         print(f"accessTokenRequestForm: {accessTokenRequestForm}")
-        response = requests.post(self.tokenRequestUrl, data=accessTokenRequestForm)
+        response = requests.post(self.tokenRequestUrl, data=accessTokenRequestForm, headers=headers)
         print(f"response: {response}")
-
         return response.json()
 
     def requestUserInfo(self, accessToken):
-        headers = {'Authorization': f'Bearer {accessToken}'}
-        response = requests.post(self.userinfoRequestUrl, headers=headers)
+        print("service -> requestUserInfo()")
+        print(f"accessToken: {accessToken}")
+        headers = {'Authorization': f'token {accessToken}'}
+        response = requests.get(self.userinfoRequestUrl, headers=headers)
+        print(f"response: {response.json()}")
 
         return response.json()
