@@ -102,3 +102,12 @@ class SurveyRepositoryImpl(SurveyRepository):
 
     def findSelectionBySurveyQuestionIDAndSelectionNumber(self, questionID, selectionNumber):
         return SurveySelection.objects.get(SurveyQuestionID=questionID, SurveySelectionNumber=selectionNumber)
+
+    def findQuestionByQuestionSentence(self, questionSentence):
+        return SurveyQuestion.objects.get(SurveyQuestionSentence=questionSentence)
+
+    def findSelectionBySelectionSentence(self, questionID, answer):
+        return SurveySelection.objects.get(SurveyQuestionID=questionID, SurveySelectionSentence=answer)
+
+    def operateBulkInjection(self, bulkInjectionQueryList):
+        SurveyAnswer.objects.bulk_create(bulkInjectionQueryList)
