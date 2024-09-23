@@ -35,6 +35,8 @@ class SurveyView(viewsets.ViewSet):
         try:
             surveyNumber = request.data.get("surveyId")
             surveySelectionNumber = request.data.get("answer")
+            print("surveyNumber:", surveyNumber)
+            print("surveySelectionNumber:", surveySelectionNumber)
 
             if not surveyNumber or not surveySelectionNumber:
                 return Response({'response': 'There is no content'}, status=status.HTTP_204_NO_CONTENT)
@@ -49,7 +51,7 @@ class SurveyView(viewsets.ViewSet):
     def read(self, request, surveyId=None):
         questionList, selectionList = self.surveyService.readSurvey(surveyId)
 
-        return Response({'surveyId': surveyId, 'questions': questionList, 'selections': selectionList},
+        return Response({'surveyId': surveyId, 'questions': questionList, 'answers': selectionList},
                         status=status.HTTP_200_OK)
 
     def returnSurveyComponents(self, request):
@@ -86,6 +88,12 @@ class SurveyView(viewsets.ViewSet):
             print('error occurred while abstracting survey result!: ', e)
             return Response({'response': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    def listSurvey(self, request):
+        surveyIdList = self.surveyService.list()
+        try:
+            return Response({'surveyIdList': surveyIdList}, status=status.HTTP_200_OK)
+        except Exception as e:
+            print('listSurvey 문제 발생')
     def saveFirstSurveyCSVData(self, request):
         print("saveFirstSurveyCSVData")
         try:

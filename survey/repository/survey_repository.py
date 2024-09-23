@@ -42,3 +42,7 @@ class SurveyRepository(ABC):
     @abstractmethod
     def operateBulkInjection(self, bulkInjectionQueryList):
         pass
+
+    @abstractmethod
+    def list(self):
+        pass

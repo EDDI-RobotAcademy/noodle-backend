@@ -23,6 +23,9 @@ class SurveyService(ABC):
         pass
 
     @abstractmethod
+    def list(self):
+        pass
+    @abstractmethod
     def makeBulkInjection(self, questionList, answerList):
         pass
 
