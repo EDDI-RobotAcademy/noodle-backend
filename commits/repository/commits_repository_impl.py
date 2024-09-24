@@ -22,7 +22,7 @@ class CommitsRepositoryImpl(CommitsRepository):
         return cls.__instance
 
     def getCommitsOfPage(self, username, accessToken, reponame, branchname, pageNumber):
-        getRepositoryUrl = self.GITHUB_API_URL + f"/repos/{username}/{reponame}/commits?sha={branchname}&per_page=20&page={pageNumber}"
+        getRepositoryUrl = self.GITHUB_API_URL + f"/repos/{username}/{reponame}/commits?sha={branchname}&per_page=100&page={pageNumber}"
         headers = {
             'Authorization': f'Bearer {accessToken}'
         }
