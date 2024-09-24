@@ -110,7 +110,7 @@ jobs:
             cd /home/ec2-user/noo/django-backend
             docker-compose down
 
-            echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ secrets.GITHUB_ACTOR }} --password-stdin
+            echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ secrets.REAL_ACTOR }} --password-stdin
             docker pull ${{ env.DOCKER_IMAGE }}:latest
 
             docker image prune -f
