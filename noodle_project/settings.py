@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "survey",
     "github_oauth",
     "repos",
+    "branches",
 ]
 
 MIDDLEWARE = [
