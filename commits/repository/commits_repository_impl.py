@@ -1,4 +1,5 @@
 import requests
+import re
 
 from commits.repository.commits_repository import CommitsRepository
 
@@ -26,6 +27,17 @@ class CommitsRepositoryImpl(CommitsRepository):
             'Authorization': f'Bearer {accessToken}'
         }
         response = requests.get(getRepositoryUrl, headers=headers)
-        print("response:", response)
 
-        return response.json()
+        if pageNumber == 1:
+            resHeaders = response.headers
+            link = resHeaders['Link']
+            pattern = re.search(r'page=(\d+)>; rel="last"', link)
+            lastPageNumber = 1
+
+            if pattern:
+                lastPageNumber = int(pattern.group(1))
+
+            return response.json(), lastPageNumber
+
+        else:
+            return response.json()
