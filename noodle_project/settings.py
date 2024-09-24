@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "survey",
     "github_oauth",
+    "repos",
 ]
 
 MIDDLEWARE = [
