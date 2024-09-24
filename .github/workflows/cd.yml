@@ -5,7 +5,7 @@ on:
     types: [BACKEND_TEST_FINISH_TRIGGER]
     
 env:
-  DOCKER_IMAGE: ghcr.io/${{ secrets.GITHUB_ACTOR }}/noodle-django-backend:latest
+  DOCKER_IMAGE: ghcr.io/${{ secrets.REAL_ACTOR }}/noodle-django-backend:latest
 
 jobs:
   build:
