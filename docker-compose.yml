@@ -2,7 +2,7 @@ version: '3'
 services:
   django:
     container_name: django
-    image: ghcr.io/${GITHUB_ACTOR}/noodle-django-backend:latest
+    image: ghcr.io/${REAL_ACTOR}/noodle-django-backend:latest
     command: /app/wait-for-it.sh db:3306 -t 15 -- sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     restart: always
     ports:
