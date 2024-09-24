@@ -67,7 +67,7 @@ jobs:
       uses: docker/login-action@v1
       with:
         registry: ghcr.io
-        username: ${{ secrets.GITHUB_ACTOR }}
+        username: ${{ secrets.REAL_ACTOR }}
         password: ${{ secrets.GHCR_TOKEN }}
 
     - name: Build and Push Docker Image
@@ -96,7 +96,7 @@ jobs:
       uses: docker/login-action@v1
       with:
         registry: ghcr.io
-        username: ${{ secrets.GITHUB_ACTOR }}
+        username: ${{ secrets.REAL_ACTOR }}
         password: ${{ secrets.GHCR_TOKEN }}
 
     - name: Deploy to Production
