@@ -2,7 +2,7 @@ version: '3'
 services:
   django:
     container_name: django
-    image: ghcr.io/${GITHUB_ACTOR}/noodle-django-backend:latest
+    image: ghcr.io/${REAL_ACTOR}/noodle-django-backend:latest
     command: /app/wait-for-it.sh db:3306 -t 15 -- sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     restart: always
     ports:
@@ -19,6 +19,12 @@ services:
       - DATABASE_NAME=${DATABASE_NAME}
       - DATABASE_USER=${DATABASE_USER}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - LOGIN_URL=${LOGIN_URL}
+      - CLIENT_ID=${CLIENT_ID}
+      - CLIENT_SECRET=${CLIENT_SECRET}
+      - REDIRECT_URI=${REDIRECT_URI}
+      - TOKEN_REQUEST_URL=${TOKEN_REQUEST_URL}
+      - USERINFO_REQUEST_URL=${USERINFO_REQUEST_URL}
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REDIS_PASSWORD=${REDIS_PASSWORD}
@@ -54,7 +60,7 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
-    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
+    command: [ "redis-server", "--requirepass", "${REDIS_PASSWORD}" ]
     networks:
       - app-network
 

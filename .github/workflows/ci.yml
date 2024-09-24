@@ -65,6 +65,12 @@ jobs:
         echo "REDIS_HOST=${{ secrets.REDIS_HOST }}" >> .env
         echo "REDIS_PORT=${{ secrets.REDIS_PORT }}" >> .env
         echo "REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}" >> .env
+        echo "LOGIN_URL=${{ secrets.LOGIN_URL }}" >> .env
+        echo "CLIENT_ID=${{ secrets.CLIENT_ID }}" >> .env
+        echo "CLIENT_S{{ secrets.CLIENT_SECRET }}" >> .env
+        echo "REDIRECT_URI=${{ secrets.REDIRECT_URI }}" >> .env
+        echo "TOKEN_REQUEST_URL=${{ secrets.TOKEN_REQUEST_URL }}" >> .env
+        echo "USERINFO_REQUEST_URL=${{ secrets.USERINFO_REQUEST_URL }}" >> .env
 
     - name: Wait for MySQL to be ready
       working-directory: ./
