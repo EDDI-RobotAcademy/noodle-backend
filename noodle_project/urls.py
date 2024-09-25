@@ -25,3 +25,4 @@ urlpatterns = [
     path("branches/", include("branches.urls")),
     path("commits/", include("commits.urls")),
     path("account/", include("account.urls")),
+]
