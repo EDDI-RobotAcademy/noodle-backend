@@ -9,3 +9,7 @@ class ReposRepository(ABC):
     @abstractmethod
     def getRepository(self, account, reponame):
         pass
+
+    @abstractmethod
+    def getAllRepositories(self, account):
+        pass

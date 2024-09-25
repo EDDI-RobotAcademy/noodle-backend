@@ -37,3 +37,6 @@ class ReposRepositoryImpl(ReposRepository):
 
     def getRepository(self, account, reponame):
         return Repos.objects.get(account=account, name=reponame)
+
+    def getAllRepositories(self, account):
+        return Repos.objects.filter(account=account)

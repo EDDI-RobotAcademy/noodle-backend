@@ -24,3 +24,10 @@ class ReposServiceImpl(ReposService):
     def save(self, accountId, accessToken):
         account = self.__accountRepository.findAccountByAccountId(id=accountId)
         self.__reposRepository.saveRepositories(account, accessToken)
+
+    def list(self, accountId):
+        account = self.__accountRepository.findAccountByAccountId(id=accountId)
+        repos = self.__reposRepository.getAllRepositories(account)
+        repoList = [repo.name for repo in repos]
+
+        return repoList
