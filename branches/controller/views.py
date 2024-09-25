@@ -10,7 +10,7 @@ class BranchesView(viewsets.ViewSet):
     branchesService = BranchesServiceImpl.getInstance()
     redisService = RedisServiceImpl.getInstance()
 
-    def list(self, request):
+    def save(self, request):
         try:
             userToken = request.data.get('userToken')
         except Exception as e:
@@ -20,6 +20,6 @@ class BranchesView(viewsets.ViewSet):
         accountId = self.redisService.getValueByKey(userToken)
         accessToken = self.redisService.getValueByKey(accountId)
 
-        branchesList = self.branchesService.list(accountId, accessToken, reponame)
+        self.branchesService.save(accountId, accessToken, reponame)
 
-        return Response({"branch_list": branchesList}, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_200_OK)
