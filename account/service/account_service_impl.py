@@ -21,7 +21,7 @@ class AccountServiceImpl(AccountService):
         return cls.__instance
 
     def checkUsernameDuplication(self, username):
-        account = self.__accountRepository.findByUsername(username)
+        account = self.__accountRepository.findAccountByUsername(username)
         return account is not None
 
     def findAccountByUsername(self, username):
