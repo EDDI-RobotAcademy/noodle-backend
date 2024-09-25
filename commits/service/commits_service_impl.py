@@ -19,10 +19,10 @@ class CommitsServiceImpl(CommitsService):
 
         return cls.__instance
 
-    def list(self, username, accessToken, reponame, branchname, pageNumber):
+    def list(self, username, accessToken, reponame, branchname):
         commitList = []
 
-        commits, lastPageNumber = self.__commitsRepository.getCommitsOfPage(username, accessToken, reponame, branchname, pageNumber)
+        commits, lastPageNumber = self.__commitsRepository.getCommitsOfPage(username, accessToken, reponame, branchname, 1)
 
         for commit in commits:
             commitList.append(commit['commit']['message'])
