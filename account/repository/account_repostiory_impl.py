@@ -29,3 +29,7 @@ class AccountRepositoryImpl(AccountRepository):
             print(f"username 중복 검사 중 에러 발생: {e}")
             return None
 
+    def findAccountByUsername(self, username):
+        account = Account.objects.get(username=username)
+        return account
+
