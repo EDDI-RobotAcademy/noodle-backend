@@ -1,5 +1,6 @@
 import requests
 
+from repos.entity.models import Repos
 from repos.repository.repos_repository import ReposRepository
 
 
@@ -20,12 +21,19 @@ class ReposRepositoryImpl(ReposRepository):
 
         return cls.__instance
 
-    def getAllRepositories(self, username, accessToken):
-        getGithubRepositoryUrl = self.GITHUB_API_URL + f"/users/{username}/repos?per_page=500"
+    def getAllRepositories(self, account, accessToken):
+        getGithubRepositoryUrl = self.GITHUB_API_URL + f"/users/{account.username}/repos?per_page=500"
         headers = {
             'Authorization': f'Bearer {accessToken}'
         }
         response = requests.get(getGithubRepositoryUrl, headers=headers)
         print("response:", response)
 
-        return response.json()
+        repoList = [repo['name'] for repo in response.json()]
+        print("repoList:", repoList)
+
+        for repo in repoList:
+            Repos.objects.get_or_create(name=repo, account=account)
+
+        return repoList
+
