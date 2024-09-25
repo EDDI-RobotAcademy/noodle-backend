@@ -8,6 +8,7 @@ from account.service.account_service_impl import AccountServiceImpl
 from github_oauth.serializers.github_oauth_access_token_serializer import GithubOauthAccessTokenSerializer
 from github_oauth.serializers.github_oauth_url_serializer import GithubOauthUrlSerializer
 from github_oauth.service.github_oauth_service_impl import GithubOauthServiceImpl
+from github_oauth.service.redis_service_impl import RedisServiceImpl
 
 
 class OauthView(viewsets.ViewSet):
