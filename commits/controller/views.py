@@ -13,8 +13,7 @@ class CommitsView(viewsets.ViewSet):
         reponame = request.data['reponame']
         accessToken = request.data['access_token']
         branchname = request.data['branchname']
-        pageNumber = request.data['page_number']
 
-        commitList = self.commitsService.list(username, accessToken, reponame, branchname, pageNumber)
+        commitList = self.commitsService.list(username, accessToken, reponame, branchname)
 
         return Response({"commit_list": commitList}, status=status.HTTP_200_OK)
