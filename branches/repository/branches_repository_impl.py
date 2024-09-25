@@ -1,5 +1,6 @@
 import requests
 
+from branches.entity.models import Branches
 from branches.repository.branches_repository import BranchesRepository
 
 
@@ -20,8 +21,8 @@ class BranchesRepositoryImpl(BranchesRepository):
 
         return cls.__instance
 
-    def getAllBranches(self, username, accessToken, reponame):
-        getRepositoryBranchesUrl = self.GITHUB_API_URL + f"/repos/{username}/{reponame}/branches?per_page=100"
+    def getAllBranches(self, account, accessToken, repos):
+        getRepositoryBranchesUrl = self.GITHUB_API_URL + f"/repos/{account.username}/{repos.name}/branches?per_page=100"
         headers = {
             'Authorization': f'Bearer {accessToken}'
         }
@@ -29,4 +30,13 @@ class BranchesRepositoryImpl(BranchesRepository):
         response = requests.get(getRepositoryBranchesUrl, headers=headers)
         print("response:", response)
 
-        return response.json()
+        branchList = [branch['name'] for branch in response.json()]
+        print("branchList:", branchList)
+
+        for branch in branchList:
+            Branches.objects.get_or_create(name=branch, repos=repos)
+
+        return branchList
+
+    def getBranch(self, name, repos):
+        return Branches.objects.get(name=name, repos=repos)

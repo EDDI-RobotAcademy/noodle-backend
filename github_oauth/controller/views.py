@@ -78,3 +78,23 @@ class OauthView(viewsets.ViewSet):
         except Exception as e:
             print("Error getting access token in Redis:", e)
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    def dropRedisTokenForLogout(self, request):
+        try:
+            userToken = request.data.get('userToken')
+
+            accountId = self.redisService.getValueByKey(userToken)
+            accessToken = self.redisService.getValueByKey(accountId)
+
+            userSuccess = self.redisService.deleteKey(userToken)
+            accessSuccess = self.redisService.deleteKey(accessToken)
+
+            if userSuccess and accessSuccess:
+                return Response({'userSuccess': True}, status=status.HTTP_200_OK)
+            else:
+                return Response({'userSuccess': userSuccess, 'accessSuccess': accessSuccess}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+        except Exception as e:
+            print('레디스 토큰 해제 중 에러 발생:', e)
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
