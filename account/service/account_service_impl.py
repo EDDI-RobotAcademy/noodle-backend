@@ -24,3 +24,7 @@ class AccountServiceImpl(AccountService):
         account = self.__accountRepository.findByUsername(username)
         return account is not None
 
+    def findAccountByUsername(self, username):
+        account = self.__accountRepository.findAccountByUsername(username)
+        return account
+
