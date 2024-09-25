@@ -10,8 +10,8 @@ class ReposView(viewsets.ViewSet):
     reposService = ReposServiceImpl.getInstance()
     redisService = RedisServiceImpl.getInstance()
 
-    def list(self, request):
-        print("service -> list()")
+    def save(self, request):
+        print("service -> save()")
         try:
             userToken = request.data.get('userToken')
         except Exception as e:
@@ -19,6 +19,6 @@ class ReposView(viewsets.ViewSet):
 
         accountId = self.redisService.getValueByKey(userToken)
         accessToken = self.redisService.getValueByKey(accountId)
-        repoList = self.reposService.list(accountId, accessToken)
+        self.reposService.save(accountId, accessToken)
 
-        return Response({"repo_list": repoList}, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_200_OK)
