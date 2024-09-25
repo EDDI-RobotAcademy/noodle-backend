@@ -21,7 +21,7 @@ class ReposRepositoryImpl(ReposRepository):
 
         return cls.__instance
 
-    def getAllRepositories(self, account, accessToken):
+    def saveRepositories(self, account, accessToken):
         getGithubRepositoryUrl = self.GITHUB_API_URL + f"/users/{account.username}/repos?per_page=500"
         headers = {
             'Authorization': f'Bearer {accessToken}'
@@ -34,8 +34,6 @@ class ReposRepositoryImpl(ReposRepository):
 
         for repo in repoList:
             Repos.objects.get_or_create(name=repo, account=account)
-
-        return repoList
 
     def getRepository(self, account, reponame):
         return Repos.objects.get(account=account, name=reponame)

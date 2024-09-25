@@ -21,8 +21,6 @@ class ReposServiceImpl(ReposService):
 
         return cls.__instance
 
-    def list(self, accountId, accessToken):
+    def save(self, accountId, accessToken):
         account = self.__accountRepository.findAccountByAccountId(id=accountId)
-        repoList = self.__reposRepository.getAllRepositories(account, accessToken)
-
-        return repoList
+        self.__reposRepository.saveRepositories(account, accessToken)
