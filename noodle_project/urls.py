@@ -23,4 +23,5 @@ urlpatterns = [
     path("github-oauth/", include('github_oauth.urls')),
     path("repos/", include("repos.urls")),
     path("branches/", include("branches.urls")),
+    path("account/", include("account.urls")),
 ]

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "github_oauth",
     "repos",
     "branches",
+    "account",
 ]
 
 MIDDLEWARE = [
