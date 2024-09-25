@@ -2,9 +2,9 @@ from abc import ABC, abstractmethod
 
 class AccountRepository(ABC):
     @abstractmethod
-    def findByUsername(self, username):
+    def findAccountByUsername(self, username):
         pass
 
     @abstractmethod
-    def findAccountByUsername(self, username):
+    def findAccountByAccountId(self, account_id):
         pass

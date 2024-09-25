@@ -1,3 +1,4 @@
+from account.repository.account_repostiory_impl import AccountRepositoryImpl
 from repos.repository.repos_repository_impl import ReposRepositoryImpl
 from repos.service.repos_service import ReposService
 
@@ -9,6 +10,7 @@ class ReposServiceImpl(ReposService):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
             cls.__instance.__reposRepository = ReposRepositoryImpl.getInstance()
+            cls.__instance.__accountRepository = AccountRepositoryImpl.getInstance()
 
         return cls.__instance
 
@@ -19,13 +21,8 @@ class ReposServiceImpl(ReposService):
 
         return cls.__instance
 
-    def list(self, username, accessToken):
-        repos = self.__reposRepository.getAllRepositories(username, accessToken)
-
-        repoList = []
-        for repo in repos:
-            repoList.append(repo['name'])
+    def list(self, accountId, accessToken):
+        account = self.__accountRepository.findAccountByAccountId(id=accountId)
+        repoList = self.__reposRepository.getAllRepositories(account, accessToken)
 
         return repoList
-
-
