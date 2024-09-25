@@ -3,5 +3,7 @@ from abc import ABC, abstractmethod
 
 class BranchesRepository(ABC):
     @abstractmethod
-    def getAllBranches(self, username, accessToken, reponame):
+    def getAllBranches(self, account, accessToken, reponame):
         pass
+
+    @abstractmethod
