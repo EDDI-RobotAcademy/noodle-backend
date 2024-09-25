@@ -24,4 +24,4 @@ urlpatterns = [
     path("repos/", include("repos.urls")),
     path("branches/", include("branches.urls")),
     path("commits/", include("commits.urls")),
-]
+    path("account/", include("account.urls")),
