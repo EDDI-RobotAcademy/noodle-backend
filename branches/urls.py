@@ -9,4 +9,6 @@ router.register(f'branches', BranchesView, basename="branches")
 urlpatterns = [
     path('', include(router.urls)),
     path('save', BranchesView.as_view({"get": "save"}), name="save-branches"),
+    path('save', BranchesView.as_view({"post": "save"}), name="save-branches"),
+    path('list', BranchesView.as_view({"post": "list"}), name="get-all-branches"),
 ]
