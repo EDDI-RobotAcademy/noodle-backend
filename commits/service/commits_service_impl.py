@@ -1,5 +1,8 @@
+from account.repository.account_repostiory_impl import AccountRepositoryImpl
+from branches.repository.branches_repository_impl import BranchesRepositoryImpl
 from commits.repository.commits_repository_impl import CommitsRepositoryImpl
 from commits.service.commits_service import CommitsService
+from repos.repository.repos_repository_impl import ReposRepositoryImpl
 
 
 class CommitsServiceImpl(CommitsService):
@@ -9,6 +12,9 @@ class CommitsServiceImpl(CommitsService):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
             cls.__instance.__commitsRepository = CommitsRepositoryImpl.getInstance()
+            cls.__instance.__accountRepository = AccountRepositoryImpl.getInstance()
+            cls.__instance.__reposRepository = ReposRepositoryImpl.getInstance()
+            cls.__instance.__branchesRepository = BranchesRepositoryImpl.getInstance()
 
         return cls.__instance
 
@@ -19,18 +25,8 @@ class CommitsServiceImpl(CommitsService):
 
         return cls.__instance
 
-    def list(self, username, accessToken, reponame, branchname):
-        commitList = []
-
-        commits, lastPageNumber = self.__commitsRepository.getCommitsOfPage(username, accessToken, reponame, branchname, 1)
-
-        for commit in commits:
-            commitList.append(commit['commit']['message'])
-
-        for page in range(2, lastPageNumber + 1):
-            commits = self.__commitsRepository.getCommitsOfPage(username, accessToken, reponame, branchname, page)
-
-            for commit in commits:
-                commitList.append(commit['commit']['message'])
-
-        return commitList
+    def save(self, accountId, accessToken, reponame, branchname):
+        account = self.__accountRepository.findAccountByAccountId(account_id=accountId)
+        repo = self.__reposRepository.getRepository(account, reponame)
+        branch = self.__branchesRepository.getBranch(branchname, repo)
+        self.__commitsRepository.saveCommits(account, accessToken, repo, branch)

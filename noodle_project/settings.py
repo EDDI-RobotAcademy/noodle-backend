@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "repos",
     "branches",
     "account",
+    "commits",
 ]
 
 MIDDLEWARE = [
