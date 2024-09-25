@@ -21,7 +21,7 @@ class BranchesRepositoryImpl(BranchesRepository):
 
         return cls.__instance
 
-    def getAllBranches(self, account, accessToken, repos):
+    def saveBranches(self, account, accessToken, repos):
         getRepositoryBranchesUrl = self.GITHUB_API_URL + f"/repos/{account.username}/{repos.name}/branches?per_page=100"
         headers = {
             'Authorization': f'Bearer {accessToken}'
@@ -35,8 +35,6 @@ class BranchesRepositoryImpl(BranchesRepository):
 
         for branch in branchList:
             Branches.objects.get_or_create(name=branch, repos=repos)
-
-        return branchList
 
     def getBranch(self, name, repos):
         return Branches.objects.get(name=name, repos=repos)

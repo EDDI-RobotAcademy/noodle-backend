@@ -8,5 +8,5 @@ router.register(f'branches', BranchesView, basename="branches")
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('list', BranchesView.as_view({"get": "list"}), name="get-all-branches"),
+    path('save', BranchesView.as_view({"get": "save"}), name="save-branches"),
 ]
