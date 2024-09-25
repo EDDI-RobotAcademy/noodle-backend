@@ -18,7 +18,7 @@ class AccountRepositoryImpl(AccountRepository):
 
         return cls.__instance
 
-    def findByUsername(self, username):
+    def findAccountByUsername(self, username):
         try:
             account = Account.objects.get(username=username)
             return account
@@ -29,7 +29,7 @@ class AccountRepositoryImpl(AccountRepository):
             print(f"username 중복 검사 중 에러 발생: {e}")
             return None
 
-    def findAccountByUsername(self, username):
-        account = Account.objects.get(username=username)
+    def findAccountByAccountId(self, account_id):
+        account = Account.objects.get(id=account_id)
         return account
 
