@@ -1,10 +1,10 @@
 from django.db import models
-from account_role_type import AccountRoleType
+from account.entity.account_role_type import AccountRoleType
 
 
 class Account(models.Model):
     id = models.AutoField(primary_key=True)
-    userName = models.CharField(max_length=64)
+    username = models.CharField(max_length=64)
     roleType = models.ForeignKey(AccountRoleType, on_delete=models.CASCADE)
 
     def __str__(self):
