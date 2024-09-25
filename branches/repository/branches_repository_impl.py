@@ -38,3 +38,5 @@ class BranchesRepositoryImpl(BranchesRepository):
 
         return branchList
 
+    def getBranch(self, name, repos):
+        return Branches.objects.get(name=name, repos=repos)

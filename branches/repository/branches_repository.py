@@ -7,3 +7,5 @@ class BranchesRepository(ABC):
         pass
 
     @abstractmethod
+    def getBranch(self, name, repos):
+        pass
