@@ -28,3 +28,10 @@ class BranchesServiceImpl(BranchesService):
         repos = self.__reposRepository.getRepository(account=account, reponame=reponame)
         branchList = self.__branchesRepository.saveBranches(account, accessToken, repos)
 
+    def list(self, accountId, reponame):
+        account = self.__accountRepository.findAccountByAccountId(account_id=accountId)
+        repos = self.__reposRepository.getRepository(account=account, name=reponame)
+        branches = self.__branchesRepository.getBranches(repos=repos)
+        repoList = [branch.name for branch in branches]
+
+        return repoList
