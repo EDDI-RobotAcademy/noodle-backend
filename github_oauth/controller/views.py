@@ -8,6 +8,7 @@ from account.service.account_service_impl import AccountServiceImpl
 from github_oauth.serializers.github_oauth_access_token_serializer import GithubOauthAccessTokenSerializer
 from github_oauth.serializers.github_oauth_url_serializer import GithubOauthUrlSerializer
 from github_oauth.service.github_oauth_service_impl import GithubOauthServiceImpl
+from github_oauth.service.redis_service_impl import RedisServiceImpl
 
 
 class OauthView(viewsets.ViewSet):
@@ -65,3 +66,15 @@ class OauthView(viewsets.ViewSet):
             print('Error storing access token in Redis:', e)
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
+    def getRedisAccessToken(self, request):
+        try:
+            userToken = request.data.get('userToken')
+            accountId = self.redisService.getValueByKey(userToken)
+            print(f"accountId: {accountId}")
+
+            accessToken = self.redisService.getValueByKey(accountId)
+
+            return Response({"accessToken": accessToken}, status=status.HTTP_200_OK)
+        except Exception as e:
+            print("Error getting access token in Redis:", e)
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
