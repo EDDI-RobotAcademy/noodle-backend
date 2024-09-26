@@ -33,6 +33,7 @@ class OauthView(viewsets.ViewSet):
             accessToken = self.githubOauthService.requestAccessToken(code)
             userInfo = self.githubOauthService.requestUserInfo(accessToken['access_token'])
 
+            account = self.accountService.saveUserNickname(userInfo['login'])
 
         try:
             userInfo = self.githubOauthService.requestUserInfo(accessToken)

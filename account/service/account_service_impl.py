@@ -28,3 +28,8 @@ class AccountServiceImpl(AccountService):
         account = self.__accountRepository.findAccountByUsername(username)
         return account
 
+    def saveUserNickname(self, nickname):
+        print("saveUserNickname")
+        account = self.__accountRepository.saveAccountByUsername(nickname)
+        return account
+

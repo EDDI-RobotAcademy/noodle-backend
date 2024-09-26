@@ -8,3 +8,7 @@ class AccountService(ABC):
     @abstractmethod
     def findAccountByUsername(self, username):
         pass
+
+    @abstractmethod
+    def saveUserNickname(self, nickname):
+        pass
