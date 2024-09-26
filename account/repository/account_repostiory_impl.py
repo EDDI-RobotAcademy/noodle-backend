@@ -1,5 +1,6 @@
 from account.entity.account import Account
 from account.entity.account_role_type import AccountRoleType
+from account.entity.role_type import RoleType
 from account.repository.account_repository import AccountRepository
 
 
@@ -35,10 +36,7 @@ class AccountRepositoryImpl(AccountRepository):
         return account
 
     def saveAccountByUsername(self, nickname):
-        roleType = AccountRoleType.objects.get(roleType='NORMAL')
-        account = Account.objects.get(username=nickname)
-        if not account:
-            account = Account.objects.create(username=nickname, roleType=roleType)
-        else:
-            print("user is already registered")
+        roleType = AccountRoleType.objects.get(roleType=RoleType.NORMAL)
+        account = Account.objects.get_or_create(username=nickname, roleType=roleType)
+
         return account
