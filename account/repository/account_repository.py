@@ -8,3 +8,7 @@ class AccountRepository(ABC):
     @abstractmethod
     def findAccountByAccountId(self, account_id):
         pass
+
+    @abstractmethod
+    def saveAccountByUsername(self, nickname):
+        pass
