@@ -10,6 +10,7 @@ from commits.repository.commits_repository import CommitsRepository
 class CommitsRepositoryImpl(CommitsRepository):
     __instance = None
     GITHUB_API_URL = "https://api.github.com"
+    PER_PAGE = 8
 
     def __new__(cls):
         if cls.__instance is None:
@@ -59,3 +60,6 @@ class CommitsRepositoryImpl(CommitsRepository):
                 author = commit['author']['name']
                 commitTime = parse_time(commit['author']['date'])
                 Commits.objects.get_or_create(message=message, author=author, time=commitTime, branch=branch)
+
+    def getPagedCommits(self, account, branch, page):
+        return Commits.objects.filter(account=account, name=branch).order_by("-time")[self.PER_PAGE * (page - 1):self.PER_PAGE * page]

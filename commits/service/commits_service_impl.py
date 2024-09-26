@@ -30,3 +30,10 @@ class CommitsServiceImpl(CommitsService):
         repo = self.__reposRepository.getRepository(account, reponame)
         branch = self.__branchesRepository.getBranch(branchname, repo)
         self.__commitsRepository.saveCommits(account, accessToken, repo, branch)
+
+    def list(self, accountId, reponame, branchname, page):
+        account = self.__accountRepository.findAccountByAccountId(account_id=accountId)
+        repo = self.__reposRepository.getRepository(account, reponame)
+        branch = self.__branchesRepository.getBranch(branchname, repo)
+
+        return self.__commitsRepository.getAllCommits(account, branch, page)
