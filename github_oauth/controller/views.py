@@ -31,22 +31,29 @@ class OauthView(viewsets.ViewSet):
 
         try:
             accessToken = self.githubOauthService.requestAccessToken(code)
-            print(f"accessToken: {accessToken}")
-            return Response({"code": accessToken['access_token']}, status=status.HTTP_200_OK)
-        except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            userInfo = self.githubOauthService.requestUserInfo(accessToken['access_token'])
 
-    def githubUserInfoURL(self, request):
-        accessToken = request.data.get('access_token')
-        print(f'accessToken: {accessToken}')
 
         try:
             userInfo = self.githubOauthService.requestUserInfo(accessToken)
             return Response({'user_info': userInfo}, status=status.HTTP_200_OK)
+            userToken = self.redisAccessToken(account, userInfo['login'], accessToken['access_token'])
+
+            return Response({"userToken": userToken}, status=status.HTTP_200_OK)
         except Exception as e:
+            print("e:", e)
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def redisAccessToken(self, request):
+    # 위 함수와 통합
+    # def githubUserInfoURL(self, request):
+    #     accessToken = request.data.get('access_token')
+    #     print(f'accessToken: {accessToken}')
+    #
+    #     try:
+    #         userInfo = self.githubOauthService.requestUserInfo(accessToken)
+    #         return Response({'user_info': userInfo}, status=status.HTTP_200_OK)
+    #     except Exception as e:
+    #         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         try:
             username = request.data.get('username')
             access_token = request.data.get('accessToken')
