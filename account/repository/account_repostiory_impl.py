@@ -37,6 +37,6 @@ class AccountRepositoryImpl(AccountRepository):
 
     def saveAccountByUsername(self, nickname):
         roleType = AccountRoleType.objects.get(roleType=RoleType.NORMAL)
-        account = Account.objects.get_or_create(username=nickname, roleType=roleType)
+        account = Account.objects.get_or_create(username=nickname, roleType=roleType)[0]
 
         return account
