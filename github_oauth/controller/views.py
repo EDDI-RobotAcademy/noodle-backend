@@ -52,24 +52,19 @@ class OauthView(viewsets.ViewSet):
     #         return Response({'user_info': userInfo}, status=status.HTTP_200_OK)
     #     except Exception as e:
     #         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    @classmethod
+    def redisAccessToken(self, account, username, access_token):
         try:
-            username = request.data.get('username')
-            access_token = request.data.get('accessToken')
             print(f"redisAccessToken -> username: {username}")
 
-            account = self.accountService.findAccountByUsername(username)
-            if not account:
-                return Response({'error': 'Account not found'}, status=status.HTTP_404_NOT_FOUND)
-
             userToken = str(uuid.uuid4())
-            self.redisService.store_access_token(account.id, userToken)
-            self.redisService.store_access_token(access_token, account.id)
+            self.redisService.store_access_token(account.id, access_token)
+            self.redisService.store_access_token(userToken, account.id)
 
-
-            return Response({'userToken': userToken}, status=status.HTTP_200_OK)
+            return userToken
         except Exception as e:
             print('Error storing access token in Redis:', e)
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     def getRedisAccessToken(self, request):
         try:
@@ -84,20 +79,21 @@ class OauthView(viewsets.ViewSet):
             print("Error getting access token in Redis:", e)
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
+    # TODO: 로그아웃 기능 프론트와 연동할 것
     def dropRedisTokenForLogout(self, request):
         try:
             userToken = request.data.get('userToken')
 
             accountId = self.redisService.getValueByKey(userToken)
-            accessToken = self.redisService.getValueByKey(accountId)
 
-            userSuccess = self.redisService.deleteKey(userToken)
-            accessSuccess = self.redisService.deleteKey(accessToken)
-
+            userSuccess = self.redisService.deleteKey(accountId)
+            accessSuccess = self.redisService.deleteKey(userToken)
+            print(userSuccess, accessSuccess)
             if userSuccess and accessSuccess:
                 return Response({'userSuccess': True}, status=status.HTTP_200_OK)
             else:
-                return Response({'userSuccess': userSuccess, 'accessSuccess': accessSuccess}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response({'userSuccess': userSuccess, 'accessSuccess': accessSuccess},
+                                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
         except Exception as e:
