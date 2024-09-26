@@ -8,7 +8,7 @@ class Account(models.Model):
     roleType = models.ForeignKey(AccountRoleType, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Account: {self.id}, userName: {self.userName}, roleType: {self.roleType}"
+        return f"Account: {self.id}, userName: {self.username}, roleType: {self.roleType}"
 
     class Meta:
         db_table = 'account'
