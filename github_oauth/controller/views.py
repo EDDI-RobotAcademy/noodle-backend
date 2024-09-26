@@ -35,9 +35,6 @@ class OauthView(viewsets.ViewSet):
 
             account = self.accountService.saveUserNickname(userInfo['login'])
 
-        try:
-            userInfo = self.githubOauthService.requestUserInfo(accessToken)
-            return Response({'user_info': userInfo}, status=status.HTTP_200_OK)
             userToken = self.redisAccessToken(account, userInfo['login'], accessToken['access_token'])
 
             return Response({"userToken": userToken}, status=status.HTTP_200_OK)
