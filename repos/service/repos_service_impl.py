@@ -22,11 +22,11 @@ class ReposServiceImpl(ReposService):
         return cls.__instance
 
     def save(self, accountId, accessToken):
-        account = self.__accountRepository.findAccountByAccountId(id=accountId)
+        account = self.__accountRepository.findAccountByAccountId(accountId)
         self.__reposRepository.saveRepositories(account, accessToken)
 
     def list(self, accountId):
-        account = self.__accountRepository.findAccountByAccountId(id=accountId)
+        account = self.__accountRepository.findAccountByAccountId(accountId)
         repos = self.__reposRepository.getAllRepositories(account)
         repoList = [repo.name for repo in repos]
 
