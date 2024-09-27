@@ -30,6 +30,7 @@ services:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
       - SECRET_KEY=${SECRET_KEY}
+      - PASSWORD=${PASSWORD}
     networks:
       - app-network
 
