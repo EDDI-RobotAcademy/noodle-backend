@@ -67,7 +67,7 @@ jobs:
         echo "REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}" >> .env
         echo "LOGIN_URL=${{ secrets.LOGIN_URL }}" >> .env
         echo "CLIENT_ID=${{ secrets.CLIENT_ID }}" >> .env
-        echo "CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}" >> .env
+        echo "CLIENT_S{{ secrets.CLIENT_SECRET }}" >> .env
         echo "REDIRECT_URI=${{ secrets.REDIRECT_URI }}" >> .env
         echo "TOKEN_REQUEST_URL=${{ secrets.TOKEN_REQUEST_URL }}" >> .env
         echo "USERINFO_REQUEST_URL=${{ secrets.USERINFO_REQUEST_URL }}" >> .env
