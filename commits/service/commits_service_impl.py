@@ -31,9 +31,18 @@ class CommitsServiceImpl(CommitsService):
         branch = self.__branchesRepository.getBranch(branchname, repo)
         self.__commitsRepository.saveCommits(account, accessToken, repo, branch)
 
-    def list(self, accountId, reponame, branchname, page):
+    # def list(self, accountId, reponame, branchname, page):
+    #     account = self.__accountRepository.findAccountByAccountId(account_id=accountId)
+    #     repo = self.__reposRepository.getRepository(account, reponame)
+    #     branch = self.__branchesRepository.getBranch(branchname, repo)
+    #
+    #     return self.__commitsRepository.getAllCommits(account, branch, page)
+    def list(self, accountId, reponame, branchname):
+        print("service -> list()")
         account = self.__accountRepository.findAccountByAccountId(account_id=accountId)
         repo = self.__reposRepository.getRepository(account, reponame)
         branch = self.__branchesRepository.getBranch(branchname, repo)
 
-        return self.__commitsRepository.getAllCommits(account, branch, page)
+        commits = self.__commitsRepository.getAllCommits(account, branch)
+        commitList = [commit.message for commit in commits]
+        return commitList

@@ -2,6 +2,7 @@ import requests
 import re
 
 from django.utils.dateparse import parse_time
+from datetime import datetime
 
 from commits.entity.models import Commits
 from commits.repository.commits_repository import CommitsRepository
@@ -26,26 +27,28 @@ class CommitsRepositoryImpl(CommitsRepository):
         return cls.__instance
 
     def saveCommits(self, account, accessToken, repo, branch):
-        latestCommits = Commits.objects.filter(branch=branch).order_by('-commit_date').first()
+        latestCommits = Commits.objects.filter(branch=branch).order_by('-time').first()
 
         getRepositoryUrl = self.GITHUB_API_URL + f"/repos/{account.username}/{repo.name}/commits"
         headers = {
+            'Accept': "application/vnd.github+json",
             'Authorization': f'Bearer {accessToken}'
         }
         params = {
             "sha": branch.name,
-            "per_page": 10,
-            "page": 1,
-            "since": latestCommits.time.isoformat() if latestCommits else None
+            "since": latestCommits.time.isoformat() if latestCommits else None,
+            "per_page": 1,
+            "page": 1
         }
         response = requests.get(getRepositoryUrl, headers=headers, params=params)
-
-        resHeaders = response.headers
-        link = resHeaders['Link']
+        # print("response:", response.json())
+        link = response.headers['Link']
+        print("link:", link)
         pattern = re.search(r'page=(\d+)>; rel="last"', link)
 
         lastPageNumber = int(pattern.group(1))
-        for page in range(1, lastPageNumber):
+        print("lastPageNumber:", lastPageNumber)
+        for page in range(1, lastPageNumber+1):
             params = {
                 "sha": branch.name,
                 "per_page": 10,
@@ -57,9 +60,13 @@ class CommitsRepositoryImpl(CommitsRepository):
 
             for commit in commits:
                 message = commit['commit']['message']
-                author = commit['author']['name']
-                commitTime = parse_time(commit['author']['date'])
-                Commits.objects.get_or_create(message=message, author=author, time=commitTime, branch=branch)
+                author = commit['author']['login']
+                commitTime = parse_time(commit['commit']['author']['date'])
 
-    def getPagedCommits(self, account, branch, page):
-        return Commits.objects.filter(account=account, name=branch).order_by("-time")[self.PER_PAGE * (page - 1):self.PER_PAGE * page]
+                Commits.objects.get_or_create(message=message, author=author, time=commit['commit']['author']['date'], branch=branch)
+
+    # def getPagedCommits(self, account, branch, page):
+    #     return Commits.objects.filter(account=account, name=branch).order_by("-time")[self.PER_PAGE * (page - 1):self.PER_PAGE * page]
+    def getAllCommits(self, account, branch):
+        return Commits.objects.filter(author=account.username, branch=branch).order_by("-time")
+

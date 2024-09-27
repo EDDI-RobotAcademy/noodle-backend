@@ -6,6 +6,8 @@ class CommitsRepository(ABC):
     def saveCommits(self, account, accessToken, repo, branch):
         pass
 
-    @abstractmethod
-    def getPagedCommits(self, account, branch, page):
+    # @abstractmethod
+    # def getPagedCommits(self, account, branch, page):
+    #     pass
+    def getAllCommits(self, account, branch):
         pass

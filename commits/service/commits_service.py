@@ -6,6 +6,9 @@ class CommitsService(ABC):
     def save(self, accountId, accessToken, reponame, branchname):
         pass
 
+    # @abstractmethod
+    # def list(self, accountId, reponame, branchname, page):
+    #     pass
     @abstractmethod
-    def list(self, accountId, reponame, branchname, page):
+    def list(self, accountId, reponame, branchname):
         pass
