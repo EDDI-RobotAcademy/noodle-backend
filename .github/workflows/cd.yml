@@ -95,7 +95,7 @@ jobs:
         
     - name: Add Github Actions IP to Security Group
       run: |
-        aws ec2 authorize-security-group-ingress --group-id ${{secrets.AWS_SG_ID}} --protocol tcp --port 22 --cidr ${{steps.ip.outputs.ipv4}}/32
+        aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
         
     - name: Login to GHCR
       uses: docker/login-action@v1
