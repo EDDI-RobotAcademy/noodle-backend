@@ -21,4 +21,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("survey/", include("survey.urls")),
     path("github-oauth/", include('github_oauth.urls')),
+    path("repos/", include("repos.urls")),
+    path("branches/", include("branches.urls")),
+    path("commits/", include("commits.urls")),
+    path("account/", include("account.urls")),
 ]
