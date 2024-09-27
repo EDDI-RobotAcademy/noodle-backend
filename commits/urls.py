@@ -8,5 +8,6 @@ router.register(r"commits", CommitsView, basename="commits")
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("save", CommitsView.as_view({"get": "save"}), name="save-commits"),
+    path("save", CommitsView.as_view({"post": "save"}), name="save-commits"),
+    path("list", CommitsView.as_view({"post": "list"}), name="get-all-commits"),
 ]

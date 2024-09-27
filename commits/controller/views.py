@@ -12,6 +12,7 @@ class CommitsView(viewsets.ViewSet):
     redisService = RedisServiceImpl.getInstance()
 
     def save(self, request):
+        print("save -> data:", request.data)
         userToken = request.data['userToken']
         reponame = request.data['reponame']
         branchname = request.data['branchname']
@@ -27,10 +28,12 @@ class CommitsView(viewsets.ViewSet):
         userToken = request.data['userToken']
         reponame = request.data['reponame']
         branchname = request.data['branchname']
-        page = request.data['page']
+        # page = request.data['page']
 
         accountId = self.redisService.getValueByKey(userToken)
 
-        commitList = self.commitsService.getAllCommits(accountId, reponame, branchname, page)
+        # commitList = self.commitsService.getAllCommits(accountId, reponame, branchname, page)
+        commitList = self.commitsService.list(accountId, reponame, branchname)
+        # print(commitList)
 
         return Response({"commit_list": commitList}, status=HTTP_200_OK)
