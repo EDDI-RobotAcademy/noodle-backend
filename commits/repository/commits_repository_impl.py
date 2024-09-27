@@ -46,7 +46,7 @@ class CommitsRepositoryImpl(CommitsRepository):
         print("link:", link)
         pattern = re.search(r'page=(\d+)>; rel="last"', link)
 
-        lastPageNumber = int(pattern.group(1))
+        lastPageNumber = int(pattern.group(1)) // 10
         print("lastPageNumber:", lastPageNumber)
         for page in range(1, lastPageNumber+1):
             params = {
