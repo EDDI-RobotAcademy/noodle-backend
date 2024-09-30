@@ -9,7 +9,7 @@ class ReviewServiceImpl(ReviewService):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
             cls.__instance.__reviewRepository = ReviewRepositoryImpl()
-            return cls.__instance
+        return cls.__instance
 
     @classmethod
     def getInstance(cls):
