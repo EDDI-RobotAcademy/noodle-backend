@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     "commits",
     "review",
     "backlog",
-    "backlog_domain"
+    "backlog_domain",
+    "backlog_issue",
 ]
 
 MIDDLEWARE = [
