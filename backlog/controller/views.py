@@ -2,6 +2,9 @@ from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
+from backlog.service.backlog_service_impl import BacklogServiceImpl
+
+
 class BacklogView(viewsets.ViewSet):
     backlogService = BacklogServiceImpl.getInstance()
 
