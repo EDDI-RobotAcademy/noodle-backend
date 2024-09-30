@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
 
 from backlog.entity.backlog import Backlog
@@ -28,3 +29,9 @@ class BacklogRepositoryImpl(BacklogRepository):
         except IntegrityError:
             return None
 
+    def findById(self, backlogId):
+        try:
+            backlog = Backlog.objects.get(id=backlogId)
+            return backlog
+        except ObjectDoesNotExist:
+            raise ValueError(f"Backlog with id {backlogId} does not exist")
