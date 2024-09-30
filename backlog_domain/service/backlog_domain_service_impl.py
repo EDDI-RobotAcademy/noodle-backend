@@ -31,7 +31,7 @@ class BacklogDomainServiceImpl(BacklogDomainService):
             return self.__backlogDomainRepository.create(backlog, domain)
 
         except Exception as e:
-            print('Error creating backlog:', e)
+            print('Error creating domain:', e)
             raise e
 
     def modifyBacklogDomain(self, backlogId, domain):
