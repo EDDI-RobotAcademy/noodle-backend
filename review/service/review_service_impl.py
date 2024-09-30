@@ -8,7 +8,7 @@ class ReviewServiceImpl(ReviewService):
     def __new__(cls):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
-            cls.__instance.reviewRepository = ReviewRepositoryImpl()
+            cls.__instance.__reviewRepository = ReviewRepositoryImpl()
             return cls.__instance
 
     @classmethod
@@ -18,4 +18,4 @@ class ReviewServiceImpl(ReviewService):
         return cls.__instance
 
     def list(self):
-        return self.reviewRepository.list()
+        return self.__reviewRepository.list()
