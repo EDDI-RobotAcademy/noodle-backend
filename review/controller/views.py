@@ -3,6 +3,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from review.entity.review import Review
 from review.serializers import ReviewSerializer
+from review.service.review_service_impl import ReviewServiceImpl
 
 
 # Create your views here.
