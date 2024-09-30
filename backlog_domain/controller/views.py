@@ -2,6 +2,9 @@ from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
+from backlog_domain.service.backlog_domain_service_impl import BacklogDomainServiceImpl
+
+
 class BacklogDomainView(viewsets.ViewSet):
     backlogDomainService = BacklogDomainServiceImpl.getInstance()
 
@@ -10,6 +13,6 @@ class BacklogDomainView(viewsets.ViewSet):
         backlogId = data.get('backlogId')
         domain = data.get('domain')
 
-        createdBacklogDomain = backlogDomainService.createBacklogDomain(backlogId, domain)
+        createdBacklogDomain = self.backlogDomainService.createBacklogDomain(backlogId, domain)
 
         return Response(createdBacklogDomain, status=status.HTTP_200_OK)

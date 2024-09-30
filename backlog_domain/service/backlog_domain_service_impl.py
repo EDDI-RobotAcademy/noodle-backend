@@ -1,4 +1,5 @@
 from backlog.repository.backlog_repository_impl import BacklogRepositoryImpl
+from backlog_domain.repository.backlog_domain_repository_impl import BacklogDomainRepositoryImpl
 from backlog_domain.service.backlog_domain_service import BacklogDomainService
 
 
