@@ -1,3 +1,4 @@
+from review.repository.review_repository_impl import ReviewRepositoryImpl
 from review.service.review_service import ReviewService
 
 
@@ -7,8 +8,8 @@ class ReviewServiceImpl(ReviewService):
     def __new__(cls):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
-            cls.__instance.reviewRepository = ReviewRepositoryImpl()
-            return cls.__instance
+            cls.__instance.__reviewRepository = ReviewRepositoryImpl.getInstance()
+        return cls.__instance
 
     @classmethod
     def getInstance(cls):
@@ -17,4 +18,4 @@ class ReviewServiceImpl(ReviewService):
         return cls.__instance
 
     def list(self):
-        return self.reviewRepository.list()
+        return self.__reviewRepository.list()
