@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     "branches",
     "account",
     "commits",
-    "review"
+    "review",
+    "backlog"
 ]
 
 MIDDLEWARE = [
