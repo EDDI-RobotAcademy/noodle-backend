@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_extensions",
     "corsheaders",
-    "sslserver",
     "rest_framework",
     "survey",
     "github_oauth",
