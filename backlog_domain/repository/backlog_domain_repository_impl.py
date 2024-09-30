@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
 
 from backlog_domain.entity.backlog_domain import BacklogDomain
@@ -28,3 +29,17 @@ class BacklogDomainRepositoryImpl(BacklogDomainRepository):
 
         except IntegrityError:
             return None
+
+    def modify(self, backlog, domain):
+        try:
+            backlogDomain = BacklogDomain.objects.get(backlog=backlog)
+            backlogDomain.domain = domain
+            backlogDomain.save()
+            return backlogDomain
+
+        except ObjectDoesNotExist:
+            raise ValueError(f"No backlog domain found for backlog ID {backlog.id}")
+
+        except Exception as e:
+            print(f"Error updating backlog status: {e}")
+            raise e
