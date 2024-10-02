@@ -30,4 +30,5 @@ urlpatterns = [
     path("backlog-domain/", include("backlog_domain.urls")),
     path("backlog-map-number/", include("backlog_map_number.urls")),
     path("backlog-status/", include("backlog_status.urls")),
+    path("backlog-success-criteria/", include("backlog_success_criteria.urls"))
 ]
