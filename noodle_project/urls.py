@@ -25,4 +25,9 @@ urlpatterns = [
     path("branches/", include("branches.urls")),
     path("commits/", include("commits.urls")),
     path("account/", include("account.urls")),
+    path("backlog-issue/", include("backlog_issue.urls")),
+    path("backlog/", include("backlog.urls")),
+    path("backlog-domain/", include("backlog_domain.urls")),
+    path("backlog-map-number/", include("backlog_map_number.urls")),
+    path("backlog-status/", include("backlog_status.urls")),
 ]

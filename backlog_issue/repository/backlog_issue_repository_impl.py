@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
 
 from backlog_issue.entity.backlog_issue import BacklogIssue
@@ -29,3 +30,17 @@ class BacklogIssueRepositoryImpl(BacklogIssueRepository):
         except IntegrityError:
             return None
 
+    def modify(self, backlog, issue):
+        try:
+            backlogIssue = BacklogIssue.objects.get(backlog=backlog)
+
+            backlogIssue.issue = issue
+            backlogIssue.save()
+            return backlogIssue
+
+        except ObjectDoesNotExist:
+            raise ValueError(f"No backlog issue found for backlog ID {backlog.id}")
+
+        except Exception as e:
+            print(f"Error updating backlog status: {e}")
+            raise e
