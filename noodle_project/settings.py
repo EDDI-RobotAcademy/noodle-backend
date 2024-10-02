@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     "backlog_issue",
     "backlog_map_number",
     "backlog_status",
-    "backlog_success_criteria"
+    "backlog_success_criteria",
+    "backlog_todo"
 ]
 
 MIDDLEWARE = [
