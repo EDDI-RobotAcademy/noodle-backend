@@ -27,4 +27,5 @@ urlpatterns = [
     path("account/", include("account.urls")),
     path("backlog-issue/", include("backlog_issue.urls")),
     path("backlog/", include("backlog.urls")),
+    path("backlog-domain/", include("backlog_domain.urls")),
 ]
