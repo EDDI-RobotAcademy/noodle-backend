@@ -1,4 +1,5 @@
 from backlog.repository.backlog_repository_impl import BacklogRepositoryImpl
+from backlog_issue.repository.backlog_issue_repository_impl import BacklogIssueRepositoryImpl
 from backlog_issue.service.backlog_issue_service import BacklogIssueService
 
 
