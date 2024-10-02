@@ -33,3 +33,15 @@ class BacklogIssueServiceImpl(BacklogIssueService):
             print('Error creating issue:', e)
             raise e
 
+    def modifyBacklogIssue(self, backlogId, issue):
+        try:
+            backlog = self.__backlogRepository.findById(backlogId)
+
+            if not backlog:
+                raise ValueError(f"Backlog with id {backlogId} does not exist")
+
+            return self.__backlogIssueRepository.modify(backlog, issue)
+
+        except Exception as e:
+            print('Error modifying issue:', e)
+            raise e
