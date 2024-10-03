@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
 
 from backlog_todo.entity.backlog_todo import BacklogTodo
@@ -28,4 +29,11 @@ class BacklogTodoRepositoryImpl(BacklogTodoRepository):
             return todo
         except IntegrityError:
             return None
+
+    def findByBacklog(self, backlog):
+        try:
+            todo = BacklogTodo.objects.get(backlog=backlog)
+            return todo
+        except ObjectDoesNotExist:
+            raise ValueError(f"BacklogTodo with backlog {backlog} does not exist")
 
