@@ -1,6 +1,6 @@
 from django.db import IntegrityError
 
-from backlog_todo.entity.backlog_tod import BacklogTodo
+from backlog_todo.entity.backlog_todo import BacklogTodo
 from backlog_todo.repository.backlog_todo_repository import BacklogTodoRepository
 
 
