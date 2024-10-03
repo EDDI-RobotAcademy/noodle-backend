@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from rest_framework import views, status
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 
 from backlog_todo_check.service.backlog_todo_check_service_impl import BacklogTodoCheckServiceImpl
 
 
-class BacklogTodoCheckView(views.View):
+class BacklogTodoCheckView(viewsets.ViewSet):
     backlogTodoCheckService = BacklogTodoCheckServiceImpl.getInstance()
 
     def createBacklogTodoCheck(self, request):
