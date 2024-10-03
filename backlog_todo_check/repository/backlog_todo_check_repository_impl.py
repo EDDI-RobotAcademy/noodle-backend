@@ -20,13 +20,15 @@ class BacklogTodoCheckRepositoryImpl(BacklogTodoCheckRepository):
 
         return cls.__instance
 
-    def create(self, backlog, isChecked):
+    def create(self, todo, isChecked):
         try:
-            backlogTodoCheck = BacklogTodoCheck(backlogTodo=backlog, isChecked=isChecked)
+            backlogTodoCheck = BacklogTodoCheck(backlogTodo=todo, isChecked=isChecked)
             backlogTodoCheck.save()
 
             return backlogTodoCheck
 
         except IntegrityError:
             return None
+
+
 

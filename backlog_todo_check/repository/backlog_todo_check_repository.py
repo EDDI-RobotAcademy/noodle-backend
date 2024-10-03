@@ -2,5 +2,5 @@ from abc import ABC, abstractmethod
 
 class BacklogTodoCheckRepository(ABC):
     @abstractmethod
-    def create(self, backlog, isChecked):
+    def create(self, todo, isChecked):
         pass
