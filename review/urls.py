@@ -9,5 +9,6 @@ router.register(r'review', ReviewView)
 urlpatterns = [
     path('', include(router.urls)),
     path('list/', ReviewView.as_view({'get': 'list'}), name='review-list'),
+    path('register', ReviewView.as_view({'post': 'create'}), name='review-register')
 
 ]

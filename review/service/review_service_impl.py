@@ -19,3 +19,13 @@ class ReviewServiceImpl(ReviewService):
 
     def list(self):
         return self.__reviewRepository.list()
+
+    def createReview(self, title, writer, content, image):
+        return self.__reviewRepository.createReview(title, writer, content, image)
+
+    def createReviewWithoutImage(self, title, writer, content):
+        return self.__reviewRepository.createReviewWithoutImage(title, writer, content)
+
+
+
+
