@@ -40,3 +40,8 @@ class ReviewView(viewsets.ViewSet):
         except Exception as e:
             print('리뷰 등록 과정 중 문제 발생:', e)
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    def readReview(self, request, pk=None):
+        review = self.reviewService.readReview(pk)
+        serializer = ReviewSerializer(review)
+        return Response(serializer.data)

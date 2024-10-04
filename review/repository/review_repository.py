@@ -12,3 +12,7 @@ class ReviewRepository(ABC):
     @abstractmethod
     def createReviewWithoutImage(self, title, writer, content):
         pass
+
+    @abstractmethod
+    def findById(self, reviewId):
+        pass

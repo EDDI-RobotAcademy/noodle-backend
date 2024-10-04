@@ -50,5 +50,8 @@ class ReviewRepositoryImpl(ReviewRepository):
 
         return review
 
+    def findById(self, reviewId):
+        return Review.objects.get(id)
+
 
 

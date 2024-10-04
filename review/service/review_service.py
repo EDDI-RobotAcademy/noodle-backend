@@ -12,3 +12,7 @@ class ReviewService(ABC):
     @abstractmethod
     def createReviewWithoutImage(self, title, writer, content):
         pass
+
+    @abstractmethod
+    def readReview(self, reviewId):
+        pass

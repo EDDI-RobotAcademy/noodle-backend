@@ -26,6 +26,10 @@ class ReviewServiceImpl(ReviewService):
     def createReviewWithoutImage(self, title, writer, content):
         return self.__reviewRepository.createReviewWithoutImage(title, writer, content)
 
+    def readReview(self, reviewId):
+        return self.__reviewRepository.findById(reviewId=reviewId)
+
+
 
 
 
