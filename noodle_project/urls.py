@@ -33,5 +33,6 @@ urlpatterns = [
     path("backlog-success-criteria/", include("backlog_success_criteria.urls")),
     path("backlog-todo/", include("backlog_todo.urls")),
     path("backlog-todo-check/", include("backlog_todo_check.urls")),
-    path("backlog-review/", include("backlog_review.urls"))
+    path("backlog-review/", include("backlog_review.urls")),
+    path("review/", include("review.urls"))
 ]
