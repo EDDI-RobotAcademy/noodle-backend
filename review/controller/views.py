@@ -22,7 +22,7 @@ class ReviewView(viewsets.ViewSet):
         try:
             data = request.data
 
-            image = request.FILES.get('reviewImage')
+            # image = request.FILES.get('reviewImage')
             title = data.get('title')
             writer = data.get('writer')
             content = data.get('content')
@@ -30,10 +30,9 @@ class ReviewView(viewsets.ViewSet):
             if not all([title, writer, content]):
                 return Response({'error': '내용을 채워주세요!'},
                                 status=status.HTTP_400_BAD_REQUEST)
-            if image:
-                self.reviewService.createReview(title, writer, content, image)
-            else:
-                self.reviewService.createReviewWithoutImage(title, writer, content)
+
+            # self.reviewService.createReview(title, writer, content, image)
+            self.reviewService.createReviewWithoutImage(title, writer, content)
 
             return Response(status=status.HTTP_200_OK)
 
