@@ -22,8 +22,8 @@ class BacklogIssueView(viewsets.ViewSet):
     def modifyBacklogIssue(self, request):
         data = request.data
         backlogId = data.get('backlogId')
-        domain = data.get('domain')
+        issue = data.get('issue')
 
-        modifiedBacklogIssue = self.backlogIssueService.modifyBacklogIssue(backlogId, domain)
+        modifiedBacklogIssue = self.backlogIssueService.modifyBacklogIssue(backlogId, issue).issue
 
         return Response(modifiedBacklogIssue, status=status.HTTP_200_OK)
