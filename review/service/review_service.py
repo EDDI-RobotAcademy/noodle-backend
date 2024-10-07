@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 class ReviewService(ABC):
     @abstractmethod
-    def reviewList(self):
+    def reviewList(self, pageCount, countsPerPage):
         pass
 
     @abstractmethod

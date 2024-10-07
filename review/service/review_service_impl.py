@@ -17,12 +17,15 @@ class ReviewServiceImpl(ReviewService):
             cls.__instance = cls()
         return cls.__instance
 
-    def reviewList(self):
-        selectionReview = self.__reviewRepository.selectionReviewList()
-        writingReview = self.__reviewRepository.writingReviewList()
+    def reviewList(self, pageCount, countsPerPage):
+        startIndex = (pageCount - 1) * countsPerPage
+        endIndex = pageCount * countsPerPage
+
+        selectionReview = self.__reviewRepository.selectionReviewSlicedList(startIndex, endIndex)
+        writingReview = self.__reviewRepository.writingReviewSlicedList(startIndex, endIndex)
 
         reviewList = self.__reviewRepository.joinList(selectionReview, writingReview)
-
+        print('joinedReviewList', reviewList)
         return reviewList
 
     def createReview(self, title, writer, content, image):
@@ -33,8 +36,3 @@ class ReviewServiceImpl(ReviewService):
 
     def readReview(self, reviewId):
         return self.__reviewRepository.findById(reviewId)
-
-
-
-
-

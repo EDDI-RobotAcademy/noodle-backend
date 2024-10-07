@@ -14,7 +14,11 @@ class ReviewView(viewsets.ViewSet):
     reviewService = ReviewServiceImpl.getInstance()
 
     def reviewList(self, request):
-        reviewList = self.reviewService.reviewList()
+        pageCount = request.data.get('pagination')
+        countsPerPage = request.data.get('perPage')
+        print(pageCount, countsPerPage)
+
+        reviewList = self.reviewService.reviewList(pageCount, countsPerPage)
         return Response(reviewList, status=status.HTTP_200_OK)
 
     def create(self, request):
