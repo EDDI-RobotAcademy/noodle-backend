@@ -2,7 +2,15 @@ from abc import ABC, abstractmethod
 
 class ReviewRepository(ABC):
     @abstractmethod
-    def list(self):
+    def selectionList(self):
+        pass
+
+    @abstractmethod
+    def writingList(self):
+        pass
+
+    @abstractmethod
+    def joinList(self, selectionReview, writingReview):
         pass
 
     @abstractmethod

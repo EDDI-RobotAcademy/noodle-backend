@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from review.entity.review import Review
+from review.entity.writing_review import WritingReview
 from review.serializers import ReviewSerializer
 from review.service.review_service_impl import ReviewServiceImpl
 
@@ -9,14 +9,13 @@ from review.service.review_service_impl import ReviewServiceImpl
 # Create your views here.
 
 class ReviewView(viewsets.ViewSet):
-    queryset = Review.objects.all()
+    queryset = WritingReview.objects.all()
 
     reviewService = ReviewServiceImpl.getInstance()
 
-    def list(self, request):
-        reviewList = self.reviewService.list()
-        serializer = ReviewSerializer(reviewList, many=True)
-        return Response(serializer.data)
+    def reviewList(self, request):
+        reviewList = self.reviewService.reviewList()
+        return Response(reviewList, status=status.HTTP_200_OK)
 
     def create(self, request):
         try:
