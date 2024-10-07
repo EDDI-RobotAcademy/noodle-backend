@@ -15,7 +15,7 @@ class BacklogIssueView(viewsets.ViewSet):
         backlogId = data.get('backlogId')
         issue = data.get('issue')
 
-        createdBacklogIssue = self.backlogIssueService.createBacklogIssue(backlogId, issue)
+        createdBacklogIssue = self.backlogIssueService.createBacklogIssue(backlogId, issue).issue
 
         return Response(createdBacklogIssue, status=status.HTTP_200_OK)
 
