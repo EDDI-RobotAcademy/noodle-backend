@@ -9,7 +9,7 @@ class BacklogSuccessCriteria(models.Model):
     successCriteria = models.TextField()
 
     def __str__(self):
-        return f"Criteria for {self.backlog.title}: {self.success_criteria}"
+        return f"Criteria for {self.backlog.title}: {self.successCriteria}"
 
     class Meta:
         db_table = 'backlog_success_criteria'

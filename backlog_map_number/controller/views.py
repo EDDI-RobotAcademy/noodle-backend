@@ -13,6 +13,6 @@ class BacklogMapNumberView(viewsets.ViewSet):
         backlogId = data.get("backlogId")
         backlogMapNumber = data.get("backlog_map_number")
 
-        createBacklogMapNumber = self.backlogMapNumberService.createBacklogMapNumber(backlogId, backlogMapNumber)
+        createBacklogMapNumber = self.backlogMapNumberService.createBacklogMapNumber(backlogId, backlogMapNumber).mapNumber
 
         return Response(createBacklogMapNumber, status=status.HTTP_200_OK)

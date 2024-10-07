@@ -13,6 +13,6 @@ class BacklogTodoView(viewsets.ViewSet):
         backlogId = data.get('backlogId')
         todo = data.get('todo')
 
-        createdBacklogTodo = self.backlogTodoService.createBacklogTodo(backlogId, todo)
+        createdBacklogTodo = self.backlogTodoService.createBacklogTodo(backlogId, todo).todo
 
         return Response(createdBacklogTodo, status=status.HTTP_200_OK)

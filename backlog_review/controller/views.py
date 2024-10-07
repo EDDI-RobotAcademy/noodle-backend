@@ -13,6 +13,6 @@ class BacklogReviewView(viewsets.ViewSet):
         backlogId = data.get('backlogId')
         review = data.get('review')
 
-        createdBacklogReview = self.backlogReviewService.createBacklogReview(backlogId, review)
+        createdBacklogReview = self.backlogReviewService.createBacklogReview(backlogId, review).review
 
         return Response(createdBacklogReview, status=status.HTTP_200_OK)
