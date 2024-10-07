@@ -1,11 +1,14 @@
 import os
 
 from noodle_project import settings
+from review.entity.review_list import ReviewList
+from review.entity.review_type import ReviewType
 from review.entity.selection_review import SelectionReview
 from review.entity.writing_review import WritingReview
 from review.repository.review_repository import ReviewRepository
 from itertools import chain
 from operator import attrgetter
+
 
 class ReviewRepositoryImpl(ReviewRepository):
     __instance = None
@@ -52,7 +55,6 @@ class ReviewRepositoryImpl(ReviewRepository):
 
         return review
 
-
     def createReviewWithoutImage(self, title, writer, content):
         review = WritingReview(title=title, writer=writer, content=content)
         review.save()
@@ -62,5 +64,24 @@ class ReviewRepositoryImpl(ReviewRepository):
     def findById(self, reviewId):
         return WritingReview.objects.get(reviewId=reviewId)
 
+    def selectionReviewSlicedList(self, startIndex, endIndex):
+        slicedIdListForSelectionReview = ReviewList.objects.filter(id__range=(startIndex, endIndex))
+        print('slicedIdListForSelectionReview', slicedIdListForSelectionReview)
 
+        slicedSelectionReview = []
+        for item in slicedIdListForSelectionReview:
+            slicedSelectionReview.append(SelectionReview.objects.get(listId=item.id))
 
+        print('slicedSelectionReview', slicedSelectionReview)
+        return slicedSelectionReview
+
+    def writingReviewSlicedList(self, startIndex, endIndex):
+        slicedIdListForWritingReview = ReviewList.objects.filter(id__range=(startIndex, endIndex))
+        print('slicedIdListForWritingReview', slicedIdListForWritingReview)
+
+        slicedWritingReview = []
+        for item in slicedIdListForWritingReview:
+            slicedWritingReview.append(WritingReview.objects.get(listId=item.id))
+
+        print('slicedWritingReview', slicedWritingReview)
+        return slicedWritingReview

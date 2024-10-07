@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class ReviewRepository(ABC):
     @abstractmethod
     def selectionList(self):
@@ -23,4 +24,12 @@ class ReviewRepository(ABC):
 
     @abstractmethod
     def findById(self, reviewId):
+        pass
+
+    @abstractmethod
+    def selectionReviewSlicedList(self, startIndex, endIndex):
+        pass
+
+    @abstractmethod
+    def writingReviewSlicedList(self, startIndex, endIndex):
         pass
