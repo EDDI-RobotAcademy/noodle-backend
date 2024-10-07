@@ -13,6 +13,6 @@ class BacklogSuccessCriteriaView(viewsets.ViewSet):
         backlogId = data.get("backlogId")
         successCriteria = data.get("success_criteria")
 
-        createdBacklogSuccessCriteria = self.backlogSuccessCriteriaService.createBacklogSuccessCriteria(backlogId, successCriteria)
+        createdBacklogSuccessCriteria = self.backlogSuccessCriteriaService.createBacklogSuccessCriteria(backlogId, successCriteria).successCriteria
 
         return Response(createdBacklogSuccessCriteria, status=status.HTTP_200_OK)
