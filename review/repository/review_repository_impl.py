@@ -85,3 +85,7 @@ class ReviewRepositoryImpl(ReviewRepository):
 
         print('slicedWritingReview', slicedWritingReview)
         return slicedWritingReview
+
+    def getEntireReviewListCount(self):
+        print('repository-> getEntireReviewListCount()')
+        return ReviewList.objects.count()

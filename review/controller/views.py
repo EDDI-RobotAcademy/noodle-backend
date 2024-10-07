@@ -13,6 +13,14 @@ class ReviewView(viewsets.ViewSet):
 
     reviewService = ReviewServiceImpl.getInstance()
 
+    def entireReviewListCount(self, request):
+        try:
+            count = self.reviewService.getEntireReviewListCount()
+            return Response({'count': count}, status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     def reviewList(self, request):
         pageCount = request.data.get('pagination')
         countsPerPage = request.data.get('perPage')

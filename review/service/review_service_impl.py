@@ -36,3 +36,6 @@ class ReviewServiceImpl(ReviewService):
 
     def readReview(self, reviewId):
         return self.__reviewRepository.findById(reviewId)
+
+    def getEntireReviewListCount(self):
+        return self.__reviewRepository.getEntireReviewListCount()

@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class ReviewService(ABC):
     @abstractmethod
     def reviewList(self, pageCount, countsPerPage):
@@ -15,4 +16,8 @@ class ReviewService(ABC):
 
     @abstractmethod
     def readReview(self, reviewId):
+        pass
+
+    @abstractmethod
+    def getEntireReviewListCount(self):
         pass
