@@ -11,4 +11,5 @@ urlpatterns = [
     path('list', ReviewView.as_view({'post': 'reviewList'}), name='review-list'),
     path('register', ReviewView.as_view({'post': 'create'}), name='review-register'),
     path('read/<int:pk>', ReviewView.as_view({'get': 'read'}), name='review-read'),
+    path('entire-count', ReviewView.as_view({'post': 'entireReviewListCount'}), name='review-list-entire-count'),
 ]

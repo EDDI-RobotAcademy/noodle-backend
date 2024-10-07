@@ -33,3 +33,7 @@ class ReviewRepository(ABC):
     @abstractmethod
     def writingReviewSlicedList(self, startIndex, endIndex):
         pass
+
+    @abstractmethod
+    def getEntireReviewListCount(self):
+        pass
