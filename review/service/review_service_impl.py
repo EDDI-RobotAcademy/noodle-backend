@@ -17,8 +17,13 @@ class ReviewServiceImpl(ReviewService):
             cls.__instance = cls()
         return cls.__instance
 
-    def list(self):
-        return self.__reviewRepository.list()
+    def reviewList(self):
+        selectionReview = self.__reviewRepository.selectionReviewList()
+        writingReview = self.__reviewRepository.writingReviewList()
+
+        reviewList = self.__reviewRepository.joinList(selectionReview, writingReview)
+
+        return reviewList
 
     def createReview(self, title, writer, content, image):
         return self.__reviewRepository.createReview(title, writer, content, image)
