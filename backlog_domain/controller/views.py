@@ -13,7 +13,7 @@ class BacklogDomainView(viewsets.ViewSet):
         backlogId = data.get('backlogId')
         domain = data.get('domain')
 
-        createdBacklogDomain = self.backlogDomainService.createBacklogDomain(backlogId, domain)
+        createdBacklogDomain = self.backlogDomainService.createBacklogDomain(backlogId, domain).domain
 
         return Response(createdBacklogDomain, status=status.HTTP_200_OK)
 
