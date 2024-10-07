@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from review.entity.writing_review import Review
+from review.entity.writing_review import WritingReview
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Review
-        fields = ['reviewId', 'title', 'writer', 'content', 'image']
+        model = WritingReview
+        fields = ['reviewId', 'title', 'writer', 'content', 'image', 'listId']
         read_only_fields = ['regDate', 'updDate']

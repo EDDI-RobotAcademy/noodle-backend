@@ -17,4 +17,4 @@ class WritingReview(models.Model):
         return self.title
 
     class Meta:
-        db_table = 'review'
+        db_table = 'writing_review'

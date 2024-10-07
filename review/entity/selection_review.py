@@ -9,17 +9,17 @@ class SelectionReview(models.Model):
     title = models.CharField(max_length=128, null=False)
     listId = models.ForeignKey(ReviewList, on_delete=models.CASCADE, related_name='selection_review')
     using = models.IntegerField(choices=[(int(choice[0]), choice[1]) for choice in PointChoices.choices()],
-        default=int(PointChoices.ZERO.value))
+        default=int(PointChoices.ONE.value))
     speed = models.IntegerField(choices=[(int(choice[0]), choice[1]) for choice in PointChoices.choices()],
-        default=int(PointChoices.ZERO.value))
+        default=int(PointChoices.ONE.value))
     design = models.IntegerField(choices=[(int(choice[0]), choice[1]) for choice in PointChoices.choices()],
-        default=int(PointChoices.ZERO.value))
+        default=int(PointChoices.ONE.value))
     quality = models.IntegerField(choices=[(int(choice[0]), choice[1]) for choice in PointChoices.choices()],
-        default=int(PointChoices.ZERO.value))
+        default=int(PointChoices.ONE.value))
     feedback = models.TextField()
 
     def __str__(self):
         return self.title
 
     class Meta:
-        db_table = 'review_selection'
+        db_table = 'selection_review'
