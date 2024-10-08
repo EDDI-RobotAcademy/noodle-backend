@@ -1,3 +1,5 @@
+import datetime
+
 from review.repository.review_repository_impl import ReviewRepositoryImpl
 from review.service.review_service import ReviewService
 
@@ -18,8 +20,11 @@ class ReviewServiceImpl(ReviewService):
         return cls.__instance
 
     def reviewList(self, pageCount, countsPerPage):
-        startIndex = (pageCount - 1) * countsPerPage
-        endIndex = pageCount * countsPerPage
+        count = self.__reviewRepository.getEntireReviewListCount()
+        endIndex = count - ((pageCount - 1) * countsPerPage)
+        startIndex = count - (pageCount * countsPerPage)
+        if startIndex < 0:
+            startIndex = 0
 
         selectionReview = self.__reviewRepository.selectionReviewSlicedList(startIndex, endIndex)
         writingReview = self.__reviewRepository.writingReviewSlicedList(startIndex, endIndex)
@@ -28,16 +33,16 @@ class ReviewServiceImpl(ReviewService):
 
         # TODO: sorting로직이 필요한지 검증 필요.
         # reviewList.sort()
-        print('JoinedAndSortedReviewList', reviewList)
-
+        reversedReviewList = reversed(reviewList)
         parsedReviewList = [
             {
                 'id': review.listId.id,
                 'title': review.title,
                 'writer': review.writer,
-                'regDate': review.regDate
+                'regDate': review.regDate.astimezone(datetime.timezone(datetime.timedelta(hours=9))).strftime(
+                    '%Y-%m-%d %H:%M:%S')
             }
-            for review in reviewList
+            for review in reversedReviewList
         ]
 
         return parsedReviewList
