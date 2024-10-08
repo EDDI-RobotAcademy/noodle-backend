@@ -42,16 +42,16 @@ class ReviewView(viewsets.ViewSet):
             userToken = data.get('userToken')
             content = data.get('content')
 
-            accountId = self.redisService.getValueByKey(userToken)
-            writer = self.accountService.findAccountByAccountId(accountId)
-
-            if not all([title, writer.username, content]):
-                return Response({'error': '내용을 채워주세요!'},
-                                status=status.HTTP_400_BAD_REQUEST)
+            if userToken == 'anonymous':
+                username = '익명'
+            else:
+                accountId = self.redisService.getValueByKey(userToken)
+                writer = self.accountService.findAccountByAccountId(accountId)
+                username = writer
 
             # self.reviewService.createReview(title, writer, content, image)
             reviewList = self.reviewService.createNewWritingReviewListID()
-            self.reviewService.registerNewWritingReview(title, writer.username, content, reviewList)
+            self.reviewService.registerNewWritingReview(title, username, content, reviewList)
 
             return Response(status=status.HTTP_200_OK)
 
@@ -60,19 +60,28 @@ class ReviewView(viewsets.ViewSet):
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def registerNewSelectionReview(self, request):
-        userToken = request.data.get('userToken')
-        ratingList = request.data.get('ratingList')
-        content = request.data.get('content')
+        try:
+            userToken = request.data.get('userToken')
+            ratingList = request.data.get('ratingList')
+            content = request.data.get('content')
 
-        accountId = self.redisService.getValueByKey(userToken)
-        writer = self.accountService.findAccountByAccountId(accountId)
+            if userToken == 'anonymous':
+                username = '익명'
+            else:
+                accountId = self.redisService.getValueByKey(userToken)
+                writer = self.accountService.findAccountByAccountId(accountId)
+                username = writer
 
-        reviewList = self.reviewService.createNewSelectionReviewListId()
-        self.reviewService.registerNewSelectionReview('님의 평점 리뷰', writer.username, ratingList, content, reviewList)
+            reviewList = self.reviewService.createNewSelectionReviewListId()
+            self.reviewService.registerNewSelectionReview('님의 평점 리뷰', username, ratingList, content, reviewList)
 
-        return Response(status.HTTP_200_OK)
+            return Response(status.HTTP_200_OK)
+        except Exception as e:
+            print('리뷰 등록 과정 중 문제 발생:', e)
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def readReview(self, request, pk=None):
-        review = self.reviewService.readReview(pk)
-        serializer = ReviewSerializer(review)
-        return Response(serializer.data)
+
+def readReview(self, request, pk=None):
+    review = self.reviewService.readReview(pk)
+    serializer = ReviewSerializer(review)
+    return Response(serializer.data)
