@@ -39,5 +39,5 @@ class ReviewRepository(ABC):
         pass
 
     @abstractmethod
-    def createNewReviewListID(self):
+    def createNewWritingReviewListID(self):
         pass

@@ -54,5 +54,5 @@ class ReviewServiceImpl(ReviewService):
     def getEntireReviewListCount(self):
         return self.__reviewRepository.getEntireReviewListCount()
 
-    def createNewReviewListID(self):
-        return self.__reviewRepository.createNewReviewListID()
+    def createNewWritingReviewListID(self):
+        return self.__reviewRepository.createNewWritingReviewListID()

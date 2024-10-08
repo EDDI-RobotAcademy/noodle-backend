@@ -32,7 +32,7 @@ class ReviewView(viewsets.ViewSet):
         print(pageCount, countsPerPage)
 
         reviewList = self.reviewService.reviewList(pageCount, countsPerPage)
-        return Response(reviewList, status=status.HTTP_200_OK)
+        return Response({'list': reviewList}, status=status.HTTP_200_OK)
 
     def registerNewWritingReview(self, request):
         try:
