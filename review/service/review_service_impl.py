@@ -53,6 +53,9 @@ class ReviewServiceImpl(ReviewService):
     def registerNewWritingReview(self, title, writer, content, reviewList):
         return self.__reviewRepository.registerNewWritingReview(title, writer, content, reviewList)
 
+    def registerNewSelectionReview(self, title, writer, ratingList, content, reviewList):
+        return self.__reviewRepository.registerNewSelectionReview(title, writer, ratingList, content, reviewList)
+
     def readReview(self, reviewId):
         return self.__reviewRepository.findById(reviewId)
 
@@ -61,3 +64,6 @@ class ReviewServiceImpl(ReviewService):
 
     def createNewWritingReviewListID(self):
         return self.__reviewRepository.createNewWritingReviewListID()
+
+    def createNewSelectionReviewListId(self):
+        return self.__reviewRepository.createNewSelectionReviewListId()

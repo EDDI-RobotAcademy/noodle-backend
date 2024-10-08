@@ -15,6 +15,10 @@ class ReviewService(ABC):
         pass
 
     @abstractmethod
+    def registerNewSelectionReview(self, title, writer, ratingList, content, reviewList):
+        pass
+
+    @abstractmethod
     def readReview(self, reviewId):
         pass
 
@@ -24,4 +28,8 @@ class ReviewService(ABC):
 
     @abstractmethod
     def createNewWritingReviewListID(self):
+        pass
+
+    @abstractmethod
+    def createNewSelectionReviewListId(self):
         pass

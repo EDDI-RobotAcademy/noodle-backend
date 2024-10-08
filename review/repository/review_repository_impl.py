@@ -1,6 +1,7 @@
 import os
 
 from noodle_project import settings
+from review.entity.point_choices import PointChoices
 from review.entity.review_list import ReviewList
 from review.entity.review_type import ReviewType
 from review.entity.selection_review import SelectionReview
@@ -61,6 +62,18 @@ class ReviewRepositoryImpl(ReviewRepository):
 
         return review
 
+    def registerNewSelectionReview(self, title, writer, ratingList, content, reviewList):
+        # pointChoices = [PointChoices(choice) for choice in ratingList]
+        # review = SelectionReview(listId=reviewList, title=str(writer + title), writer=writer, design=pointChoices[0],
+        #                          using=pointChoices[1], speed=pointChoices[2], quality=pointChoices[3],
+        #                          feedback=content)
+
+        review = SelectionReview(listId=reviewList, title=str(writer + title), writer=writer, design=ratingList[0],
+                                 using=ratingList[1], speed=ratingList[2], quality=ratingList[3],
+                                 feedback=content)
+        review.save()
+        return review
+
     def findById(self, reviewId):
         return WritingReview.objects.get(reviewId=reviewId)
 
@@ -91,6 +104,9 @@ class ReviewRepositoryImpl(ReviewRepository):
         print('repository-> getEntireReviewListCount()')
         return ReviewList.objects.count()
 
-    def createNewReviewListID(self):
+    def createNewWritingReviewListID(self):
         print('repository -> createNewReviewListID()')
+        return ReviewList.objects.create(type=ReviewType.WRITING)
+
+    def createNewSelectionReviewListId(self):
         return ReviewList.objects.create()

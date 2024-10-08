@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
@@ -51,7 +50,7 @@ class ReviewView(viewsets.ViewSet):
                                 status=status.HTTP_400_BAD_REQUEST)
 
             # self.reviewService.createReview(title, writer, content, image)
-            reviewList = self.reviewService.createNewReviewListID()
+            reviewList = self.reviewService.createNewWritingReviewListID()
             self.reviewService.registerNewWritingReview(title, writer.username, content, reviewList)
 
             return Response(status=status.HTTP_200_OK)
@@ -59,6 +58,19 @@ class ReviewView(viewsets.ViewSet):
         except Exception as e:
             print('리뷰 등록 과정 중 문제 발생:', e)
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def registerNewSelectionReview(self, request):
+        userToken = request.data.get('userToken')
+        ratingList = request.data.get('ratingList')
+        content = request.data.get('content')
+
+        accountId = self.redisService.getValueByKey(userToken)
+        writer = self.accountService.findAccountByAccountId(accountId)
+
+        reviewList = self.reviewService.createNewSelectionReviewListId()
+        self.reviewService.registerNewSelectionReview('님의 평점 리뷰', writer.username, ratingList, content, reviewList)
+
+        return Response(status.HTTP_200_OK)
 
     def readReview(self, request, pk=None):
         review = self.reviewService.readReview(pk)
