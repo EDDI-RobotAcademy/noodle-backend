@@ -32,7 +32,7 @@ class ReviewRepositoryImpl(ReviewRepository):
 
     def joinList(self, selectionReview, writingReview):
         return sorted(chain(selectionReview, writingReview),
-                      key=attrgetter('listId'))
+                      key=attrgetter('listId.id'))
 
     def createReview(self, title, writer, content, image):
         uploadDirectory = os.path.join(
@@ -65,9 +65,7 @@ class ReviewRepositoryImpl(ReviewRepository):
         return WritingReview.objects.get(reviewId=reviewId)
 
     def selectionReviewSlicedList(self, startIndex, endIndex):
-        slicedIdListForSelectionReview = ReviewList.objects.filter(id__range=(startIndex, endIndex))
-        print(f'slicedIdListForSelectionReview {slicedIdListForSelectionReview}')
-
+        slicedIdListForSelectionReview = ReviewList.objects.all()[startIndex:endIndex]
         slicedSelectionReview = []
         for item in slicedIdListForSelectionReview:
             try:
@@ -75,12 +73,10 @@ class ReviewRepositoryImpl(ReviewRepository):
             except SelectionReview.DoesNotExist:
                 continue
 
-        print(f'slicedSelectionReview {slicedSelectionReview}')
         return slicedSelectionReview
 
     def writingReviewSlicedList(self, startIndex, endIndex):
-        slicedIdListForWritingReview = ReviewList.objects.filter(id__range=(startIndex, endIndex))
-        print(f'slicedIdListForWritingReview {slicedIdListForWritingReview}')
+        slicedIdListForWritingReview = ReviewList.objects.all()[startIndex:endIndex]
 
         slicedWritingReview = []
         for item in slicedIdListForWritingReview:
@@ -89,7 +85,6 @@ class ReviewRepositoryImpl(ReviewRepository):
             except WritingReview.DoesNotExist:
                 continue
 
-        print(f'slicedWritingReview {slicedWritingReview}')
         return slicedWritingReview
 
     def getEntireReviewListCount(self):
