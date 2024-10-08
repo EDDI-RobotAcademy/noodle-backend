@@ -23,6 +23,10 @@ class ReviewRepository(ABC):
         pass
 
     @abstractmethod
+    def registerNewSelectionReview(self, title, writer, ratingList, content, reviewList):
+        pass
+
+    @abstractmethod
     def findById(self, reviewId):
         pass
 
@@ -40,4 +44,8 @@ class ReviewRepository(ABC):
 
     @abstractmethod
     def createNewWritingReviewListID(self):
+        pass
+
+    @abstractmethod
+    def createNewSelectionReviewListId(self):
         pass
