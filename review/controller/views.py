@@ -51,7 +51,7 @@ class ReviewView(viewsets.ViewSet):
                                 status=status.HTTP_400_BAD_REQUEST)
 
             # self.reviewService.createReview(title, writer, content, image)
-            reviewList = self.reviewService.createNewReviewListID()
+            reviewList = self.reviewService.createNewWritingReviewListID()
             self.reviewService.registerNewWritingReview(title, writer.username, content, reviewList)
 
             return Response(status=status.HTTP_200_OK)

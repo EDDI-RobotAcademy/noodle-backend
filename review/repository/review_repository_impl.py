@@ -91,6 +91,6 @@ class ReviewRepositoryImpl(ReviewRepository):
         print('repository-> getEntireReviewListCount()')
         return ReviewList.objects.count()
 
-    def createNewReviewListID(self):
+    def createNewWritingReviewListID(self):
         print('repository -> createNewReviewListID()')
-        return ReviewList.objects.create()
+        return ReviewList.objects.create(type=ReviewType.WRITING)
