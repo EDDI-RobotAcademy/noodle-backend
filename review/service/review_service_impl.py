@@ -25,8 +25,22 @@ class ReviewServiceImpl(ReviewService):
         writingReview = self.__reviewRepository.writingReviewSlicedList(startIndex, endIndex)
 
         reviewList = self.__reviewRepository.joinList(selectionReview, writingReview)
-        print('joinedReviewList', reviewList)
-        return reviewList
+
+        # TODO: sorting로직이 필요한지 검증 필요.
+        # reviewList.sort()
+        print('JoinedAndSortedReviewList', reviewList)
+
+        parsedReviewList = [
+            {
+                'id': review.listId.id,
+                'title': review.title,
+                'writer': review.writer,
+                'regDate': review.regDate
+            }
+            for review in reviewList
+        ]
+
+        return parsedReviewList
 
     def createReview(self, title, writer, content, image):
         return self.__reviewRepository.createReview(title, writer, content, image)
