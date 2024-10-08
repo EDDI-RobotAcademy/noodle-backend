@@ -31,11 +31,14 @@ class ReviewServiceImpl(ReviewService):
     def createReview(self, title, writer, content, image):
         return self.__reviewRepository.createReview(title, writer, content, image)
 
-    def createReviewWithoutImage(self, title, writer, content):
-        return self.__reviewRepository.createReviewWithoutImage(title, writer, content)
+    def registerNewWritingReview(self, title, writer, content, reviewList):
+        return self.__reviewRepository.registerNewWritingReview(title, writer, content, reviewList)
 
     def readReview(self, reviewId):
         return self.__reviewRepository.findById(reviewId)
 
     def getEntireReviewListCount(self):
         return self.__reviewRepository.getEntireReviewListCount()
+
+    def createNewReviewListID(self):
+        return self.__reviewRepository.createNewReviewListID()

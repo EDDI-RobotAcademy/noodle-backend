@@ -55,8 +55,8 @@ class ReviewRepositoryImpl(ReviewRepository):
 
         return review
 
-    def createReviewWithoutImage(self, title, writer, content):
-        review = WritingReview(title=title, writer=writer, content=content)
+    def registerNewWritingReview(self, title, writer, content, reviewList):
+        review = WritingReview(title=title, writer=writer, content=content, listId=reviewList)
         review.save()
 
         return review
@@ -66,26 +66,36 @@ class ReviewRepositoryImpl(ReviewRepository):
 
     def selectionReviewSlicedList(self, startIndex, endIndex):
         slicedIdListForSelectionReview = ReviewList.objects.filter(id__range=(startIndex, endIndex))
-        print('slicedIdListForSelectionReview', slicedIdListForSelectionReview)
+        print(f'slicedIdListForSelectionReview {slicedIdListForSelectionReview}')
 
         slicedSelectionReview = []
         for item in slicedIdListForSelectionReview:
-            slicedSelectionReview.append(SelectionReview.objects.get(listId=item.id))
+            try:
+                slicedSelectionReview.append(SelectionReview.objects.get(listId=item.id))
+            except SelectionReview.DoesNotExist:
+                continue
 
-        print('slicedSelectionReview', slicedSelectionReview)
+        print(f'slicedSelectionReview {slicedSelectionReview}')
         return slicedSelectionReview
 
     def writingReviewSlicedList(self, startIndex, endIndex):
         slicedIdListForWritingReview = ReviewList.objects.filter(id__range=(startIndex, endIndex))
-        print('slicedIdListForWritingReview', slicedIdListForWritingReview)
+        print(f'slicedIdListForWritingReview {slicedIdListForWritingReview}')
 
         slicedWritingReview = []
         for item in slicedIdListForWritingReview:
-            slicedWritingReview.append(WritingReview.objects.get(listId=item.id))
+            try:
+                slicedWritingReview.append(WritingReview.objects.get(listId=item.id))
+            except WritingReview.DoesNotExist:
+                continue
 
-        print('slicedWritingReview', slicedWritingReview)
+        print(f'slicedWritingReview {slicedWritingReview}')
         return slicedWritingReview
 
     def getEntireReviewListCount(self):
         print('repository-> getEntireReviewListCount()')
         return ReviewList.objects.count()
+
+    def createNewReviewListID(self):
+        print('repository -> createNewReviewListID()')
+        return ReviewList.objects.create()

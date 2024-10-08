@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class AccountService(ABC):
     @abstractmethod
     def checkUsernameDuplication(self, username):
@@ -11,4 +12,8 @@ class AccountService(ABC):
 
     @abstractmethod
     def saveUserNickname(self, nickname):
+        pass
+
+    @abstractmethod
+    def findAccountByAccountId(self, accountId):
         pass

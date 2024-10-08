@@ -19,7 +19,7 @@ class ReviewRepository(ABC):
         pass
 
     @abstractmethod
-    def createReviewWithoutImage(self, title, writer, content):
+    def registerNewWritingReview(self, title, writer, content, reviewList):
         pass
 
     @abstractmethod
@@ -36,4 +36,8 @@ class ReviewRepository(ABC):
 
     @abstractmethod
     def getEntireReviewListCount(self):
+        pass
+
+    @abstractmethod
+    def createNewReviewListID(self):
         pass
