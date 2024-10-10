@@ -19,6 +19,6 @@ class ResultReportServiceImpl(ResultReportService):
 
         return cls.__instance
 
-    def createResultReport(self, creator):
-        return self.__resultReportRepository.create(creator)
+    def createResultReport(self, username):
+        return self.__resultReportRepository.create(username)
 

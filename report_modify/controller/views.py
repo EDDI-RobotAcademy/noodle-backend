@@ -4,19 +4,20 @@ from rest_framework.response import Response
 
 from account.service.account_service_impl import AccountServiceImpl
 from github_oauth.service.redis_service_impl import RedisServiceImpl
-from report.entity.report import ResultReport
-from report.service.report_service_impl import ResultReportServiceImpl
+from report_modify.entity.report_modify import ResultReportModify
+from report_modify.service.report_modify_service_impl import ResultReportModifyServiceImpl
 
 
 # Create your views here.
-class ResultReportView(viewsets.ViewSet):
-    queryset = ResultReport.objects.all()
-    resultReportService = ResultReportServiceImpl.getInstance()
+class ResultReportModifyView(viewsets.ViewSet):
+    queryset = ResultReportModify.objects.all()
+    resultReportModifyService = ResultReportModifyServiceImpl.getInstance()
     redisService = RedisServiceImpl.getInstance()
     accountService = AccountServiceImpl.getInstance()
 
-    def createResultReport(self, request):
+    def modifyResultReport(self, request):
         data = request.data
+        resultReportId = data.get("resultReportId")
         userToken = data.get("userToken")
 
         if not userToken:
@@ -26,6 +27,6 @@ class ResultReportView(viewsets.ViewSet):
         account = self.accountService.findAccountByAccountId(accountId)
         username = account.username
 
-        createdResultReportId = self.resultReportService.createResultReport(username).id
+        self.resultReportModifyService.modifyResultReport(resultReportId, username)
 
-        return Response({"data": createdResultReportId}, status=status.HTTP_201_CREATED)
+        return Response({"modifier": username}, status=status.HTTP_200_OK)

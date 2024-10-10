@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "backlog_todo_check",
     "backlog_review",
     "report",
+    "report_modify",
 ]
 
 MIDDLEWARE = [
