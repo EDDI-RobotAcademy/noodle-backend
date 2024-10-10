@@ -18,11 +18,5 @@ class ResultReportModifyRepositoryImpl(ResultReportModifyRepository):
 
         return cls.__instance
 
-    def modify(self, resultReportId, modifier):
-        try:
-            resultReportModify = ResultReportModify.objects.get(report_id=resultReportId)
-            resultReportModify.modifier = modifier
-            resultReportModify.save()
-
-        except ResultReportModify.DoesNotExist:
-            ResultReportModify.objects.create(modifier=modifier, report_id=resultReportId)
+    def create(self, resultReportId, modifier):
+        ResultReportModify.objects.create(modifier=modifier, report_id=resultReportId)

@@ -15,7 +15,7 @@ class ResultReportModifyView(viewsets.ViewSet):
     redisService = RedisServiceImpl.getInstance()
     accountService = AccountServiceImpl.getInstance()
 
-    def modifyResultReport(self, request):
+    def createResultReportModify(self, request):
         data = request.data
         resultReportId = data.get("resultReportId")
         userToken = data.get("userToken")
@@ -27,6 +27,6 @@ class ResultReportModifyView(viewsets.ViewSet):
         account = self.accountService.findAccountByAccountId(accountId)
         username = account.username
 
-        self.resultReportModifyService.modifyResultReport(resultReportId, username)
+        self.resultReportModifyService.createResultReportModify(resultReportId, username)
 
         return Response({"modifier": username}, status=status.HTTP_200_OK)

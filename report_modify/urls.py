@@ -8,5 +8,5 @@ router.register(r"report_modify", ResultReportModifyView, basename="report_modif
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("modify", ResultReportModifyView.as_view({"put": "modifyResultReport"}), name="modify-result-report"),
+    path("create", ResultReportModifyView.as_view({"put": "createResultReportModify"}), name="create-result-report-modify"),
 ]
