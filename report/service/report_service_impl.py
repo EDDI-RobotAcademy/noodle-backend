@@ -9,6 +9,7 @@ class ResultReportServiceImpl(ResultReportService):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
             cls.__instance.__resultReportRepository = ResultReportRepositoryImpl.getInstance()
+            cls.__instance.__redisRepo
 
         return cls.__instance
 
@@ -19,6 +20,6 @@ class ResultReportServiceImpl(ResultReportService):
 
         return cls.__instance
 
-    def createResultReport(self, creator):
-        return self.__resultReportRepository.create(creator)
+    def createResultReport(self, username):
+        return self.__resultReportRepository.create(username)
 
