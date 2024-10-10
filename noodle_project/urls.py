@@ -36,4 +36,5 @@ urlpatterns = [
     path("backlog-review/", include("backlog_review.urls")),
     path("review/", include("review.urls")),
     path("report/", include("report.urls")),
+    path("report-modify/", include("report_modify.urls")),
 ]

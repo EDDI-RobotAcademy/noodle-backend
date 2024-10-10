@@ -9,7 +9,6 @@ class ResultReportServiceImpl(ResultReportService):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
             cls.__instance.__resultReportRepository = ResultReportRepositoryImpl.getInstance()
-            cls.__instance.__redisRepo
 
         return cls.__instance
 
