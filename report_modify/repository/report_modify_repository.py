@@ -2,5 +2,5 @@ from abc import abstractmethod, ABC
 
 class ResultReportModifyRepository(ABC):
     @abstractmethod
-    def modify(self, resultReportId, modifier):
+    def create(self, resultReportId, modifier):
         pass

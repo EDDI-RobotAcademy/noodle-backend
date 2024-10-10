@@ -19,5 +19,5 @@ class ResultReportModifyServiceImpl(ResultReportModifyService):
 
         return cls.__instance
 
-    def modifyResultReport(self, resultReportId, username):
-        self.__resultReportModifyRepository.modify(resultReportId, username)
+    def createResultReportModify(self, resultReportId, username):
+        self.__resultReportModifyRepository.create(resultReportId, username)
