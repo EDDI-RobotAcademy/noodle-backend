@@ -3,7 +3,7 @@ from django.db import models
 
 class ResultReport(models.Model):
     id = models.AutoField(primary_key=True)
-    writer = models.CharField(max_length=128)
+    creator = models.CharField(max_length=128)
     createDate = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
