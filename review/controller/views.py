@@ -80,8 +80,13 @@ class ReviewView(viewsets.ViewSet):
             print('리뷰 등록 과정 중 문제 발생:', e)
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    def readReview(self, request, pk=None):
+        try:
+            reviewID = request.data.get("reviewID")
+            review = self.reviewService.readReview(reviewID)
+            print(review.id, review.title, review.content)
+        except Exception as e:
+            print("error occurred while reading review!", e)
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-def readReview(self, request, pk=None):
-    review = self.reviewService.readReview(pk)
-    serializer = ReviewSerializer(review)
-    return Response(serializer.data)
+        return Response()
