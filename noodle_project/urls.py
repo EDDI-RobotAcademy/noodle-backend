@@ -34,5 +34,12 @@ urlpatterns = [
     path("backlog-todo/", include("backlog_todo.urls")),
     path("backlog-todo-check/", include("backlog_todo_check.urls")),
     path("backlog-review/", include("backlog_review.urls")),
-    path("review/", include("review.urls"))
+    path("review/", include("review.urls")),
+    path("report/", include("report.urls")),
+    path("report-modify/", include("report_modify.urls")),
+    path("report-title/", include("report_title.urls")),
+    path("report-team/", include("report_team.urls")),
+    path("report-team-member/", include("report_team_member.urls")),
+    path("report-skill-set", include("report_skill_set.urls")),
+    path("report-skill", include("report_skill.urls")),
 ]
