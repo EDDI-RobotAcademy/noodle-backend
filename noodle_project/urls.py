@@ -41,4 +41,5 @@ urlpatterns = [
     path("report-team/", include("report_team.urls")),
     path("report-team-member/", include("report_team_member.urls")),
     path("report-skill-set", include("report_skill_set.urls")),
+    path("report-skill", include("report_skill.urls")),
 ]
