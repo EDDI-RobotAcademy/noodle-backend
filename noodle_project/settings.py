@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     "backlog_review",
     "report",
     "report_modify",
+    "report_title",
 ]
 
 MIDDLEWARE = [
