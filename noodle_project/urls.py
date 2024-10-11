@@ -37,4 +37,5 @@ urlpatterns = [
     path("review/", include("review.urls")),
     path("report/", include("report.urls")),
     path("report-modify/", include("report_modify.urls")),
+    path("report-title/", include("report_title.urls")),
 ]
