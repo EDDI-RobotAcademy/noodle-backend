@@ -57,7 +57,8 @@ class ReviewServiceImpl(ReviewService):
         return self.__reviewRepository.registerNewSelectionReview(title, writer, ratingList, content, reviewList)
 
     def readReview(self, reviewId):
-        return self.__reviewRepository.findById(reviewId)
+
+        return self.__reviewRepository.findReviewById(reviewId)
 
     def getEntireReviewListCount(self):
         return self.__reviewRepository.getEntireReviewListCount()

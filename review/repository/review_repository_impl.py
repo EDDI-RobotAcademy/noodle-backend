@@ -74,8 +74,15 @@ class ReviewRepositoryImpl(ReviewRepository):
         review.save()
         return review
 
-    def findById(self, reviewId):
-        return WritingReview.objects.get(reviewId=reviewId)
+    def findReviewById(self, reviewId):
+        reviewListObject = ReviewList.objects.get(id=reviewId)
+
+        if reviewListObject.type == 'SELECTION':
+            reviewObejct = SelectionReview.objects.get(listId=reviewListObject)
+        else:
+            reviewObejct = WritingReview.objects.get(listId=reviewListObject)
+
+        return reviewObejct
 
     def selectionReviewSlicedList(self, startIndex, endIndex):
         slicedIdListForSelectionReview = ReviewList.objects.all()[startIndex:endIndex]

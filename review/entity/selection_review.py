@@ -14,7 +14,7 @@ class SelectionReview(models.Model):
     using = models.IntegerField(choices=[(int(choice[0]), choice[1]) for choice in PointChoices.choices()], )
     speed = models.IntegerField(choices=[(int(choice[0]), choice[1]) for choice in PointChoices.choices()], )
     quality = models.IntegerField(choices=[(int(choice[0]), choice[1]) for choice in PointChoices.choices()], )
-    feedback = models.TextField()
+    content = models.TextField()
 
     regDate = models.DateTimeField(auto_now_add=True)
     updDate = models.DateTimeField(auto_now=True)

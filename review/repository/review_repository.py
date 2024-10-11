@@ -27,7 +27,7 @@ class ReviewRepository(ABC):
         pass
 
     @abstractmethod
-    def findById(self, reviewId):
+    def findReviewById(self, reviewId):
         pass
 
     @abstractmethod
