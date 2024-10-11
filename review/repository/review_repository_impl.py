@@ -70,7 +70,7 @@ class ReviewRepositoryImpl(ReviewRepository):
 
         review = SelectionReview(listId=reviewList, title=str(writer + title), writer=writer, design=ratingList[0],
                                  using=ratingList[1], speed=ratingList[2], quality=ratingList[3],
-                                 feedback=content)
+                                 content=content)
         review.save()
         return review
 
@@ -79,10 +79,12 @@ class ReviewRepositoryImpl(ReviewRepository):
 
         if reviewListObject.type == 'SELECTION':
             reviewObejct = SelectionReview.objects.get(listId=reviewListObject)
+            type = 'SELECTION'
         else:
             reviewObejct = WritingReview.objects.get(listId=reviewListObject)
+            type = 'WRITING'
 
-        return reviewObejct
+        return reviewObejct, type
 
     def selectionReviewSlicedList(self, startIndex, endIndex):
         slicedIdListForSelectionReview = ReviewList.objects.all()[startIndex:endIndex]
