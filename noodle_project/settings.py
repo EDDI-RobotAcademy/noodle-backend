@@ -63,7 +63,7 @@ INSTALLED_APPS = [
     "report_title",
     "report_team",
     "report_team_member",
-    "report_skill_set"
+    "report_skill_set",
     "report_skill",
 ]
 

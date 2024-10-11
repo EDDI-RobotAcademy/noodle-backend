@@ -31,8 +31,6 @@ class ReviewServiceImpl(ReviewService):
 
         reviewList = self.__reviewRepository.joinList(selectionReview, writingReview)
 
-        # TODO: sorting로직이 필요한지 검증 필요.
-        # reviewList.sort()
         reversedReviewList = reversed(reviewList)
         parsedReviewList = [
             {
@@ -57,8 +55,31 @@ class ReviewServiceImpl(ReviewService):
         return self.__reviewRepository.registerNewSelectionReview(title, writer, ratingList, content, reviewList)
 
     def readReview(self, reviewId):
+        review, type = self.__reviewRepository.findReviewById(reviewId)
 
-        return self.__reviewRepository.findReviewById(reviewId)
+        if type == 'SELECTION':
+            response = {
+                "type": type,
+                "writer": review.writer,
+                "title": review.title,
+                "regDate": review.regDate.astimezone(datetime.timezone(datetime.timedelta(hours=9))).strftime(
+                    '%Y-%m-%d %H:%M:%S'),
+                "design": review.design,
+                "using": review.design,
+                "speed": review.speed,
+                "quality": review.quality,
+                "content": review.content
+            }
+        else:
+            response = {
+                "type": type,
+                "writer": review.writer,
+                "title": review.title,
+                "regDate": review.regDate.astimezone(datetime.timezone(datetime.timedelta(hours=9))).strftime(
+                    '%Y-%m-%d %H:%M:%S'),
+                "content": review.content
+            }
+        return response
 
     def getEntireReviewListCount(self):
         return self.__reviewRepository.getEntireReviewListCount()

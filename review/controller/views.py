@@ -28,7 +28,6 @@ class ReviewView(viewsets.ViewSet):
     def reviewList(self, request):
         pageCount = request.data.get('pagination')
         countsPerPage = request.data.get('perPage')
-        print(pageCount, countsPerPage)
 
         reviewList = self.reviewService.reviewList(pageCount, countsPerPage)
         return Response({'list': reviewList}, status=status.HTTP_200_OK)
@@ -75,18 +74,19 @@ class ReviewView(viewsets.ViewSet):
             reviewList = self.reviewService.createNewSelectionReviewListId()
             self.reviewService.registerNewSelectionReview('님의 평점 리뷰', username, ratingList, content, reviewList)
 
-            return Response(status.HTTP_200_OK)
+            return Response(status=status.HTTP_200_OK)
         except Exception as e:
             print('리뷰 등록 과정 중 문제 발생:', e)
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def readReview(self, request, pk=None):
+    def readReview(self, request):
         try:
             reviewID = request.data.get("reviewID")
-            review = self.reviewService.readReview(reviewID)
-            print(review.id, review.title, review.content)
+            response = self.reviewService.readReview(reviewID)
+
+            return Response(response, status=status.HTTP_200_OK)
+
+
         except Exception as e:
             print("error occurred while reading review!", e)
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-        return Response()
