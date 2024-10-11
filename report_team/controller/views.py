@@ -12,6 +12,8 @@ class ResultReportTeamView(viewsets.ViewSet):
     resultReportTeamService = ResultReportTeamServiceImpl.getInstance()
 
     def createResultReportTeam(self, request):
-        self.resultReportTeamService.createResultReportTeam()
+        data = request.data
+        resultReportId = data.get("resultReportId")
+        self.resultReportTeamService.createResultReportTeam(resultReportId)
 
         return Response(status=status.HTTP_201_CREATED)
