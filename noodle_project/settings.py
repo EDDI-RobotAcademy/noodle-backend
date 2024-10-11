@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "report",
     "report_modify",
     "report_title",
+    "report_team",
 ]
 
 MIDDLEWARE = [
