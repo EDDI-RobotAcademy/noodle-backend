@@ -3,6 +3,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 
 from report_skill_set.entity.report_skill_set import ResultReportSkillSet
+from report_skill_set.service.report_skill_set_service_impl import ResultReportSkillSetServiceImpl
 
 
 # Create your views here.

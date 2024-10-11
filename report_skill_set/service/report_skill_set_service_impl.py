@@ -1,3 +1,4 @@
+from report_skill_set.repository.result_skill_set_repository_impl import ResultReportSkillSetRepositoryImpl
 from report_skill_set.service.report_skill_set_service import ResultReportSkillSetService
 
 
