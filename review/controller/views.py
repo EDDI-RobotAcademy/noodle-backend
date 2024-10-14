@@ -69,7 +69,7 @@ class ReviewView(viewsets.ViewSet):
             else:
                 accountId = self.redisService.getValueByKey(userToken)
                 writer = self.accountService.findAccountByAccountId(accountId)
-                username = writer
+                username = writer.username
 
             reviewList = self.reviewService.createNewSelectionReviewListId()
             self.reviewService.registerNewSelectionReview('님의 평점 리뷰', username, ratingList, content, reviewList)
