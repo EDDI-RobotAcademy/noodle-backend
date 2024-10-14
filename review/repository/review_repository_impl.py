@@ -67,8 +67,8 @@ class ReviewRepositoryImpl(ReviewRepository):
         # review = SelectionReview(listId=reviewList, title=str(writer + title), writer=writer, design=pointChoices[0],
         #                          using=pointChoices[1], speed=pointChoices[2], quality=pointChoices[3],
         #                          feedback=content)
-
-        review = SelectionReview(listId=reviewList, title=str(writer + title), writer=writer, design=ratingList[0],
+        review = SelectionReview(listId=reviewList, title=str(writer + title), writer=writer,
+                                 design=ratingList[0],
                                  using=ratingList[1], speed=ratingList[2], quality=ratingList[3],
                                  content=content)
         review.save()
