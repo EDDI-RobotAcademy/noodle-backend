@@ -33,3 +33,5 @@ class AccountServiceImpl(AccountService):
         account = self.__accountRepository.saveAccountByUsername(nickname)
         return account
 
+    def findAccountByAccountId(self, accountId):
+        return self.__accountRepository.findAccountByAccountId(accountId)

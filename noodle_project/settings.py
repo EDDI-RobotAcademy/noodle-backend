@@ -48,6 +48,23 @@ INSTALLED_APPS = [
     "branches",
     "account",
     "commits",
+    "review",
+    "backlog",
+    "backlog_domain",
+    "backlog_issue",
+    "backlog_map_number",
+    "backlog_status",
+    "backlog_success_criteria",
+    "backlog_todo",
+    "backlog_todo_check",
+    "backlog_review",
+    "report",
+    "report_modify",
+    "report_title",
+    "report_team",
+    "report_team_member",
+    "report_skill_set",
+    "report_skill",
 ]
 
 MIDDLEWARE = [

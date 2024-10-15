@@ -66,7 +66,7 @@ class OauthView(viewsets.ViewSet):
         except Exception as e:
             print('Error storing access token in Redis:', e)
 
-    def getRedisAccessToken(self, request):
+    def checkRedisAccessToken(self, request):
         try:
             userToken = request.data.get('userToken')
             accountId = self.redisService.getValueByKey(userToken)
@@ -74,7 +74,7 @@ class OauthView(viewsets.ViewSet):
 
             accessToken = self.redisService.getValueByKey(accountId)
 
-            return Response({"accessToken": accessToken}, status=status.HTTP_200_OK)
+            return Response({"response": True}, status=status.HTTP_200_OK)
         except Exception as e:
             print("Error getting access token in Redis:", e)
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
