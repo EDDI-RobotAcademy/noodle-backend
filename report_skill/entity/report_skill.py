@@ -9,7 +9,7 @@ class ResultReportSkill(models.Model):
     skillset = models.ForeignKey(ResultReportSkillSet, on_delete=models.CASCADE, related_name="skill")
 
     def __str__(self):
-        return f"ResultReportSkillId: {self.id} -> ResultReportSkill: {self.skill} on ResultReportSkillsetId: {self.skill.id}"
+        return f"ResultReportSkillId: {self.id} -> ResultReportSkill: {self.skill} on ResultReportSkillsetId: {self.skillset.id}"
 
     class Meta:
         db_table = "report_skill"
