@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "report_skill",
     "report_feature",
     "report_feature_content",
+    "report_usage",
 ]
 
 MIDDLEWARE = [
