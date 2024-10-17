@@ -3,7 +3,7 @@ from abc import abstractmethod, ABC
 
 class ResultReportFeatureRepository(ABC):
     @abstractmethod
-    def getResultReportFeatureById(self, id):
+    def getResultReportFeatureByResultReport(self, report):
         pass
 
     @abstractmethod
