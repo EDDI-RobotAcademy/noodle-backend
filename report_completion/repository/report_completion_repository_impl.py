@@ -18,5 +18,8 @@ class ResultReportCompletionRepositoryImpl(ResultReportCompletionRepository):
 
         return cls.__instance
 
+    def getResultRepositoryCompletionByResultReport(self, report):
+        return ResultReportCompletion.objects.get(report=report)
+
     def createResultReportCompletion(self, report):
         ResultReportCompletion.objects.create(report=report)
