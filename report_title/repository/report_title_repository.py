@@ -3,5 +3,5 @@ from abc import abstractmethod, ABC
 
 class ResultReportTitleRepository(ABC):
     @abstractmethod
-    def create(self, resultReportId, title):
+    def create(self, report, title):
         pass
