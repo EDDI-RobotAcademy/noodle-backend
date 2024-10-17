@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets
 
 from report_feature_content.entity.report_feature_content import ResultReportFeatureContent
+from report_feature_content.service.report_feature_content_service_impl import ResultReportFeatureContentServiceImpl
 
 
 # Create your views here.

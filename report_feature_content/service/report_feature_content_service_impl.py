@@ -1,5 +1,7 @@
 from report.repository.report_repository_impl import ResultReportRepositoryImpl
 from report_feature.repository.report_feature_repository_impl import ResultReportFeatureRepositoryImpl
+from report_feature_content.repository.report_feature_content_repository_impl import \
+    ResultReportFeatureContentRepositoryImpl
 from report_feature_content.service.report_feature_content_service import ResultReportFeatureContentService
 
 
