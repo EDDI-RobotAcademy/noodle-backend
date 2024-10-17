@@ -18,5 +18,8 @@ class ResultReportFeatureRepositoryImpl(ResultReportFeatureRepository):
 
         return cls.__instance
 
+    def getResultReportFeatureByResultReport(self, report):
+        return ResultReportFeature.objects.get(report=report)
+
     def createResultReportFeature(self, report):
         ResultReportFeature.objects.create(report=report)
