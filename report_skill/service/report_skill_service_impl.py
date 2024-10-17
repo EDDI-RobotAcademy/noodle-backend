@@ -1,5 +1,6 @@
 from report_skill.repository.report_skill_repository_impl import ResultReportSkillRepositoryImpl
 from report_skill.service.report_skill_service import ResultReportSkillService
+from report_skill_set.repository.result_skill_set_repository_impl import ResultReportSkillSetRepositoryImpl
 
 
 class ResultReportSkillServiceImpl(ResultReportSkillService):
@@ -9,6 +10,7 @@ class ResultReportSkillServiceImpl(ResultReportSkillService):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
             cls.__instance.__resultReportSkillRepository = ResultReportSkillRepositoryImpl.getInstance()
+            cls.__instance.__resultReportSkillSetRepository = ResultReportSkillSetRepositoryImpl.getInstance()
 
         return cls.__instance
 
@@ -20,4 +22,5 @@ class ResultReportSkillServiceImpl(ResultReportSkillService):
         return cls.__instance
 
     def createResultReportSkill(self, skill, skillSetId):
-        self.__resultReportSkillRepository.create(skill, skillSetId)
+        skillset = self.__resultReportSkillSetRepository.getResultReportSkillSetById(skillSetId)
+        self.__resultReportSkillRepository.create(skill, skillset)

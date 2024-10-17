@@ -18,5 +18,5 @@ class ResultReportSkillRepositoryImpl(ResultReportSkillRepository):
 
         return cls.__instance
 
-    def create(self, skill, skillSetId):
-        ResultReportSkill.objects.create(skill=skill, report_id=skillSetId)
+    def create(self, skill, skillset):
+        ResultReportSkill.objects.create(skill=skill, skillset=skillset)

@@ -18,5 +18,5 @@ class ResultReportTeamMemberRepositoryImpl(ResultReportTeamMemberRepository):
 
         return cls.__instance
 
-    def createResultReportTeamMember(self, name, role, resultReportTeamId):
-        ResultReportTeamMember.objects.create(name=name, role=role, team_id=resultReportTeamId)
+    def createResultReportTeamMember(self, name, role, resultReportTeam):
+        ResultReportTeamMember.objects.create(name=name, role=role, team=resultReportTeam)

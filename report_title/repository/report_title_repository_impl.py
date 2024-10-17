@@ -18,6 +18,6 @@ class ResultReportTitleRepositoryImpl(ResultReportTitleRepository):
 
         return cls.__instance
 
-    def create(self, resultReportId, title):
-        ResultReportTitle.objects.create(report_id=resultReportId, title=title)
+    def create(self, report, title):
+        ResultReportTitle.objects.create(report=report, title=title)
     

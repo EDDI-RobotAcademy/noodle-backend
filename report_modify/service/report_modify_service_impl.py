@@ -1,3 +1,4 @@
+from report.repository.report_repository_impl import ResultReportRepositoryImpl
 from report_modify.repository.report_modify_repository_impl import ResultReportModifyRepositoryImpl
 from report_modify.service.report_modify_service import ResultReportModifyService
 
@@ -9,6 +10,7 @@ class ResultReportModifyServiceImpl(ResultReportModifyService):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
             cls.__instance.__resultReportModifyRepository = ResultReportModifyRepositoryImpl.getInstance()
+            cls.__instance.__resultReportRepository = ResultReportRepositoryImpl.getInstance()
 
         return cls.__instance
 
@@ -20,4 +22,5 @@ class ResultReportModifyServiceImpl(ResultReportModifyService):
         return cls.__instance
 
     def createResultReportModify(self, resultReportId, username):
-        self.__resultReportModifyRepository.create(resultReportId, username)
+        report = self.__resultReportRepository.getReportById(resultReportId)
+        self.__resultReportModifyRepository.create(report, username)
