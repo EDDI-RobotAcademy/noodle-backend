@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     "report_completion",
     "report_completion_secure",
     "report_completion_maintain",
+    "report_completion_total",
 ]
 
 MIDDLEWARE = [
