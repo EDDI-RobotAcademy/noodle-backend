@@ -49,4 +49,5 @@ urlpatterns = [
     path("report-improvement-content/", include("report_improvement_content.urls")),
     path("report-completion/", include("report_completion.urls")),
     path("report-completion-secure/", include("report_completion_secure.urls")),
+    path("report-completion-maintain", include("report_completion_maintain.urls")),
 ]
