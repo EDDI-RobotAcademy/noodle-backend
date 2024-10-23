@@ -19,12 +19,12 @@ class BacklogRepositoryImpl(BacklogRepository):
             cls.__instance = cls()
         return cls.__instance
 
-    def create(self, title):
-        try:
-            backlog = Backlog(title=title)
-            backlog.save()
+    def create(self, titleList):
+        backlogs = [Backlog(title=title) for title in titleList]
 
-            return backlog
+        try:
+            Backlog.objects.bulk_create(backlogs)
+            return backlogs
 
         except IntegrityError:
             return None
