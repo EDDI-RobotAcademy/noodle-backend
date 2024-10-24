@@ -21,5 +21,5 @@ class ResultReportTeamRepositoryImpl(ResultReportTeamRepository):
     def getResultTeamById(self, id):
         return ResultReportTeam.objects.get(id=id)
 
-    def create(self, resultReportId):
-        ResultReportTeam.objects.create(report_id=resultReportId)
+    def create(self, resultReport):
+        ResultReportTeam.objects.create(report=resultReport)

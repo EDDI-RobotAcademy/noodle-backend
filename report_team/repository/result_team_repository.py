@@ -7,5 +7,5 @@ class ResultReportTeamRepository(ABC):
         pass
 
     @abstractmethod
-    def create(self, resultReportId):
+    def create(self, resultReport):
         pass
