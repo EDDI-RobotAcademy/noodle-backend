@@ -18,5 +18,9 @@ class ResultReportImprovementContentRepositoryImpl(ResultReportImprovementConten
 
         return cls.__instance
 
-    def createResultReportImprovementContent(self, report, content):
-        ResultReportImprovementContent.objects.create(report=report, content=content)
+    def createResultReportImprovementContent(self, report, reportImprovementContentList):
+        resultReportImprovementContentList = [ResultReportImprovementContent(content=content, report=report)
+                                              for content in reportImprovementContentList]
+        ResultReportImprovementContent.objects.bulk_create(resultReportImprovementContentList)
+
+        return resultReportImprovementContentList
