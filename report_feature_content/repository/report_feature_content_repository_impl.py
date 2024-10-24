@@ -18,6 +18,10 @@ class ResultReportFeatureContentRepositoryImpl(ResultReportFeatureContentReposit
 
         return cls.__instance
 
-    def createResultReportFeatureContent(self, resultReportFeature):
-        ResultReportFeatureContent.objects.create(feature=resultReportFeature)
+    def createResultReportFeatureContent(self, reportContentList, resultReportFeature):
+        resultReportFeatureContentList = [ResultReportFeatureContent(content=content, feature=resultReportFeature)
+                                          for content in reportContentList]
+        ResultReportFeatureContent.objects.bulk_create(resultReportFeatureContentList)
+
+        return resultReportFeatureContentList
     
