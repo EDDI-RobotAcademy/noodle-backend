@@ -43,12 +43,22 @@ class BacklogServiceImpl(BacklogService):
             successCriteriaList.append(successCriteria)
             todoList.append(taskList)
 
+        print(f"titleList:", titleList)
+        print(f"domainList:", domainList)
+        print(f"successCriteriaList:", successCriteriaList)
+        print(f"todoList:", todoList)
+
         try:
-            backlog = self.__backlogRepository.create(titleList)
-            backlogDomain = self.__backlogDomainRepository.create(backlog, domainList)
-            backlogSuccessCriteria = self.__backlogSuccessCriteriaRepository.create(backlog, successCriteriaList)
-            backlogTodo = self.__backlogTodoRepository.create(backlog, todoList)
-            return backlog
+            totalLength = self.__backlogRepository.getTotalNumberOfBacklog()
+            backlogs = self.__backlogRepository.create(titleList)
+            print(f"backlogs: {backlogs}")
+            for i in range(len(backlogs)):
+                backlog = self.__backlogRepository.findById(totalLength + i + 1)
+                backlogDomain = self.__backlogDomainRepository.create(backlog, domainList[i])
+                backlogSuccessCriteria = self.__backlogSuccessCriteriaRepository.create(backlog, successCriteriaList[i])
+                backlogTodo = self.__backlogTodoRepository.create(backlog, todoList[i])
+
+            return backlogs
         except Exception as e:
             print('Error creating backlog:', e)
             raise e

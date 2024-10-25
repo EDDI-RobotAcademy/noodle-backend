@@ -11,12 +11,13 @@ class BacklogView(viewsets.ViewSet):
     def createBacklog(self, request):
         data = request.data
         userToken = data.get('userToken')
-        result = data.get('aiResult')
-        backlogList = result['backlog']
+        print("userToken:", userToken)
+        backlogList = data.get('intermediateData')
+        print("backlogList:", backlogList)
 
         if not backlogList:
             return Response({"error": "제목이 필요합니다"}, status=status.HTTP_400_BAD_REQUEST)
 
-        createdBacklog = self.backlogService.createBacklog(backlogList).title
+        createdBacklog = self.backlogService.createBacklog(backlogList)
 
-        return Response(createdBacklog, status=status.HTTP_200_OK)
+        return Response(f"Success to create {len(createdBacklog)} number of backlogs!", status=status.HTTP_200_OK)
