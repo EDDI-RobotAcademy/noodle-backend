@@ -8,3 +8,7 @@ class BacklogRepository(ABC):
     @abstractmethod
     def findById(self, backlogId):
         pass
+
+    @abstractmethod
+    def getTotalNumberOfBacklog(self):
+        pass

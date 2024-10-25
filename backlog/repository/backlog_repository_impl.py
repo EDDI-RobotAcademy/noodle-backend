@@ -23,8 +23,8 @@ class BacklogRepositoryImpl(BacklogRepository):
         backlogs = [Backlog(title=title) for title in titleList]
 
         try:
-            Backlog.objects.bulk_create(backlogs)
-            return backlogs
+            backlogList = Backlog.objects.bulk_create(backlogs)
+            return backlogList
 
         except IntegrityError:
             return None
@@ -35,3 +35,6 @@ class BacklogRepositoryImpl(BacklogRepository):
             return backlog
         except ObjectDoesNotExist:
             raise ValueError(f"Backlog with id {backlogId} does not exist")
+
+    def getTotalNumberOfBacklog(self):
+        return len(Backlog.objects.all())

@@ -21,12 +21,12 @@ class BacklogTodoRepositoryImpl(BacklogTodoRepository):
 
         return cls.__instance
 
-    def create(self, backlog, todo):
+    def create(self, backlog, todoList):
         try:
-            todo = BacklogTodo(backlog=backlog, todo=todo)
-            todo.save()
+            backlogTodoList = [BacklogTodo(backlog=backlog, todo=todo) for todo in todoList]
+            BacklogTodo.objects.bulk_create(backlogTodoList)
 
-            return todo
+            return backlogTodoList
         except IntegrityError:
             return None
 
