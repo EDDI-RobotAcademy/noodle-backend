@@ -76,7 +76,24 @@ class OauthView(viewsets.ViewSet):
             return Response({"response": True}, status=status.HTTP_200_OK)
         except Exception as e:
             print("Error getting access token in Redis:", e)
-            return Response({'response': False}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'response': False}, status=status.HTTP_200_OK)
+
+    def isModifyingAllowedUser(self, request):
+        try:
+            userToken = request.data.get('userToken')
+            userName = request.data.get('userName')
+            if userToken == 'anonymous':
+                return Response({'response': False}, status=status.HTTP_200_OK)
+            accountId = self.redisService.getValueByKey(userToken)
+            account = self.accountService.findAccountByAccountId(accountId)
+            if account.username == userName:
+                return Response({'response': True}, status=status.HTTP_200_OK)
+            else:
+                return Response({'response': False}, status=status.HTTP_200_OK)
+
+
+        except Exception as e:
+            return Response({'response': False}, status=status.HTTP_200_OK)
 
     def dropRedisTokenForLogout(self, request):
         try:

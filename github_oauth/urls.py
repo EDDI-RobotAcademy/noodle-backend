@@ -13,5 +13,7 @@ urlpatterns = [
          name="get-github-access-token-url"),
     path('github/logout', OauthView.as_view({'post': 'dropRedisTokenForLogout'}), name="github-logout"),
     path('github/usertoken-validation', OauthView.as_view({'post': 'checkUserTokenValid'}),
-         name='check-userToken-valid')
+         name='check-userToken-valid'),
+    path("is-modifying-allowed-user", OauthView.as_view({"post": "isModifyingAllowedUser"}),
+         name="is-modifying-allowed-user"),
 ]
