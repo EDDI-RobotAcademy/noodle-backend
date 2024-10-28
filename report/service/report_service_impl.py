@@ -91,3 +91,35 @@ class ResultReportServiceImpl(ResultReportService):
             result.append([resultReportTitleList[i].title, resultReportList[i].creator, resultReportList[i].createdDate])
 
         return result
+
+    def read(self, resultReportId):
+        report = self.__resultReportRepository.getReportById(resultReportId)
+        title = self.__resultReportTitleRepository.getResultReportTitleByResultReport(report).title
+        overview = self.__resultReportOverviewRepository.getResultReportOverviewByResultReport(report).overview
+        team = self.__resultReportTeamRepository.getResultReportTeamByResultReport(report)
+        teamMemberList = self.__resultReportTeamMemberRepository.getResultReportTeamMemberListByResultReportTeam(team)
+        skillSet = self.__resultReportSkillSetRepository.getResultReportSkillSetByResultReport(report)
+        skillList = self.__resultReportSkillRepository.getResultReportSkillListByResultReportSkillSet(skillSet)
+        feature = self.__resultReportFeatureRepository.getResultReportFeatureByResultReport(report)
+        featureList = self.__resultReportFeatureContentRepository.getResultReportFeatureListByResultReportFeature(feature)
+        usage = self.__resultReportUsageRepository.getResultReportUsageByResultReport(report).content
+        improvement = self.__resultReportImprovementRepository.getResultReportImprovement(report)
+        improvementList = self.__resultReportImprovementContentRepository.getResultReportImprovementListByResultReportImprovement(improvement)
+        completion = self.__resultReportCompletionRepository.getResultRepositoryCompletionByResultReport(report)
+        secure = self.__resultReportCompletionSecureRepository.getResultReportCompletionSecureByResultReportCompletion(completion)
+        maintain = self.__resultReportCompletionMaintainRepository.getResultReportCompletionMaintainByResultReportCompletion(completion)
+        total = self.__resultReportCompletionTotalRepository.getResultReportCompletionTotalByResultReportCompletion(completion)
+        completionList = [[secure.score, secure.content], [maintain.score, maintain.content], [total.score, total.content]]
+
+        return {
+            "data": {
+                "title": title,
+                "overview": overview,
+                "teamMemberList": teamMemberList,
+                "skillList": skillList,
+                "featureList": featureList,
+                "usage": usage,
+                "improvementList": improvementList,
+                "completionList": completionList
+            }
+        }
