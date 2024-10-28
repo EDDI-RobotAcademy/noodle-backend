@@ -81,3 +81,13 @@ class ResultReportServiceImpl(ResultReportService):
             reportCompletion, kwargs['scoreList'][2][0], kwargs['scoreList'][2][1])
 
         return report
+
+    def list(self):
+        resultReportList = self.__resultReportRepository.getAllResultReportList()
+        resultReportTitleList = self.__resultReportTitleRepository.getAllResultReportTitleList()
+
+        result = []
+        for i in range(len(resultReportList)):
+            result.append([resultReportTitleList[i].title, resultReportList[i].creator, resultReportList[i].createdDate])
+
+        return result

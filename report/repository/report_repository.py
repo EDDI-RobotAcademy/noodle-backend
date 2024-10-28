@@ -9,3 +9,7 @@ class ResultReportRepository(ABC):
     @abstractmethod
     def create(self, creator):
         pass
+
+    @abstractmethod
+    def getAllResultReportList(self):
+        pass
