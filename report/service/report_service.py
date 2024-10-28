@@ -9,3 +9,7 @@ class ResultReportService(ABC):
     @abstractmethod
     def list(self):
         pass
+
+    @abstractmethod
+    def read(self, resultReportId):
+        pass

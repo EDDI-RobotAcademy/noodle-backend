@@ -35,3 +35,11 @@ class ResultReportView(viewsets.ViewSet):
         resultReportList = self.resultReportService.list()
 
         return Response({"data": resultReportList}, status=status.HTTP_200_OK)
+
+    def read(self, request):
+        data = request.data
+        resultReportId = data.get('resultReportId')
+
+        resultReport = self.resultReportService.read(resultReportId)
+
+        return Response(resultReport, status=status.HTTP_200_OK)
