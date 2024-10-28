@@ -20,3 +20,7 @@ class ResultReportCompletionSecureRepositoryImpl(ResultReportCompletionSecureRep
 
     def createResultReportCompletionSecure(self, completion, score, detail):
         ResultReportCompletionSecure.objects.crate(completion=completion, score=score, detail=detail)
+
+    def getResultReportCompletionSecureByResultReportCompletion(self, completion):
+        return ResultReportCompletionSecure.objects.get(completion=completion)
+
