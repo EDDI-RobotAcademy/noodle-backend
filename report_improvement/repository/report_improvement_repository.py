@@ -5,3 +5,7 @@ class ResultReportImprovementRepository(ABC):
     @abstractmethod
     def createResultReportImprovement(self, report):
         pass
+
+    @abstractmethod
+    def getResultReportImprovement(self, report):
+        pass

@@ -19,3 +19,6 @@ class ResultReportImprovementRepositoryImpl(ResultReportImprovementRepository):
 
     def createResultReportImprovement(self, report):
         ResultReportImprovement.objects.create(report=report)
+
+    def getResultReportImprovement(self, report):
+        return ResultReportImprovement.objects.get(report=report)
