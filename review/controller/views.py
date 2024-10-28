@@ -58,6 +58,27 @@ class ReviewView(viewsets.ViewSet):
             print('리뷰 등록 과정 중 문제 발생:', e)
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    def modifyReview(self, request):
+        try:
+            data = request.data
+
+            id = data.get('reviewID')
+            content = data.get('content')
+            print(id, content)
+
+            review, type = self.reviewService.findReviewByReviewID(id)
+            if type == 'SELECTION':
+                ratingList = request.data.get('ratingList')
+                self.reviewService.modifySelectionReview(review, ratingList, content)
+                return Response({'response': True}, status=status.HTTP_200_OK)
+            else:
+                title = data.get('title')
+                self.reviewService.modifyWritingReview(review, title, content)
+                return Response({'response': True}, status=status.HTTP_200_OK)
+        except Exception as e:
+            print('리뷰 수정 과정 중 문제 발생:', e)
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     def registerNewSelectionReview(self, request):
         try:
             userToken = request.data.get('userToken')
