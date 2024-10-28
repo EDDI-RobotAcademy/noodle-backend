@@ -24,4 +24,10 @@ class ResultReportFeatureContentRepositoryImpl(ResultReportFeatureContentReposit
         ResultReportFeatureContent.objects.bulk_create(resultReportFeatureContentList)
 
         return resultReportFeatureContentList
+
+    def getResultReportFeatureListByResultReportFeature(self, feature):
+        resultReportFeatures = ResultReportFeatureContent.objects.filter(feature=feature)
+        resultReportFeatureList = [feature.content for feature in resultReportFeatures]
+
+        return resultReportFeatureList
     
