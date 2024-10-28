@@ -27,6 +27,6 @@ class ResultReportTeamMemberRepositoryImpl(ResultReportTeamMemberRepository):
 
     def getResultReportTeamMemberListByResultReportTeam(self, resultReportTeam):
         resultReportTeamMembers = ResultReportTeamMember.objects.filter(team=resultReportTeam)
-        resultReportTeamMemberList = [[member.name, member.role] for member in resultReportTeamMembers]
+        resultReportTeamMemberList = [[member.name, member.role, member.department] for member in resultReportTeamMembers]
 
         return resultReportTeamMemberList
