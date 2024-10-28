@@ -30,3 +30,8 @@ class ResultReportView(viewsets.ViewSet):
         createdResultReportId = self.resultReportService.createResultReport(username, **message).id
 
         return Response({"data": createdResultReportId}, status=status.HTTP_201_CREATED)
+
+    def list(self, request):
+        resultReportList = self.resultReportService.list()
+
+        return Response({"data": resultReportList}, status=status.HTTP_200_OK)

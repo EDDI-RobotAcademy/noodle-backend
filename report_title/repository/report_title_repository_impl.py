@@ -20,4 +20,7 @@ class ResultReportTitleRepositoryImpl(ResultReportTitleRepository):
 
     def create(self, report, title):
         ResultReportTitle.objects.create(report=report, title=title)
+
+    def getAllResultReportTitleList(self):
+        return ResultReportTitle.objects.all()
     

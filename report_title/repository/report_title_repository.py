@@ -5,3 +5,7 @@ class ResultReportTitleRepository(ABC):
     @abstractmethod
     def create(self, report, title):
         pass
+
+    @abstractmethod
+    def getAllResultReportTitleList(self):
+        pass

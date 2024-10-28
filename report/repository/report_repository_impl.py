@@ -24,4 +24,7 @@ class ResultReportRepositoryImpl(ResultReportRepository):
     def create(self, creator):
         return ResultReport.objects.create(creator=creator)
 
+    def getAllResultReportList(self):
+        return ResultReport.objects.all()
+
 
