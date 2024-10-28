@@ -22,3 +22,6 @@ class ResultReportOverviewRepositoryImpl(ResultReportOverviewRepository):
         resultReportOverview = ResultReportOverview.objects.create(overview=overview, report=report)
 
         return resultReportOverview
+
+    def getResultReportOverviewByResultReport(self, report):
+        return ResultReportOverview.objects.get(report=report)
