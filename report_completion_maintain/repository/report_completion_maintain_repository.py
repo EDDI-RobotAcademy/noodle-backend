@@ -5,3 +5,7 @@ class ResultReportCompletionMaintainRepository(ABC):
     @abstractmethod
     def createResultReportCompletionMaintain(self, completion, score, detail):
         pass
+
+    @abstractmethod
+    def getResultReportCompletionMaintainByResultReportCompletion(self, completion):
+        pass

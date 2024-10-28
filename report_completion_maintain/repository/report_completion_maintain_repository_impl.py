@@ -19,3 +19,6 @@ class ResultReportCompletionMaintainRepositoryImpl(ResultReportCompletionMaintai
 
     def createResultReportCompletionMaintain(self, completion, score, detail):
         ResultReportCompletionMaintain.objects.create(completion=completion, score=score, detail=detail)
+
+    def getResultReportCompletionMaintainByResultReportCompletion(self, completion):
+        return ResultReportCompletionMaintain.objects.get(completion=completion)

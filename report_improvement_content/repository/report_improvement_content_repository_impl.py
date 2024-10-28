@@ -24,3 +24,9 @@ class ResultReportImprovementContentRepositoryImpl(ResultReportImprovementConten
         ResultReportImprovementContent.objects.bulk_create(resultReportImprovementContentList)
 
         return resultReportImprovementContentList
+
+    def getResultReportImprovementListByResultReportImprovement(self, improvement):
+        resultReportImprovements = ResultReportImprovementContent.objects.filter(improvement=improvement)
+        resultReportImprovementList = [improvement.content for improvement in resultReportImprovements]
+
+        return resultReportImprovementList

@@ -20,3 +20,6 @@ class ResultReportUsageRepositoryImpl(ResultReportUsageRepository):
 
     def createResultReportUsage(self, report, content):
         ResultReportUsage.objects.create(report=report, content=content)
+
+    def getResultReportUsageByResultReport(self, report):
+        return ResultReportUsage.objects.get(report=report)

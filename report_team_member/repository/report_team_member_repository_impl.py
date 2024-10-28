@@ -24,3 +24,9 @@ class ResultReportTeamMemberRepositoryImpl(ResultReportTeamMemberRepository):
 
         ResultReportTeamMember.objects.bulk_create(resultReportTeamMemberList)
         return resultReportTeamMemberList
+
+    def getResultReportTeamMemberListByResultReportTeam(self, resultReportTeam):
+        resultReportTeamMembers = ResultReportTeamMember.objects.filter(team=resultReportTeam)
+        resultReportTeamMemberList = [[member.name, member.role] for member in resultReportTeamMembers]
+
+        return resultReportTeamMemberList

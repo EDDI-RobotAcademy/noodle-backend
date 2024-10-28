@@ -23,3 +23,9 @@ class ResultReportSkillRepositoryImpl(ResultReportSkillRepository):
         ResultReportSkill.objects.bulk_create(resultReportSkillList)
 
         return resultReportSkillList
+
+    def getResultReportSkillListByResultReportSkillSet(self, skillSet):
+        resultReportSkills = ResultReportSkill.object.filter(skillset=skillSet)
+        resultReportSkillList = [skill.skill for skill in resultReportSkills]
+
+        return resultReportSkillList

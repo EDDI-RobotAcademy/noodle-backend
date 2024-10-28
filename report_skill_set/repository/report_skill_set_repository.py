@@ -2,7 +2,7 @@ from abc import abstractmethod, ABC
 
 class ResultReportSkillSetRepository(ABC):
     @abstractmethod
-    def getResultReportSkillSetById(self, id):
+    def getResultReportSkillSetByResultReport(self, report):
         pass
 
     @abstractmethod

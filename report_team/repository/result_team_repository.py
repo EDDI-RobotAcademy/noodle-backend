@@ -3,9 +3,9 @@ from abc import abstractmethod, ABC
 
 class ResultReportTeamRepository(ABC):
     @abstractmethod
-    def getResultTeamById(self, id):
+    def create(self, resultReport):
         pass
 
     @abstractmethod
-    def create(self, resultReport):
+    def getResultReportTeamByResultReport(self, report):
         pass
