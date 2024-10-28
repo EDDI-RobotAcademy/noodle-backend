@@ -19,3 +19,6 @@ class ResultReportCompletionTotalRepositoryImpl(ResultReportCompletionTotalRepos
 
     def createResultReportCompletionTotal(self, completion, score, detail):
         ResultReportCompletionTotal.objects.create(completion=completion, score=score, detail=detail)
+
+    def getResultReportCompletionTotalByResultReportCompletion(self, completion):
+        return ResultReportCompletionTotal.objects.get(completion=completion)
