@@ -99,3 +99,6 @@ class ReviewServiceImpl(ReviewService):
 
     def modifyWritingReview(self, review, title, content):
         return self.__reviewRepository.modifyWritingReview(review, title, content)
+
+    def deleteReivew(self, reviewID):
+        return self.__reviewRepository.deleteReview(reviewID)

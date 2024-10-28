@@ -57,3 +57,7 @@ class ReviewRepository(ABC):
     @abstractmethod
     def modifyWritingReview(self, review, title, content):
         pass
+
+    @abstractmethod
+    def deleteReview(self, reviewID):
+        pass

@@ -16,4 +16,5 @@ urlpatterns = [
     path('read', ReviewView.as_view({'post': 'readReview'}), name='review-read'),
     path('entire-count', ReviewView.as_view({'post': 'entireReviewListCount'}), name='review-list-entire-count'),
     path('modify', ReviewView.as_view({'post': 'modifyReview'}), name='review-modify'),
+    path('delete', ReviewView.as_view({'post': 'deleteReview'}), name='review-delete'),
 ]
