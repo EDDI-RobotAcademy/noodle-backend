@@ -23,4 +23,7 @@ class ResultReportTitleRepositoryImpl(ResultReportTitleRepository):
 
     def getAllResultReportTitleList(self):
         return ResultReportTitle.objects.all()
+
+    def getResultReportTitleByResultReport(self, report):
+        return ResultReportTitle.objects.get(report=report)
     
