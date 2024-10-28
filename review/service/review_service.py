@@ -45,3 +45,7 @@ class ReviewService(ABC):
     @abstractmethod
     def modifyWritingReview(self, review, title, content):
         pass
+
+    @abstractmethod
+    def deleteReivew(self, reviewID):
+        pass

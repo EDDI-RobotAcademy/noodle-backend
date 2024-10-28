@@ -142,3 +142,13 @@ class ReviewRepositoryImpl(ReviewRepository):
             setattr(review, field, value)
         review.save()
         return
+
+    def deleteReview(self, reviewID):
+        review = ReviewList.objects.get(id=reviewID)
+        if type == 'SELECTION':
+            SelectionReview.objects.filter(listId=review.id).delete()
+        elif type == 'WRITING':
+            WritingReview.objects.filter(listId=review.id).delete()
+
+        review.delete()
+        return
