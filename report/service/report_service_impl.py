@@ -109,7 +109,9 @@ class ResultReportServiceImpl(ResultReportService):
         secure = self.__resultReportCompletionSecureRepository.getResultReportCompletionSecureByResultReportCompletion(completion)
         maintain = self.__resultReportCompletionMaintainRepository.getResultReportCompletionMaintainByResultReportCompletion(completion)
         total = self.__resultReportCompletionTotalRepository.getResultReportCompletionTotalByResultReportCompletion(completion)
-        completionList = [[secure.score, secure.content], [maintain.score, maintain.content], [total.score, total.content]]
+        completionList = [["보안", secure.score, secure.content, "red"],
+                          ["유지 보수", maintain.score, maintain.content, "green"],
+                          ["종합", total.score, total.content, "blue"]]
 
         return {
             "data": {
