@@ -64,7 +64,19 @@ class ReviewView(viewsets.ViewSet):
 
             id = data.get('reviewID')
             content = data.get('content')
-            print(id, content)
+
+            userToken = request.data.get('userToken')
+            if userToken == None:
+                print('userToken is None')
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
+            userid = self.redisService.getValueByKey(userToken)
+            userObj = self.accountService.findAccountByAccountId(userid)
+            name = userObj.username
+            if name == None:
+                name = 'anonymous'
+            if request.data.get('writer') != name:
+                print('not matching')
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
 
             review, type = self.reviewService.findReviewByReviewID(id)
             if type == 'SELECTION':
