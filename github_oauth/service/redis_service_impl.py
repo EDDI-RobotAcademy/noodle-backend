@@ -1,4 +1,5 @@
 import redis
+
 from noodle_project import settings
 from github_oauth.service.redis_service import RedisService
 
@@ -49,3 +50,8 @@ class RedisServiceImpl(RedisService):
         except Exception as e:
             print("redis key 삭제 중 에러 발생:", e)
             raise e
+
+    def setBacklogCreationFlag(self, userToken, flag):
+        key = userToken + ':backlog-creation'
+        self.redis_client.set(key, flag, ex=3600)
+        return key
