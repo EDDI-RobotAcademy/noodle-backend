@@ -13,3 +13,7 @@ class RedisService(ABC):
     @abstractmethod
     def setBacklogCreationFlag(self, userToken, flag):
         pass
+
+    @abstractmethod
+    def getBacklogCreationFlag(self, key):
+        pass

@@ -55,3 +55,7 @@ class RedisServiceImpl(RedisService):
         key = userToken + ':backlog-creation'
         self.redis_client.set(key, flag, ex=3600)
         return key
+
+    def getBacklogCreationFlag(self, key):
+        flag = self.redis_client.get(key)
+        return flag
