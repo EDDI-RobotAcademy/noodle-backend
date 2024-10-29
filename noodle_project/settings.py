@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     "report_completion_maintain",
     "report_completion_total",
     "report_overview",
+    "ai_request",
 ]
 
 MIDDLEWARE = [
