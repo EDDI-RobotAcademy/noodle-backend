@@ -114,6 +114,18 @@ class ReviewView(viewsets.ViewSet):
 
     def deleteReview(self, request):
         try:
+            userToken = request.data.get('userToken')
+            if userToken == None:
+                print('userToken is None')
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
+            id = self.redisService.getValueByKey(userToken)
+            userObj = self.accountService.findAccountByAccountId(id)
+            name = userObj.username
+            if name == None:
+                name = 'anonymous'
+            if request.data.get('writer') != name:
+                print('not matching')
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
             reviewID = request.data.get("reviewID")
             self.reviewService.deleteReivew(reviewID)
             return Response(status=status.HTTP_200_OK)
