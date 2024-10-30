@@ -63,3 +63,27 @@ class BacklogServiceImpl(BacklogService):
             print('Error creating backlog:', e)
             raise e
 
+    def getBacklogs(self, startIdx, endIdx):
+        backlogList = []
+        toDoList = []
+        try:
+            for i in range(startIdx, endIdx):
+                backlog = self.__backlogRepository.findById(i)
+                domain = self.__backlogDomainRepository.findById(backlog)
+                successCriteria = self.__backlogSuccessCriteriaRepository.findById(backlog)
+                toDo = self.__backlogTodoRepository.findByBacklog(backlog)
+                for object in toDo:
+                    toDoList.append(object.todo)
+
+                backlogList.append({
+                    "Title": backlog.title,
+                    "Success Criteria": successCriteria.successCriteria,
+                    "Domain Separation": domain.domain,
+                    "Task List": toDoList
+                })
+
+            return backlogList
+
+        except Exception as e:
+            print(e)
+            raise e
