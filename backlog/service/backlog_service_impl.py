@@ -58,7 +58,7 @@ class BacklogServiceImpl(BacklogService):
                 backlogSuccessCriteria = self.__backlogSuccessCriteriaRepository.create(backlog, successCriteriaList[i])
                 backlogTodo = self.__backlogTodoRepository.create(backlog, todoList[i])
 
-            return backlogs
+            return backlogs, [totalLength + 1, totalLength + len(backlogs)]
         except Exception as e:
             print('Error creating backlog:', e)
             raise e
