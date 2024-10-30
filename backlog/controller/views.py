@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.response import Response
@@ -36,8 +38,9 @@ class BacklogView(viewsets.ViewSet):
 
             if value == 0:
                 return Response({'error': "creation is not done yet!"}, status=status.HTTP_102_PROCESSING)
-            elif type(value) == list:
-                backlogs = self.backlogService.getBacklogs(value[0], value[1])
+            else:
+                values = json.loads(value)
+                backlogs = self.backlogService.getBacklogs(values.get("startIdx"), values.get("endIdx"))
                 return Response({'response': backlogs}, status=status.HTTP_200_OK)
 
         except Exception as e:
