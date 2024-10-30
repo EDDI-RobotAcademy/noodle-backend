@@ -23,3 +23,23 @@ class BacklogView(viewsets.ViewSet):
         self.redisService.setBacklogCreationFlag(userToken, idxList)
 
         return Response(f"Success to create {len(createdBacklog)} number of backlogs!", status=status.HTTP_200_OK)
+
+    def getBacklog(self, request):
+        try:
+            data = request.data
+            userToken = data.get("userToken")
+
+            if not userToken:
+                return Response({'error': "invalid token!"}, status=status.HTTP_401_UNAUTHORIZED)
+
+            value = self.redisService.getBacklogCreationFlag(userToken)
+
+            if value == 0:
+                return Response({'error': "creation is not done yet!"}, status=status.HTTP_102_PROCESSING)
+            elif type(value) == list:
+                backlogs = self.backlogService.getBacklogs(value[0], value[1])
+                return Response({'response': backlogs}, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            print('error while getting backlogs: ', e)
+            return Response({'error': "backlog load failed"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
