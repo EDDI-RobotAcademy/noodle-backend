@@ -1,17 +1,18 @@
 from account.repository.account_repostiory_impl import AccountRepositoryImpl
 from ai_request.repository.ai_request_repository_impl import AIRequestRepositoryImpl
 from ai_request.service.ai_request_service import AIRequestService
+from github_oauth.service.redis_service_impl import RedisServiceImpl
 
 
 class AIRequestServiceImpl(AIRequestService):
     __instance = None
+    redisService = RedisServiceImpl.getInstance()
 
     def __new__(cls):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
             cls.__instance.__aiRequestRepository = AIRequestRepositoryImpl.getInstance()
             cls.__instance.__accountRepository = AccountRepositoryImpl.getInstance()
-
         return cls.__instance
 
     @classmethod
@@ -29,9 +30,10 @@ class AIRequestServiceImpl(AIRequestService):
             raise e
 
         try:
+            if command == 31:
+                self.redisService.setBacklogCreationFlag(userToken, False)
             return self.__aiRequestRepository.aiRequest(userToken, account.username, command, data)
 
         except Exception as e:
             print("Error creating Result Report:", e)
             raise e
-
