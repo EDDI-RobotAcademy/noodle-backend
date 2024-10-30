@@ -32,8 +32,7 @@ class BacklogTodoRepositoryImpl(BacklogTodoRepository):
 
     def findByBacklog(self, backlog):
         try:
-            todo = BacklogTodo.objects.get(backlog=backlog)
-            return todo
+            todoList = list(BacklogTodo.objects.filter(backlog=backlog).order_by('id'))
+            return todoList
         except ObjectDoesNotExist:
             raise ValueError(f"BacklogTodo with backlog {backlog} does not exist")
-
