@@ -31,7 +31,7 @@ class AIRequestServiceImpl(AIRequestService):
 
         try:
             if command == 31:
-                self.redisService.setBacklogCreationFlag(userToken, False)
+                self.redisService.setBacklogCreationFlag(userToken, 0)
             return self.__aiRequestRepository.aiRequest(userToken, account.username, command, data)
 
         except Exception as e:
