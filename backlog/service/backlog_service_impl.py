@@ -1,3 +1,4 @@
+import json
 from typing import List
 
 from backlog.repository.backlog_repository_impl import BacklogRepositoryImpl
@@ -58,7 +59,7 @@ class BacklogServiceImpl(BacklogService):
                 backlogSuccessCriteria = self.__backlogSuccessCriteriaRepository.create(backlog, successCriteriaList[i])
                 backlogTodo = self.__backlogTodoRepository.create(backlog, todoList[i])
 
-            return backlogs, [totalLength + 1, totalLength + len(backlogs)]
+            return backlogs, json.dumps({"startIdx": totalLength + 1, "endIdx": totalLength + len(backlogs)})
         except Exception as e:
             print('Error creating backlog:', e)
             raise e

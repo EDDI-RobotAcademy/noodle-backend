@@ -19,10 +19,10 @@ class AIRequestView(viewsets.ViewSet):
 
         try:
             accountId = self.redisService.getValueByKey(userToken)
+            requestComplete = self.AIRequestService.aiRequestToFastAPI(userToken, accountId, command, data)
+
+            return Response(requestComplete, status=status.HTTP_200_OK)
         except Exception as e:
             print("aiRequestToFastAPI() 중 에러 발생:", e)
             raise e
 
-        requestComplete = self.AIRequestService.aiRequestToFastAPI(userToken, accountId, command, data)
-
-        return Response(requestComplete, status=status.HTTP_200_OK)
