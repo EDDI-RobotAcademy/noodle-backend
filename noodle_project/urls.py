@@ -53,5 +53,6 @@ urlpatterns = [
     path("report-completion-total", include("report_completion_total.urls")),
     path("report-overview/", include("report_overview.urls")),
     path("ai-request/", include("ai_request.urls")),
-    path("get-result-report/", include("get_result_report.urls"))
+    path("get-result-report/", include("get_result_report.urls")),
+    path("get-meeting-recording-summary/", include("get_meeting_recording_summary.urls")),
 ]
