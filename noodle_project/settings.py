@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     "report_overview",
     "ai_request",
     "get_result_report",
+    "get_meeting_recording_summary",
 ]
 
 MIDDLEWARE = [
