@@ -7,7 +7,7 @@ class ResultReportService(ABC):
         pass
 
     @abstractmethod
-    def list(self):
+    def list(self, query):
         pass
 
     @abstractmethod

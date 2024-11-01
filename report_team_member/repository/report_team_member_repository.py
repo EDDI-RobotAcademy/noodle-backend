@@ -9,3 +9,7 @@ class ResultReportTeamMemberRepository(ABC):
     @abstractmethod
     def getResultReportTeamMemberListByResultReportTeam(self, resultReportTeam):
         pass
+
+    @abstractmethod
+    def getResultReportTeamMemberByResultReportTeamAndName(self, resultReportTeam, name):
+        pass

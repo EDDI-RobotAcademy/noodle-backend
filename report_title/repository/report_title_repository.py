@@ -13,3 +13,7 @@ class ResultReportTitleRepository(ABC):
     @abstractmethod
     def getResultReportTitleByResultReport(self, report):
         pass
+
+    @abstractmethod
+    def getSearchResultReportTitle(self, query):
+        pass
