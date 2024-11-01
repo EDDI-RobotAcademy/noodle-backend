@@ -46,7 +46,7 @@ class BacklogDomainRepositoryImpl(BacklogDomainRepository):
 
     def findByBacklog(self, backlog):
         try:
-            backlogDomain = BacklogDomain.object.get(backlog=backlog)
+            backlogDomain = BacklogDomain.objects.get(backlog=backlog)
             return backlogDomain
 
         except ObjectDoesNotExist:
