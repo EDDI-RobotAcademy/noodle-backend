@@ -30,14 +30,13 @@ class BacklogView(viewsets.ViewSet):
         try:
             data = request.data
             userToken = data.get("userToken")
-
             if not userToken:
                 return Response({'error': "invalid token!"}, status=status.HTTP_401_UNAUTHORIZED)
 
             value = self.redisService.getBacklogCreationFlag(userToken)
 
-            if value == 0:
-                return Response({'error': "creation is not done yet!"}, status=status.HTTP_102_PROCESSING)
+            if value == '0':
+                return Response({'response': "creation is not done yet!"}, status=status.HTTP_200_OK)
             else:
                 values = json.loads(value)
                 backlogs = self.backlogService.getBacklogs(values.get("startIdx"), values.get("endIdx"))
