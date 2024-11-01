@@ -26,4 +26,7 @@ class ResultReportTitleRepositoryImpl(ResultReportTitleRepository):
 
     def getResultReportTitleByResultReport(self, report):
         return ResultReportTitle.objects.get(report=report)
+
+    def getSearchResultReportTitle(self, query):
+        return ResultReportTitle.objects.filter(title__icontains=query)
     
