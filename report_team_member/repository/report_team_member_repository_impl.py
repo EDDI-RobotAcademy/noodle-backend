@@ -30,3 +30,6 @@ class ResultReportTeamMemberRepositoryImpl(ResultReportTeamMemberRepository):
         resultReportTeamMemberList = [[member.name, member.role, member.department] for member in resultReportTeamMembers]
 
         return resultReportTeamMemberList
+
+    def getResultReportTeamMemberByResultReportTeamAndName(self, resultReportTeam, name):
+        return ResultReportTeamMember.objects.get(name=name, team=resultReportTeam)
