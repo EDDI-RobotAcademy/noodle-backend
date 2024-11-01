@@ -68,10 +68,10 @@ class BacklogServiceImpl(BacklogService):
         backlogList = []
         toDoList = []
         try:
-            for i in range(startIdx, endIdx):
+            for i in range(startIdx, endIdx + 1):
                 backlog = self.__backlogRepository.findById(i)
-                domain = self.__backlogDomainRepository.findById(backlog)
-                successCriteria = self.__backlogSuccessCriteriaRepository.findById(backlog)
+                domain = self.__backlogDomainRepository.findByBacklog(backlog)
+                successCriteria = self.__backlogSuccessCriteriaRepository.findByBacklog(backlog)
                 toDo = self.__backlogTodoRepository.findByBacklog(backlog)
                 for object in toDo:
                     toDoList.append(object.todo)
