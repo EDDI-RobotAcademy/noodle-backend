@@ -35,6 +35,9 @@ class BacklogRepositoryImpl(BacklogRepository):
             return backlog
         except ObjectDoesNotExist:
             raise ValueError(f"Backlog with id {backlogId} does not exist")
+        except Exception as e:
+            error = f'{e}:error while loading backlog'
+            raise error
 
     def getTotalNumberOfBacklog(self):
-        return len(Backlog.objects.all())
+        return Backlog.objects.count()
