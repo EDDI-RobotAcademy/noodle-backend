@@ -32,9 +32,23 @@ class ResultReportView(viewsets.ViewSet):
         return Response({"data": createdResultReportId}, status=status.HTTP_201_CREATED)
 
     def list(self, request):
-        resultReportList = self.resultReportService.list()
+        data = request.data
+        query = data.get('query', '').strip()
+        page = int(data.get('page', 1))
+        perPage = int(data.get('perPage', 10))
 
-        return Response({"data": resultReportList}, status=status.HTTP_200_OK)
+        print('query:', query)
+        print('page:', page)
+        print('perPage:', perPage)
+
+        offset = (page - 1) * perPage
+        limit = offset + perPage
+
+        resultReportList = self.resultReportService.list(query=query)
+        totalCount = len(resultReportList)
+
+        return Response({"resultReports": resultReportList[offset:limit], "totalCount": totalCount},
+                        status=status.HTTP_200_OK)
 
     def read(self, request):
         data = request.data

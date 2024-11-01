@@ -82,13 +82,47 @@ class ResultReportServiceImpl(ResultReportService):
 
         return report
 
-    def list(self):
-        resultReportList = self.__resultReportRepository.getAllResultReportList()
-        resultReportTitleList = self.__resultReportTitleRepository.getAllResultReportTitleList()
+    def list(self, query):
+        if not query:
+            resultReportList = self.__resultReportRepository.getAllResultReportList()
+            resultReportTitleList = self.__resultReportTitleRepository.getAllResultReportTitleList()
+        else:
+            resultReportTitleList = self.__resultReportTitleRepository.getSearchResultReportTitle(query)
+            resultReportList = []
+            for resultReportTitle in resultReportTitleList:
+                resultReport = self.__resultReportRepository.getReportById(resultReportTitle.id)
+                resultReportList.append(resultReport)
+
+        resultReportIdList = [resultReport.id for resultReport in resultReportList]
+        resultReportCreatorList = [resultReport.creator for resultReport in resultReportList]
+
+        resultReportTeamMemberDepartmentList = []
+        resultReportFeatureContentList = []
+
+        for i in range(len(resultReportList)):
+            resultReportTeam = (
+                self.__resultReportTeamRepository.getResultReportTeamByResultReport(resultReportList[i]))
+            resultReportTeamMember = (
+                self.__resultReportTeamMemberRepository.getResultReportTeamMemberByResultReportTeamAndName(
+                resultReportTeam, resultReportCreatorList[i]))
+            resultReportTeamMemberDepartmentList.append(resultReportTeamMember.department)
+
+            resultReportFeature = (
+                self.__resultReportFeatureRepository.getResultReportFeatureByResultReport(resultReportList[i]))
+            resultReportFeatureContent = (
+                self.__resultReportFeatureContentRepository.getResultReportFeatureListByResultReportFeature(resultReportFeature))
+            resultReportFeatureContentList.append(resultReportFeatureContent[0].content)
 
         result = []
-        for i in range(len(resultReportList)):
-            result.append([resultReportTitleList[i].title, resultReportList[i].creator, resultReportList[i].createdDate])
+        for i in range(len(resultReportIdList)):
+            data = {
+                'resultReportId': resultReportIdList[i],
+                'resultReportTitle': resultReportTitleList[i],
+                'creator': resultReportCreatorList[i],
+                'resultReportFeature': resultReportFeatureContentList[i],
+                'creatorDepartment': resultReportTeamMemberDepartmentList[i]
+            }
+            result.append(data)
 
         return result
 
