@@ -40,4 +40,4 @@ class BacklogRepositoryImpl(BacklogRepository):
             raise error
 
     def getTotalNumberOfBacklog(self):
-        return len(Backlog.objects.all())
+        return Backlog.objects.count()
