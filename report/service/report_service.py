@@ -3,7 +3,8 @@ from abc import abstractmethod, ABC
 
 class ResultReportService(ABC):
     @abstractmethod
-    def createResultReport(self, username, **kwargs):
+    def createResultReport(self, username, title, overview, teamMemberList,
+                           skillList, featureList, usage, improvementList, completionList):
         pass
 
     @abstractmethod

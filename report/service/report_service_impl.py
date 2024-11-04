@@ -56,29 +56,29 @@ class ResultReportServiceImpl(ResultReportService):
 
         return cls.__instance
 
-    def createResultReport(self, username, **kwargs):
+    def createResultReport(self, username, title, overview, teamMemberList,
+                           skillList, featureList, usage, improvementList, completionList):
         report = self.__resultReportRepository.create(username)
         modifier = self.__resultReportModifyRepository.create(report, username)
-        reportTitle = self.__resultReportTitleRepository.create(report, kwargs['title'])
-        reportOverview = self.__resultReportOverviewRepository.createResultReportOverview(kwargs['overview'], report)
+        reportTitle = self.__resultReportTitleRepository.create(report, title)
+        reportOverview = self.__resultReportOverviewRepository.createResultReportOverview(overview, report)
         # TODO: Frontend에서 Team 관련 내용 어떻게 넘길지 결정해야 함(AI Client에서는 Team 관련 내용을 생성하지 않기 때문)
         reportTeam = self.__resultReportTeamRepository.create(report)
-        reportTeamMember = self.__resultReportTeamMemberRepository.createResultReportTeamMember(kwargs['teamMember'], reportTeam)
+        reportTeamMember = self.__resultReportTeamMemberRepository.createResultReportTeamMember(teamMemberList, reportTeam)
         reportSkillSet = self.__resultReportSkillSetRepository.create(report)
-        # TODO: techStack 수정 필요(AI Client에서 techStack이 제대로 분할되지 않는 문제 확인, 수정 필요)
-        reportSkill = self.__resultReportSkillRepository.create(kwargs['skillList'], reportSkillSet)
+        reportSkill = self.__resultReportSkillRepository.create(skillList, reportSkillSet)
         reportFeature = self.__resultReportFeatureRepository.createResultReportFeature(report)
-        reportFeatureContent = self.__resultReportFeatureContentRepository.createResultReportFeatureContent(kwargs['featureList'], reportFeature)
-        reportUsage = self.__resultReportUsageRepository.createResultReportUsage(report, kwargs['usage'])
+        reportFeatureContent = self.__resultReportFeatureContentRepository.createResultReportFeatureContent(featureList, reportFeature)
+        reportUsage = self.__resultReportUsageRepository.createResultReportUsage(report, usage)
         reportImprovement = self.__resultReportImprovementRepository.createResultReportImprovement(report)
-        reportImprovementContent = self.__resultReportImprovementContentRepository.createResultReportImprovementContent(report, kwargs['improvement'])
+        reportImprovementContent = self.__resultReportImprovementContentRepository.createResultReportImprovementContent(report, improvementList)
         reportCompletion = self.__resultReportCompletionRepository.createResultReportCompletion(report)
         reportCompletionSecure = self.__resultReportCompletionSecureRepository.createResultReportCompletionSecure(
-            reportCompletion, kwargs['scoreList'][0][0], kwargs['scoreList'][0][1])
+            reportCompletion, completionList[0]['rate'], completionList[0]['feedback'])
         reportCompletionMaintain = self.__resultReportCompletionMaintainRepository.createResultReportCompletionMaintain(
-            reportCompletion, kwargs['scoreList'][1][0], kwargs['scoreList'][1][1])
+            reportCompletion, completionList[1]['rate'], completionList[1]['feedback'])
         reportCompletionTotal = self.__resultReportCompletionTotalRepository.createResultReportCompletionTotal(
-            reportCompletion, kwargs['scoreList'][2][0], kwargs['scoreList'][2][1])
+            reportCompletion, completionList[2]['rate'], completionList[2]['feedback'])
 
         return report
 
