@@ -18,7 +18,14 @@ class ResultReportView(viewsets.ViewSet):
     def createResultReport(self, request):
         data = request.data
         userToken = data.get("userToken")
-        message = data.get("message")
+        title = data.get("title")
+        overview = data.get("overview")
+        teamMemberList = data.get("teamMemberList")
+        skillList = data.get("skillList")
+        featureList = data.get("featureList")
+        usage = data.get("usage")
+        improvementList = data.get("improvementList")
+        completionList = data.get('completionList')
 
         if not userToken:
             return Response({"data": "userToken이 존재하지 않습니다!"}, status=status.HTTP_400_BAD_REQUEST)
@@ -27,7 +34,8 @@ class ResultReportView(viewsets.ViewSet):
         account = self.accountService.findAccountByAccountId(accountId)
         username = account.username
 
-        createdResultReportId = self.resultReportService.createResultReport(username, **message).id
+        createdResultReportId = self.resultReportService.createResultReport(
+            username, title, overview, teamMemberList, skillList, featureList, usage, improvementList, completionList).id
 
         return Response({"data": createdResultReportId}, status=status.HTTP_201_CREATED)
 
