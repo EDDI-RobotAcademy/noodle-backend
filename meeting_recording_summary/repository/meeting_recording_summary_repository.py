@@ -9,3 +9,7 @@ class MeetingRecordingSummaryRepository(ABC):
     @abstractmethod
     def getPagedSummaryList(self, offset, limit):
         pass
+
+    @abstractmethod
+    def getMeetingRecordingSummaryByMeetingRecordingSummaryId(self, meetingRecordingSummaryId):
+        pass

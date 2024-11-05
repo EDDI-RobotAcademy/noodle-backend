@@ -10,4 +10,5 @@ urlpatterns = [
     path("", include(router.urls)),
     path("create", ResultReportView.as_view({"post": "createResultReport"}), name="create-result-report"),
     path("list", ResultReportView.as_view({"post": "list"}), name="list-result-report"),
+    path("read/<int:resultReportId>", ResultReportView.as_view({"post": "read"}), name="read-result-report"),
 ]

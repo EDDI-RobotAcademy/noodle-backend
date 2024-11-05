@@ -43,4 +43,18 @@ class MeetingRecordingSummaryServiceImpl(MeetingRecordingSummaryService):
 
         return meetingRecordingSummaryList
 
+    def read(self, meetingRecordingSummaryId):
+        summary = (
+            self.__meetingRecordingSummaryRepository.getMeetingRecordingSummaryByMeetingRecordingSummaryId(meetingRecordingSummaryId))
+
+        meetingRecordingSummary = {
+            "id": summary.id,
+            "title": summary.title,
+            "writer": summary.writer,
+            "content": summary.content,
+            "regDate": summary.regDate
+        }
+
+        return meetingRecordingSummary
+
 
