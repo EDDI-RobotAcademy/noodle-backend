@@ -25,7 +25,16 @@ class ResultReportSkillRepositoryImpl(ResultReportSkillRepository):
         return resultReportSkillList
 
     def getResultReportSkillListByResultReportSkillSet(self, skillSet):
-        resultReportSkills = ResultReportSkill.object.filter(skillset=skillSet)
+        resultReportSkills = ResultReportSkill.objects.filter(skillset=skillSet)
         resultReportSkillList = [skill.skill for skill in resultReportSkills]
 
         return resultReportSkillList
+
+    def modify(self, skillObj, modifiedSkillList):
+        ResultReportSkill.objects.filter(skillset=skillObj).delete()
+
+        resultReportSkillList = [ResultReportSkill(skill=skill, skillset=skillObj) for skill in modifiedSkillList]
+        ResultReportSkill.objects.bulk_create(resultReportSkillList)
+
+    def delete(self, skillObj):
+        ResultReportSkill.objects.filter(skillset=skillObj).delete()

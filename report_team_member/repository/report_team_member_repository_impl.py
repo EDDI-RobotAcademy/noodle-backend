@@ -20,16 +20,33 @@ class ResultReportTeamMemberRepositoryImpl(ResultReportTeamMemberRepository):
 
     def createResultReportTeamMember(self, teamMember, resultReportTeam):
         resultReportTeamMemberList = [ResultReportTeamMember(
-            name=member['name'], role=member['role'], department=member['department'], team=resultReportTeam) for member in teamMember]
+            name=member['name'], role=member['role'], department=member['department'], team=resultReportTeam) for member
+            in teamMember]
 
         ResultReportTeamMember.objects.bulk_create(resultReportTeamMemberList)
         return resultReportTeamMemberList
 
     def getResultReportTeamMemberListByResultReportTeam(self, resultReportTeam):
         resultReportTeamMembers = ResultReportTeamMember.objects.filter(team=resultReportTeam)
-        resultReportTeamMemberList = [[member['name'], member['role'], member['department']] for member in resultReportTeamMembers]
+        resultReportTeamMemberList = [[member.name, member.role, member.department] for member in
+                                      resultReportTeamMembers]
 
         return resultReportTeamMemberList
 
     def getResultReportTeamMemberByResultReportTeamAndName(self, resultReportTeam, name):
-        return ResultReportTeamMember.objects.get(name=name, team=resultReportTeam)
+        try:
+            return ResultReportTeamMember.objects.get(name=name, team=resultReportTeam)
+        except ResultReportTeamMember.DoesNotExist:
+            return None
+
+    def modify(self, teamObj, modifiedMemberList):
+        ResultReportTeamMember.objects.filter(team=teamObj).delete()
+
+        resultReportTeamMemberList = [ResultReportTeamMember(
+            name=member['name'], role=member['role'], department=member['department'], team=teamObj) for member
+            in modifiedMemberList]
+
+        ResultReportTeamMember.objects.bulk_create(resultReportTeamMemberList)
+
+    def delete(self, teamObj):
+        ResultReportTeamMember.objects.filter(team=teamObj).delete()

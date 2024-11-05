@@ -25,3 +25,10 @@ class ResultReportOverviewRepositoryImpl(ResultReportOverviewRepository):
 
     def getResultReportOverviewByResultReport(self, report):
         return ResultReportOverview.objects.get(report=report)
+
+    def modify(self, obj, overview):
+        obj.overview = overview
+        obj.save()
+
+    def delete(self, obj):
+        ResultReportOverview.objects.get(report=obj).delete()

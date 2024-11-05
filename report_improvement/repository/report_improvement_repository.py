@@ -9,3 +9,7 @@ class ResultReportImprovementRepository(ABC):
     @abstractmethod
     def getResultReportImprovement(self, report):
         pass
+
+    @abstractmethod
+    def delete(self, report):
+        pass

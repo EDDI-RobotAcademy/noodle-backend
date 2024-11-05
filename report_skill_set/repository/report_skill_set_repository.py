@@ -1,5 +1,6 @@
 from abc import abstractmethod, ABC
 
+
 class ResultReportSkillSetRepository(ABC):
     @abstractmethod
     def getResultReportSkillSetByResultReport(self, report):
@@ -7,4 +8,8 @@ class ResultReportSkillSetRepository(ABC):
 
     @abstractmethod
     def create(self, report):
+        pass
+
+    @abstractmethod
+    def delete(self, report):
         pass

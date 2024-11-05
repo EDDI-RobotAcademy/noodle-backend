@@ -9,3 +9,7 @@ class ResultReportTeamRepository(ABC):
     @abstractmethod
     def getResultReportTeamByResultReport(self, report):
         pass
+
+    @abstractmethod
+    def delete(self, obj):
+        pass

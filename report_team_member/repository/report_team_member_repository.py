@@ -13,3 +13,11 @@ class ResultReportTeamMemberRepository(ABC):
     @abstractmethod
     def getResultReportTeamMemberByResultReportTeamAndName(self, resultReportTeam, name):
         pass
+
+    @abstractmethod
+    def modify(self, teamObj, modifiedMemberList):
+        pass
+
+    @abstractmethod
+    def delete(self, teamObj):
+        pass

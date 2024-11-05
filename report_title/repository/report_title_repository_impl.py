@@ -29,4 +29,10 @@ class ResultReportTitleRepositoryImpl(ResultReportTitleRepository):
 
     def getSearchResultReportTitle(self, query):
         return ResultReportTitle.objects.filter(title__icontains=query)
-    
+
+    def modify(self, obj, title):
+        obj.title = title
+        obj.save()
+
+    def delete(self, obj):
+        ResultReportTitle.objects.get(report=obj).delete()

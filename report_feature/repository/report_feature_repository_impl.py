@@ -22,4 +22,7 @@ class ResultReportFeatureRepositoryImpl(ResultReportFeatureRepository):
         return ResultReportFeature.objects.get(report=report)
 
     def createResultReportFeature(self, report):
-        ResultReportFeature.objects.create(report=report)
+        return ResultReportFeature.objects.create(report=report)
+
+    def delete(self, report):
+        ResultReportFeature.objects.get(report=report).delete()

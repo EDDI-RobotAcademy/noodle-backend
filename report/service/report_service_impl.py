@@ -64,21 +64,24 @@ class ResultReportServiceImpl(ResultReportService):
         reportOverview = self.__resultReportOverviewRepository.createResultReportOverview(overview, report)
         # TODO: Frontend에서 Team 관련 내용 어떻게 넘길지 결정해야 함(AI Client에서는 Team 관련 내용을 생성하지 않기 때문)
         reportTeam = self.__resultReportTeamRepository.create(report)
-        reportTeamMember = self.__resultReportTeamMemberRepository.createResultReportTeamMember(teamMemberList, reportTeam)
+        reportTeamMember = self.__resultReportTeamMemberRepository.createResultReportTeamMember(teamMemberList,
+                                                                                                reportTeam)
         reportSkillSet = self.__resultReportSkillSetRepository.create(report)
         reportSkill = self.__resultReportSkillRepository.create(skillList, reportSkillSet)
         reportFeature = self.__resultReportFeatureRepository.createResultReportFeature(report)
-        reportFeatureContent = self.__resultReportFeatureContentRepository.createResultReportFeatureContent(featureList, reportFeature)
+        reportFeatureContent = self.__resultReportFeatureContentRepository.createResultReportFeatureContent(featureList,
+                                                                                                            reportFeature)
         reportUsage = self.__resultReportUsageRepository.createResultReportUsage(report, usage)
         reportImprovement = self.__resultReportImprovementRepository.createResultReportImprovement(report)
-        reportImprovementContent = self.__resultReportImprovementContentRepository.createResultReportImprovementContent(report, improvementList)
+        reportImprovementContent = self.__resultReportImprovementContentRepository.createResultReportImprovementContent(
+            reportImprovement, improvementList)
         reportCompletion = self.__resultReportCompletionRepository.createResultReportCompletion(report)
         reportCompletionSecure = self.__resultReportCompletionSecureRepository.createResultReportCompletionSecure(
-            reportCompletion, completionList[0]['rate'], completionList[0]['feedback'])
+            reportCompletion, completionList[0][0], completionList[0][1])
         reportCompletionMaintain = self.__resultReportCompletionMaintainRepository.createResultReportCompletionMaintain(
-            reportCompletion, completionList[1]['rate'], completionList[1]['feedback'])
+            reportCompletion, completionList[1][0], completionList[1][1])
         reportCompletionTotal = self.__resultReportCompletionTotalRepository.createResultReportCompletionTotal(
-            reportCompletion, completionList[2]['rate'], completionList[2]['feedback'])
+            reportCompletion, completionList[2][0], completionList[2][1])
 
         return report
 
@@ -104,20 +107,24 @@ class ResultReportServiceImpl(ResultReportService):
                 self.__resultReportTeamRepository.getResultReportTeamByResultReport(resultReportList[i]))
             resultReportTeamMember = (
                 self.__resultReportTeamMemberRepository.getResultReportTeamMemberByResultReportTeamAndName(
-                resultReportTeam, resultReportCreatorList[i]))
-            resultReportTeamMemberDepartmentList.append(resultReportTeamMember.department)
+                    resultReportTeam, resultReportCreatorList[i]))
+            if resultReportTeamMember:
+                resultReportTeamMemberDepartmentList.append(resultReportTeamMember.department)
+            else:
+                resultReportTeamMemberDepartmentList.append(None)
 
             resultReportFeature = (
                 self.__resultReportFeatureRepository.getResultReportFeatureByResultReport(resultReportList[i]))
             resultReportFeatureContent = (
-                self.__resultReportFeatureContentRepository.getResultReportFeatureListByResultReportFeature(resultReportFeature))
-            resultReportFeatureContentList.append(resultReportFeatureContent[0].content)
+                self.__resultReportFeatureContentRepository.getResultReportFeatureListByResultReportFeature(
+                    resultReportFeature))
+            resultReportFeatureContentList.append(resultReportFeatureContent[0])
 
         result = []
         for i in range(len(resultReportIdList)):
             data = {
                 'resultReportId': resultReportIdList[i],
-                'resultReportTitle': resultReportTitleList[i],
+                'resultReportTitle': resultReportTitleList[i].title,
                 'creator': resultReportCreatorList[i],
                 'resultReportFeature': resultReportFeatureContentList[i],
                 'creatorDepartment': resultReportTeamMemberDepartmentList[i]
@@ -135,17 +142,22 @@ class ResultReportServiceImpl(ResultReportService):
         skillSet = self.__resultReportSkillSetRepository.getResultReportSkillSetByResultReport(report)
         skillList = self.__resultReportSkillRepository.getResultReportSkillListByResultReportSkillSet(skillSet)
         feature = self.__resultReportFeatureRepository.getResultReportFeatureByResultReport(report)
-        featureList = self.__resultReportFeatureContentRepository.getResultReportFeatureListByResultReportFeature(feature)
+        featureList = self.__resultReportFeatureContentRepository.getResultReportFeatureListByResultReportFeature(
+            feature)
         usage = self.__resultReportUsageRepository.getResultReportUsageByResultReport(report).content
         improvement = self.__resultReportImprovementRepository.getResultReportImprovement(report)
-        improvementList = self.__resultReportImprovementContentRepository.getResultReportImprovementListByResultReportImprovement(improvement)
+        improvementList = self.__resultReportImprovementContentRepository.getResultReportImprovementListByResultReportImprovement(
+            improvement)
         completion = self.__resultReportCompletionRepository.getResultRepositoryCompletionByResultReport(report)
-        secure = self.__resultReportCompletionSecureRepository.getResultReportCompletionSecureByResultReportCompletion(completion)
-        maintain = self.__resultReportCompletionMaintainRepository.getResultReportCompletionMaintainByResultReportCompletion(completion)
-        total = self.__resultReportCompletionTotalRepository.getResultReportCompletionTotalByResultReportCompletion(completion)
-        completionList = [["보안", secure.score, secure.content, "red"],
-                          ["유지 보수", maintain.score, maintain.content, "green"],
-                          ["종합", total.score, total.content, "blue"]]
+        secure = self.__resultReportCompletionSecureRepository.getResultReportCompletionSecureByResultReportCompletion(
+            completion)
+        maintain = self.__resultReportCompletionMaintainRepository.getResultReportCompletionMaintainByResultReportCompletion(
+            completion)
+        total = self.__resultReportCompletionTotalRepository.getResultReportCompletionTotalByResultReportCompletion(
+            completion)
+        completionList = [["보안", secure.score, secure.detail],
+                          ["유지 보수", maintain.score, maintain.detail],
+                          ["종합", total.score, total.detail]]
 
         return {
             "data": {
@@ -159,3 +171,80 @@ class ResultReportServiceImpl(ResultReportService):
                 "completionList": completionList
             }
         }
+
+    def modify(self, id, user, modifiedReport):
+        report = self.__resultReportRepository.getReportById(id)
+        realname = self.__resultReportModifyRepository.getModifierByResultReport(report).modifier
+        if realname == user:
+            titleObj = self.__resultReportTitleRepository.getResultReportTitleByResultReport(report)
+            self.__resultReportTitleRepository.modify(titleObj, modifiedReport['title'])
+
+            overviewObj = self.__resultReportOverviewRepository.getResultReportOverviewByResultReport(report)
+            self.__resultReportOverviewRepository.modify(overviewObj, modifiedReport['overview'])
+
+            teamObj = self.__resultReportTeamRepository.getResultReportTeamByResultReport(report)
+            self.__resultReportTeamMemberRepository.modify(teamObj, modifiedReport['teamMemberList'])
+
+            skillObj = self.__resultReportSkillSetRepository.getResultReportSkillSetByResultReport(report)
+            self.__resultReportSkillRepository.modify(skillObj, modifiedReport['skillList'])
+
+            featureObj = self.__resultReportFeatureRepository.getResultReportFeatureByResultReport(report)
+            self.__resultReportFeatureContentRepository.modify(featureObj, modifiedReport['featureList'])
+
+            usageObj = self.__resultReportUsageRepository.getResultReportUsageByResultReport(report)
+            self.__resultReportUsageRepository.modify(usageObj, modifiedReport['usage'])
+
+            improvementObj = self.__resultReportImprovementRepository.getResultReportImprovement(report)
+            self.__resultReportImprovementContentRepository.modify(improvementObj, modifiedReport['improvements'])
+
+            return True
+
+        else:
+            return False
+
+    def delete(self, id, user):
+        report = self.__resultReportRepository.getReportById(id)
+        realname = self.__resultReportModifyRepository.getModifierByResultReport(report).modifier
+        if realname == user:
+            self.__resultReportTitleRepository.delete(report)
+
+            self.__resultReportOverviewRepository.delete(report)
+
+            teamObj = self.__resultReportTeamRepository.getResultReportTeamByResultReport(report)
+            self.__resultReportTeamMemberRepository.delete(teamObj)
+            self.__resultReportTeamRepository.delete(report)
+
+            skillObj = self.__resultReportSkillSetRepository.getResultReportSkillSetByResultReport(report)
+            self.__resultReportSkillRepository.delete(skillObj)
+            self.__resultReportSkillSetRepository.delete(report)
+
+            featureObj = self.__resultReportFeatureRepository.getResultReportFeatureByResultReport(report)
+            self.__resultReportFeatureContentRepository.delete(featureObj)
+            self.__resultReportFeatureRepository.delete(report)
+
+            self.__resultReportUsageRepository.delete(report)
+
+            improvementObj = self.__resultReportImprovementRepository.getResultReportImprovement(report)
+            self.__resultReportImprovementContentRepository.delete(improvementObj)
+            self.__resultReportImprovementRepository.delete(report)
+
+            completionObj = self.__resultReportCompletionRepository.getResultRepositoryCompletionByResultReport(report)
+            self.__resultReportCompletionSecureRepository.delete(completionObj)
+            self.__resultReportCompletionMaintainRepository.delete(completionObj)
+            self.__resultReportCompletionTotalRepository.delete(completionObj)
+            self.__resultReportCompletionRepository.delete(report)
+
+            self.__resultReportModifyRepository.delete(report)
+            self.__resultReportRepository.delete(id)
+            return True
+
+        else:
+            return False
+
+    def validateUser(self, id, user):
+        report = self.__resultReportRepository.getReportById(id)
+        realname = self.__resultReportModifyRepository.getModifierByResultReport(report).modifier
+        if user == realname:
+            return True
+        else:
+            return False

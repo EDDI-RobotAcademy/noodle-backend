@@ -17,3 +17,11 @@ class ResultReportTitleRepository(ABC):
     @abstractmethod
     def getSearchResultReportTitle(self, query):
         pass
+
+    @abstractmethod
+    def modify(self, obj, title):
+        pass
+
+    @abstractmethod
+    def delete(self, obj):
+        pass

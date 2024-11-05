@@ -1,6 +1,7 @@
 from report_improvement.entity.report_improvement import ResultReportImprovement
 from report_improvement.repository.report_improvement_repository import ResultReportImprovementRepository
 
+
 class ResultReportImprovementRepositoryImpl(ResultReportImprovementRepository):
     __instance = None
 
@@ -18,7 +19,10 @@ class ResultReportImprovementRepositoryImpl(ResultReportImprovementRepository):
         return cls.__instance
 
     def createResultReportImprovement(self, report):
-        ResultReportImprovement.objects.create(report=report)
+        return ResultReportImprovement.objects.create(report=report)
 
     def getResultReportImprovement(self, report):
         return ResultReportImprovement.objects.get(report=report)
+
+    def delete(self, report):
+        ResultReportImprovement.objects.get(report=report).delete()

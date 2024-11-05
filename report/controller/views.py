@@ -35,7 +35,8 @@ class ResultReportView(viewsets.ViewSet):
         username = account.username
 
         createdResultReportId = self.resultReportService.createResultReport(
-            username, title, overview, teamMemberList, skillList, featureList, usage, improvementList, completionList).id
+            username, title, overview, teamMemberList, skillList, featureList, usage, improvementList,
+            completionList).id
 
         return Response({"data": createdResultReportId}, status=status.HTTP_201_CREATED)
 
@@ -65,3 +66,65 @@ class ResultReportView(viewsets.ViewSet):
         resultReport = self.resultReportService.read(resultReportId)
 
         return Response(resultReport, status=status.HTTP_200_OK)
+
+    def modify(self, request):
+        try:
+            data = request.data
+            resultReportId = data.get('id')
+
+            userToken = data.get('userToken')
+            accountId = self.redisService.getValueByKey(userToken)
+            account = self.accountService.findAccountByAccountId(accountId)
+            username = account.username
+
+            modifiedReport = data.get('modifiedReport')
+            print(modifiedReport)
+
+            bool = self.resultReportService.modify(resultReportId, username, modifiedReport)
+            if bool == True:
+                return Response(status=status.HTTP_200_OK)
+            else:
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def delete(self, request):
+        try:
+            data = request.data
+            resultReportId = data.get('resultReportId')
+
+            userToken = data.get('userToken')
+            accountId = self.redisService.getValueByKey(userToken)
+            account = self.accountService.findAccountByAccountId(accountId)
+            username = account.username
+
+            bool = self.resultReportService.delete(resultReportId, username)
+            if bool == True:
+                return Response(status=status.HTTP_200_OK)
+            else:
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def validation(self, request):
+        try:
+            data = request.data
+            id = data.get('id')
+            userToken = data.get('userToken')
+            accountId = self.redisService.getValueByKey(userToken)
+            account = self.accountService.findAccountByAccountId(accountId)
+            username = account.username
+
+            bool = self.resultReportService.validateUser(id, username)
+
+            if bool == True:
+                return Response(True, status=status.HTTP_200_OK)
+            else:
+                return Response(False, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            print(e)
+            return Response(False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
