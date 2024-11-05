@@ -47,3 +47,18 @@ class MeetingRecordingSummaryView(viewsets.ViewSet):
         meetingRecordingSummaryList = self.meetingRecordingSummaryService.list(offset, limit)
 
         return Response(data={'meetingRecordingSummaryList': meetingRecordingSummaryList}, status=status.HTTP_200_OK)
+
+    def read(self, request):
+        data = request.data
+        userToken = data.get("userToken")
+        meetingRecordingSummaryId = data.get("meetingRecordingSummaryId")
+
+        try:
+            accountId = self.redisService.getValueByKey(userToken)
+        except Exception as e:
+            print("회의록 읽는 중 에러 발생:", e)
+            raise e
+
+        meetingRecordingSummary = self.meetingRecordingSummaryService.read(meetingRecordingSummaryId)
+
+        return Response(data={'meetingRecordingSummary': meetingRecordingSummary}, status=status.HTTP_200_OK)

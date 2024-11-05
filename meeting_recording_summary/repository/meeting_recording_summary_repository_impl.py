@@ -28,4 +28,9 @@ class MeetingRecordingSummaryRepositoryImpl(MeetingRecordingSummaryRepository):
 
         return meetingRecordingSummaryList
 
+    def getMeetingRecordingSummaryByMeetingRecordingSummaryId(self, meetingRecordingSummaryId):
+        meetingRecordingSummary = MeetingRecordingSummary.objects.get(id=meetingRecordingSummaryId)
+
+        return meetingRecordingSummary
+
 

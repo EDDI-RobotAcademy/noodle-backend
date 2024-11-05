@@ -9,3 +9,7 @@ class MeetingRecordingSummaryService(ABC):
     @abstractmethod
     def list(self, offset, limit):
         pass
+
+    @abstractmethod
+    def read(self, meetingRecordingSummaryId):
+        pass
