@@ -32,8 +32,8 @@ class MeetingRecordingSummaryView(viewsets.ViewSet):
     def list(self, request):
         data = request.data
         userToken = data.get('userToken')
-        page = data.get('data')
-        perPage = data.get('perPage')
+        page = data.get('page', 1)
+        perPage = data.get('perPage', 10)
 
         try:
             accountId = self.redisService.getValueByKey(userToken)
