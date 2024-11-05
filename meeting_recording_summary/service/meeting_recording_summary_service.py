@@ -5,3 +5,7 @@ class MeetingRecordingSummaryService(ABC):
     @abstractmethod
     def create(self, accountId, title, content):
         pass
+
+    @abstractmethod
+    def list(self, offset, limit):
+        pass
