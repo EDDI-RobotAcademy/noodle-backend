@@ -127,4 +127,4 @@ class ResultReportView(viewsets.ViewSet):
 
         except Exception as e:
             print(e)
-            return Response(False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(False, status=status.HTTP_200_OK)
