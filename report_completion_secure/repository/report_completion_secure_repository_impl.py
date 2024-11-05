@@ -1,5 +1,6 @@
 from report_completion_secure.entity.report_completion_secure import ResultReportCompletionSecure
-from report_completion_secure.repository.report_completion_secure_repository import ResultReportCompletionSecureRepository
+from report_completion_secure.repository.report_completion_secure_repository import \
+    ResultReportCompletionSecureRepository
 
 
 class ResultReportCompletionSecureRepositoryImpl(ResultReportCompletionSecureRepository):
@@ -19,8 +20,10 @@ class ResultReportCompletionSecureRepositoryImpl(ResultReportCompletionSecureRep
         return cls.__instance
 
     def createResultReportCompletionSecure(self, completion, score, detail):
-        ResultReportCompletionSecure.objects.crate(completion=completion, score=score, detail=detail)
+        ResultReportCompletionSecure.objects.create(completion=completion, score=score, detail=detail)
 
     def getResultReportCompletionSecureByResultReportCompletion(self, completion):
         return ResultReportCompletionSecure.objects.get(completion=completion)
 
+    def delete(self, completionObj):
+        ResultReportCompletionSecure.objects.get(completion=completionObj).delete()

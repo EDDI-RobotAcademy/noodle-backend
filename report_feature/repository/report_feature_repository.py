@@ -9,3 +9,7 @@ class ResultReportFeatureRepository(ABC):
     @abstractmethod
     def createResultReportFeature(self, report):
         pass
+
+    @abstractmethod
+    def delete(self, report):
+        pass

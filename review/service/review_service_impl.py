@@ -66,7 +66,7 @@ class ReviewServiceImpl(ReviewService):
                 "regDate": review.regDate.astimezone(datetime.timezone(datetime.timedelta(hours=9))).strftime(
                     '%Y-%m-%d %H:%M:%S'),
                 "design": review.design,
-                "using": review.design,
+                "using": review.using,
                 "speed": review.speed,
                 "quality": review.quality,
                 "content": review.content

@@ -30,4 +30,13 @@ class ResultReportFeatureContentRepositoryImpl(ResultReportFeatureContentReposit
         resultReportFeatureList = [feature.content for feature in resultReportFeatures]
 
         return resultReportFeatureList
-    
+
+    def modify(self, featureObj, featureList):
+        ResultReportFeatureContent.objects.filter(feature=featureObj).delete()
+
+        resultReportFeatureContentList = [ResultReportFeatureContent(content=content, feature=featureObj)
+                                          for content in featureList]
+        ResultReportFeatureContent.objects.bulk_create(resultReportFeatureContentList)
+
+    def delete(self, featureObj):
+        ResultReportFeatureContent.objects.filter(feature=featureObj).delete()

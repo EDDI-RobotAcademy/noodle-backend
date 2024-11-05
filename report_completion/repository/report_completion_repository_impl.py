@@ -22,4 +22,7 @@ class ResultReportCompletionRepositoryImpl(ResultReportCompletionRepository):
         return ResultReportCompletion.objects.get(report=report)
 
     def createResultReportCompletion(self, report):
-        ResultReportCompletion.objects.create(report=report)
+        return ResultReportCompletion.objects.create(report=report)
+
+    def delete(self, report):
+        ResultReportCompletion.objects.get(report=report).delete()

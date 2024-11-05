@@ -9,3 +9,11 @@ class ResultReportUsageRepository(ABC):
     @abstractmethod
     def getResultReportUsageByResultReport(self, report):
         pass
+
+    @abstractmethod
+    def modify(self, usageObj, usages):
+        pass
+
+    @abstractmethod
+    def delete(self, report):
+        pass

@@ -27,4 +27,6 @@ class ResultReportRepositoryImpl(ResultReportRepository):
     def getAllResultReportList(self):
         return ResultReport.objects.all()
 
+    def delete(self, id):
+        ResultReport.objects.get(id=id).delete()
 

@@ -13,3 +13,7 @@ class ResultReportRepository(ABC):
     @abstractmethod
     def getAllResultReportList(self):
         pass
+
+    @abstractmethod
+    def delete(self, id):
+        pass

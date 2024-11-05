@@ -9,3 +9,11 @@ class ResultReportFeatureContentRepository(ABC):
     @abstractmethod
     def getResultReportFeatureListByResultReportFeature(self, feature):
         pass
+
+    @abstractmethod
+    def modify(self, featureObj, featureList):
+        pass
+
+    @abstractmethod
+    def delete(self, featureObj):
+        pass

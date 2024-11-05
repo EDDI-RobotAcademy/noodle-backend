@@ -9,3 +9,7 @@ class ResultReportCompletionSecureRepository(ABC):
     @abstractmethod
     def getResultReportCompletionSecureByResultReportCompletion(self, completion):
         pass
+
+    @abstractmethod
+    def delete(self, completionObj):
+        pass

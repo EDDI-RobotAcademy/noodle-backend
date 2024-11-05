@@ -14,3 +14,15 @@ class ResultReportService(ABC):
     @abstractmethod
     def read(self, resultReportId):
         pass
+
+    @abstractmethod
+    def modify(self, id, user, modifiedReport):
+        pass
+
+    @abstractmethod
+    def delete(self, id, user):
+        pass
+
+    @abstractmethod
+    def validateUser(self, id, user):
+        pass

@@ -1,5 +1,6 @@
 from report_improvement_content.entity.report_improvement_content import ResultReportImprovementContent
-from report_improvement_content.repository.report_improvement_content_repository import ResultReportImprovementContentRepository
+from report_improvement_content.repository.report_improvement_content_repository import \
+    ResultReportImprovementContentRepository
 
 
 class ResultReportImprovementContentRepositoryImpl(ResultReportImprovementContentRepository):
@@ -19,7 +20,7 @@ class ResultReportImprovementContentRepositoryImpl(ResultReportImprovementConten
         return cls.__instance
 
     def createResultReportImprovementContent(self, report, reportImprovementContentList):
-        resultReportImprovementContentList = [ResultReportImprovementContent(content=content, report=report)
+        resultReportImprovementContentList = [ResultReportImprovementContent(content=content, improvement=report)
                                               for content in reportImprovementContentList]
         ResultReportImprovementContent.objects.bulk_create(resultReportImprovementContentList)
 
@@ -30,3 +31,14 @@ class ResultReportImprovementContentRepositoryImpl(ResultReportImprovementConten
         resultReportImprovementList = [improvement.content for improvement in resultReportImprovements]
 
         return resultReportImprovementList
+
+    def modify(self, improvementObj, improvements):
+        ResultReportImprovementContent.objects.filter(improvement=improvementObj).delete()
+
+        resultReportImprovementContentList = [
+            ResultReportImprovementContent(content=content, improvement=improvementObj)
+            for content in improvements]
+        ResultReportImprovementContent.objects.bulk_create(resultReportImprovementContentList)
+
+    def delete(self, improvementObj):
+        ResultReportImprovementContent.objects.filter(improvement=improvementObj).delete()

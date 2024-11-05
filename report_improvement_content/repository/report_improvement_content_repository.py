@@ -9,3 +9,11 @@ class ResultReportImprovementContentRepository(ABC):
     @abstractmethod
     def getResultReportImprovementListByResultReportImprovement(self, improvement):
         pass
+
+    @abstractmethod
+    def modify(self, improvementObj, improvements):
+        pass
+
+    @abstractmethod
+    def delete(self, improvementObj):
+        pass

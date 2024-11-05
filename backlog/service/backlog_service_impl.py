@@ -66,15 +66,16 @@ class BacklogServiceImpl(BacklogService):
 
     def getBacklogs(self, startIdx, endIdx):
         backlogList = []
-        toDoList = []
         try:
             for i in range(startIdx, endIdx + 1):
+                toDoList = []
                 backlog = self.__backlogRepository.findById(i)
                 domain = self.__backlogDomainRepository.findByBacklog(backlog)
                 successCriteria = self.__backlogSuccessCriteriaRepository.findByBacklog(backlog)
                 toDo = self.__backlogTodoRepository.findByBacklog(backlog)
                 for object in toDo:
                     toDoList.append(object.todo)
+                    print(toDoList)
 
                 backlogList.append({
                     "Title": backlog.title,
@@ -82,6 +83,7 @@ class BacklogServiceImpl(BacklogService):
                     "Domain Separation": domain.domain,
                     "Task List": toDoList
                 })
+                print(backlogList)
 
             return backlogList
 

@@ -9,3 +9,7 @@ class ResultReportCompletionMaintainRepository(ABC):
     @abstractmethod
     def getResultReportCompletionMaintainByResultReportCompletion(self, completion):
         pass
+
+    @abstractmethod
+    def delete(self, completionObj):
+        pass

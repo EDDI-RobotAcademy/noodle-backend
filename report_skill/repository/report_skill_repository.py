@@ -9,3 +9,11 @@ class ResultReportSkillRepository(ABC):
     @abstractmethod
     def getResultReportSkillListByResultReportSkillSet(self, skillSet):
         pass
+
+    @abstractmethod
+    def modify(self, skillObj, modifiedSkillList):
+        pass
+
+    @abstractmethod
+    def delete(self, skillObj):
+        pass

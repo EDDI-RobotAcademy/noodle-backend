@@ -1,6 +1,7 @@
 from report_completion_total.entity.report_completion_total import ResultReportCompletionTotal
 from report_completion_total.repository.report_completion_total_repository import ResultReportCompletionTotalRepository
 
+
 class ResultReportCompletionTotalRepositoryImpl(ResultReportCompletionTotalRepository):
     __instance = None
 
@@ -22,3 +23,6 @@ class ResultReportCompletionTotalRepositoryImpl(ResultReportCompletionTotalRepos
 
     def getResultReportCompletionTotalByResultReportCompletion(self, completion):
         return ResultReportCompletionTotal.objects.get(completion=completion)
+
+    def delete(self, completionObj):
+        ResultReportCompletionTotal.objects.get(completion=completionObj).delete()

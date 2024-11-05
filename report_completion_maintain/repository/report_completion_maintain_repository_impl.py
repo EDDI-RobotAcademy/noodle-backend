@@ -1,5 +1,7 @@
 from report_completion_maintain.entity.report_completion_maintain import ResultReportCompletionMaintain
-from report_completion_maintain.repository.report_completion_maintain_repository import ResultReportCompletionMaintainRepository
+from report_completion_maintain.repository.report_completion_maintain_repository import \
+    ResultReportCompletionMaintainRepository
+
 
 class ResultReportCompletionMaintainRepositoryImpl(ResultReportCompletionMaintainRepository):
     __instance = None
@@ -22,3 +24,6 @@ class ResultReportCompletionMaintainRepositoryImpl(ResultReportCompletionMaintai
 
     def getResultReportCompletionMaintainByResultReportCompletion(self, completion):
         return ResultReportCompletionMaintain.objects.get(completion=completion)
+
+    def delete(self, completionObj):
+        ResultReportCompletionMaintain.objects.get(completion=completionObj).delete()

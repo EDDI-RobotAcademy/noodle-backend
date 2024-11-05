@@ -23,3 +23,10 @@ class ResultReportUsageRepositoryImpl(ResultReportUsageRepository):
 
     def getResultReportUsageByResultReport(self, report):
         return ResultReportUsage.objects.get(report=report)
+
+    def modify(self, usageObj, usages):
+        usageObj.content = usages
+        usageObj.save()
+
+    def delete(self, report):
+        ResultReportUsage.objects.get(report=report).delete()

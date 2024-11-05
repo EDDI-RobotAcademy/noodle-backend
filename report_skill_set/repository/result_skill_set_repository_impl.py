@@ -22,4 +22,7 @@ class ResultReportSkillSetRepositoryImpl(ResultReportSkillSetRepository):
         return ResultReportSkillSet.objects.get(report=report)
 
     def create(self, report):
-        ResultReportSkillSet.objects.create(report=report)
+        return ResultReportSkillSet.objects.create(report=report)
+
+    def delete(self, report):
+        ResultReportSkillSet.objects.get(report=report).delete()
