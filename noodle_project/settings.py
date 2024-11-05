@@ -78,7 +78,8 @@ INSTALLED_APPS = [
     "ai_request",
     "get_result_report",
     "get_meeting_recording_summary",
-    "subscription"
+    "subscription",
+    "meeting_recording_summary",
 ]
 
 MIDDLEWARE = [
