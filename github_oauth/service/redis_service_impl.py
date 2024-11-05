@@ -60,3 +60,11 @@ class RedisServiceImpl(RedisService):
         key = userToken + ':backlog-creation'
         flag = self.redis_client.get(key)
         return flag
+
+    def setSubscriptionRemainingTime(self, userToken, value):
+        key = userToken + ':remaining-subscription-time'
+        self.redis_client.set(key, value, ex=2592000)
+
+    def checkSubscription(self, userToken):
+        key = userToken + ':remaining-subscription-time'
+        return self.redis_client.get(key)

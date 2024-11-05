@@ -17,3 +17,11 @@ class RedisService(ABC):
     @abstractmethod
     def getBacklogCreationFlag(self, userToken):
         pass
+
+    @abstractmethod
+    def setSubscriptionRemainingTime(self, userToken, ticketType):
+        pass
+
+    @abstractmethod
+    def checkSubscription(self, userToken):
+        pass
