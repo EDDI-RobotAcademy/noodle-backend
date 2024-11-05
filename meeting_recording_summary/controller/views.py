@@ -28,3 +28,22 @@ class MeetingRecordingSummaryView(viewsets.ViewSet):
         meetingRecordingSummary = self.meetingRecordingSummaryService.create(accountId, title, content)
 
         return Response(data={'meetingRecordingSummaryId': meetingRecordingSummary.id}, status=status.HTTP_201_CREATED)
+
+    def list(self, request):
+        data = request.data
+        userToken = data.get('userToken')
+        page = data.get('data')
+        perPage = data.get('perPage')
+
+        try:
+            accountId = self.redisService.getValueByKey(userToken)
+        except Exception as e:
+            print("회의록 리스트 불러오는 중 에러 발생:", e)
+            raise e
+
+        offset = (page - 1) * perPage
+        limit = offset + perPage
+
+        meetingRecordingSummaryList = self.meetingRecordingSummaryService.list(offset, limit)
+
+        return Response(data={'meetingRecordingSummaryList': meetingRecordingSummaryList}, status=status.HTTP_200_OK)

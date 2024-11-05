@@ -23,4 +23,9 @@ class MeetingRecordingSummaryRepositoryImpl(MeetingRecordingSummaryRepository):
 
         return meetingRecordingSummary
 
+    def getPagedSummaryList(self, offset, limit):
+        meetingRecordingSummaryList = MeetingRecordingSummary.objects.all().order_by("-regDate")[offset:limit]
+
+        return meetingRecordingSummaryList
+
 

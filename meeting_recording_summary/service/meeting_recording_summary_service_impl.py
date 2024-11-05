@@ -28,4 +28,19 @@ class MeetingRecordingSummaryServiceImpl(MeetingRecordingSummaryService):
 
         return meetingRecordingSummary
 
+    def list(self, offset, limit):
+        summaryList = self.__meetingRecordingSummaryRepository.getPagedSummaryList(offset, limit)
+        meetingRecordingSummaryList = []
+
+        for summary in summaryList:
+            meetingRecordingSummaryList.append({
+                'id': summary.id,
+                'title': summary.title,
+                'writer': summary.writer,
+                'content': summary.content,
+                'regData': summary.regDate
+            })
+
+        return meetingRecordingSummaryList
+
 
