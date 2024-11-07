@@ -14,7 +14,7 @@ class GetMeetingRecordingSummaryView(viewsets.ViewSet):
 
     def getMeetingRecordingSummaryToFastAPI(self, request):
         data = request.data
-        userToken = data.get('userToken')
+        userToken = data.get('userToken')['userToken']
         print(f'getMeetingRecordingSummaryToFastAPI() userToken: {userToken}')
 
         try:
@@ -25,4 +25,3 @@ class GetMeetingRecordingSummaryView(viewsets.ViewSet):
         except Exception as e:
             print("getMeetingRecordingSummaryToFastAPI() 중 에러 발생:", e)
             raise e
-
