@@ -9,7 +9,11 @@ router.register(f'github_oauth', OauthView, basename='github_oauth')
 urlpatterns = [
     path('', include(router.urls)),
     path('github', OauthView.as_view({'get': 'githubOauthURI'}), name='get-github-oauth-uri'),
-    path('github/access-token', OauthView.as_view({'post': 'githubAccessTokenURL'}), name="get-github-access-token-url"),
+    path('github/access-token', OauthView.as_view({'post': 'githubAccessTokenURL'}),
+         name="get-github-access-token-url"),
     path('github/logout', OauthView.as_view({'post': 'dropRedisTokenForLogout'}), name="github-logout"),
-    path('github/check-access-token', OauthView.as_view({'post':'checkRedisAccessToken'}), name='get-redis-access-token')
+    path('github/usertoken-validation', OauthView.as_view({'post': 'checkUserTokenValid'}),
+         name='check-userToken-valid'),
+    path("is-modifying-allowed-user", OauthView.as_view({"post": "isModifyingAllowedUser"}),
+         name="is-modifying-allowed-user"),
 ]

@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
 
 from backlog_success_criteria.entity.backlog_success_criteria import BacklogSuccessCriteria
@@ -29,3 +30,15 @@ class BacklogSuccessCriteriaRepositoryImpl(BacklogSuccessCriteriaRepository):
 
         except IntegrityError:
             return None
+
+    def findByBacklog(self, backlog):
+        try:
+            successCriteria = BacklogSuccessCriteria.objects.get(backlog=backlog)
+            return successCriteria
+
+        except ObjectDoesNotExist:
+            raise ValueError(f"No backlog domain found for backlog ID {backlog.id}")
+
+        except Exception as e:
+            print(f"Error getting backlog status: {e}")
+            raise e

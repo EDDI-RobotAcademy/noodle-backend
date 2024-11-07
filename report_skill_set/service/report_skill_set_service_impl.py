@@ -1,3 +1,6 @@
+from django.db.models.expressions import result
+
+from report.repository.report_repository_impl import ResultReportRepositoryImpl
 from report_skill_set.repository.result_skill_set_repository_impl import ResultReportSkillSetRepositoryImpl
 from report_skill_set.service.report_skill_set_service import ResultReportSkillSetService
 
@@ -9,6 +12,7 @@ class ResultReportSkillSetServiceImpl(ResultReportSkillSetService):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
             cls.__instance.__resultReportSkillSetRepository = ResultReportSkillSetRepositoryImpl.getInstance()
+            cls.__instance.__resultReportRepository = ResultReportRepositoryImpl.getInstance()
 
         return cls.__instance
 
@@ -20,4 +24,5 @@ class ResultReportSkillSetServiceImpl(ResultReportSkillSetService):
         return cls.__instance
 
     def createResultReportSkillSet(self, resultReportId):
-        self.__resultReportSkillSetRepository.create(resultReportId)
+        report = self.__resultReportRepository.getReportById(resultReportId)
+        self.__resultReportSkillSetRepository.create(report)

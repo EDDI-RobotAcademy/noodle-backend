@@ -8,3 +8,7 @@ class BacklogDomainRepository(ABC):
     @abstractmethod
     def modify(self, backlog, domain):
         pass
+
+    @abstractmethod
+    def findByBacklog(self, backlog):
+        pass

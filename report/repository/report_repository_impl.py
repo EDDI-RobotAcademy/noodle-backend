@@ -18,7 +18,15 @@ class ResultReportRepositoryImpl(ResultReportRepository):
 
         return cls.__instance
 
+    def getReportById(self, id):
+        return ResultReport.objects.get(id=id)
+
     def create(self, creator):
         return ResultReport.objects.create(creator=creator)
 
+    def getAllResultReportList(self):
+        return ResultReport.objects.all()
+
+    def delete(self, id):
+        ResultReport.objects.get(id=id).delete()
 

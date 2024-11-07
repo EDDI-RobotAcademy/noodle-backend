@@ -18,5 +18,11 @@ class ResultReportSkillSetRepositoryImpl(ResultReportSkillSetRepository):
 
         return cls.__instance
 
-    def create(self, resultReportId):
-        ResultReportSkillSet.objects.create(report_id=resultReportId)
+    def getResultReportSkillSetByResultReport(self, report):
+        return ResultReportSkillSet.objects.get(report=report)
+
+    def create(self, report):
+        return ResultReportSkillSet.objects.create(report=report)
+
+    def delete(self, report):
+        ResultReportSkillSet.objects.get(report=report).delete()

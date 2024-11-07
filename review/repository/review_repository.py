@@ -49,3 +49,15 @@ class ReviewRepository(ABC):
     @abstractmethod
     def createNewSelectionReviewListId(self):
         pass
+
+    @abstractmethod
+    def modifySelectionReview(self, review, ratingList, content):
+        pass
+
+    @abstractmethod
+    def modifyWritingReview(self, review, title, content):
+        pass
+
+    @abstractmethod
+    def deleteReview(self, reviewID):
+        pass

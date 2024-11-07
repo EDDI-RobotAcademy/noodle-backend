@@ -18,6 +18,21 @@ class ResultReportTitleRepositoryImpl(ResultReportTitleRepository):
 
         return cls.__instance
 
-    def create(self, resultReportId, title):
-        ResultReportTitle.objects.create(report_id=resultReportId, title=title)
-    
+    def create(self, report, title):
+        ResultReportTitle.objects.create(report=report, title=title)
+
+    def getAllResultReportTitleList(self):
+        return ResultReportTitle.objects.all()
+
+    def getResultReportTitleByResultReport(self, report):
+        return ResultReportTitle.objects.get(report=report)
+
+    def getSearchResultReportTitle(self, query):
+        return ResultReportTitle.objects.filter(title__icontains=query)
+
+    def modify(self, obj, title):
+        obj.title = title
+        obj.save()
+
+    def delete(self, obj):
+        ResultReportTitle.objects.get(report=obj).delete()

@@ -19,12 +19,12 @@ class BacklogRepositoryImpl(BacklogRepository):
             cls.__instance = cls()
         return cls.__instance
 
-    def create(self, title):
-        try:
-            backlog = Backlog(title=title)
-            backlog.save()
+    def create(self, titleList):
+        backlogs = [Backlog(title=title) for title in titleList]
 
-            return backlog
+        try:
+            backlogList = Backlog.objects.bulk_create(backlogs)
+            return backlogList
 
         except IntegrityError:
             return None
@@ -35,3 +35,9 @@ class BacklogRepositoryImpl(BacklogRepository):
             return backlog
         except ObjectDoesNotExist:
             raise ValueError(f"Backlog with id {backlogId} does not exist")
+        except Exception as e:
+            error = f'{e}:error while loading backlog'
+            raise error
+
+    def getTotalNumberOfBacklog(self):
+        return Backlog.objects.count()

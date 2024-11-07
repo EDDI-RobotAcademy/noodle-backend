@@ -18,5 +18,11 @@ class ResultReportTeamRepositoryImpl(ResultReportTeamRepository):
 
         return cls.__instance
 
-    def create(self, resultReportId):
-        ResultReportTeam.objects.create(report_id=resultReportId)
+    def create(self, resultReport):
+        return ResultReportTeam.objects.create(report=resultReport)
+
+    def getResultReportTeamByResultReport(self, report):
+        return ResultReportTeam.objects.get(report=report)
+
+    def delete(self, obj):
+        ResultReportTeam.objects.get(report=obj).delete()

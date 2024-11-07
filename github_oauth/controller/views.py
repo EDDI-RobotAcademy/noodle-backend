@@ -66,20 +66,35 @@ class OauthView(viewsets.ViewSet):
         except Exception as e:
             print('Error storing access token in Redis:', e)
 
-    def checkRedisAccessToken(self, request):
+    def checkUserTokenValid(self, request):
         try:
             userToken = request.data.get('userToken')
             accountId = self.redisService.getValueByKey(userToken)
             print(f"accountId: {accountId}")
-
-            accessToken = self.redisService.getValueByKey(accountId)
-
+            if accountId == None:
+                raise Exception
             return Response({"response": True}, status=status.HTTP_200_OK)
         except Exception as e:
             print("Error getting access token in Redis:", e)
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'response': False}, status=status.HTTP_200_OK)
 
-    # TODO: 로그아웃 기능 프론트와 연동할 것
+    def isModifyingAllowedUser(self, request):
+        try:
+            userToken = request.data.get('userToken')
+            userName = request.data.get('userName')
+            if userToken == 'anonymous':
+                return Response({'response': False}, status=status.HTTP_200_OK)
+            accountId = self.redisService.getValueByKey(userToken)
+            account = self.accountService.findAccountByAccountId(accountId)
+            if account.username == userName:
+                return Response({'response': True}, status=status.HTTP_200_OK)
+            else:
+                return Response({'response': False}, status=status.HTTP_200_OK)
+
+
+        except Exception as e:
+            return Response({'response': False}, status=status.HTTP_200_OK)
+
     def dropRedisTokenForLogout(self, request):
         try:
             userToken = request.data.get('userToken')

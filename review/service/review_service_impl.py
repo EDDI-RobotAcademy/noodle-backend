@@ -21,6 +21,7 @@ class ReviewServiceImpl(ReviewService):
 
     def reviewList(self, pageCount, countsPerPage):
         count = self.__reviewRepository.getEntireReviewListCount()
+        print(type(pageCount))
         endIndex = count - ((pageCount - 1) * countsPerPage)
         startIndex = count - (pageCount * countsPerPage)
         if startIndex < 0:
@@ -65,7 +66,7 @@ class ReviewServiceImpl(ReviewService):
                 "regDate": review.regDate.astimezone(datetime.timezone(datetime.timedelta(hours=9))).strftime(
                     '%Y-%m-%d %H:%M:%S'),
                 "design": review.design,
-                "using": review.design,
+                "using": review.using,
                 "speed": review.speed,
                 "quality": review.quality,
                 "content": review.content
@@ -89,3 +90,15 @@ class ReviewServiceImpl(ReviewService):
 
     def createNewSelectionReviewListId(self):
         return self.__reviewRepository.createNewSelectionReviewListId()
+
+    def findReviewByReviewID(self, id):
+        return self.__reviewRepository.findReviewById(id)
+
+    def modifySelectionReview(self, review, ratingList, content):
+        return self.__reviewRepository.modifySelectionReview(review, ratingList, content)
+
+    def modifyWritingReview(self, review, title, content):
+        return self.__reviewRepository.modifyWritingReview(review, title, content)
+
+    def deleteReivew(self, reviewID):
+        return self.__reviewRepository.deleteReview(reviewID)

@@ -119,3 +119,36 @@ class ReviewRepositoryImpl(ReviewRepository):
 
     def createNewSelectionReviewListId(self):
         return ReviewList.objects.create()
+
+    def modifySelectionReview(self, review, ratingList, content):
+        update_data = {
+            'design': ratingList[0],
+            'using': ratingList[1],
+            'speed': ratingList[2],
+            'quality': ratingList[3],
+            'content': content
+        }
+        for field, value in update_data.items():
+            setattr(review, field, value)
+        review.save()
+        return
+
+    def modifyWritingReview(self, review, title, content):
+        update_data = {
+            'title': title,
+            'content': content
+        }
+        for field, value in update_data.items():
+            setattr(review, field, value)
+        review.save()
+        return
+
+    def deleteReview(self, reviewID):
+        review = ReviewList.objects.get(id=reviewID)
+        if type == 'SELECTION':
+            SelectionReview.objects.filter(listId=review.id).delete()
+        elif type == 'WRITING':
+            WritingReview.objects.filter(listId=review.id).delete()
+
+        review.delete()
+        return

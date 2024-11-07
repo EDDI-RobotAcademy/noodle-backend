@@ -43,3 +43,15 @@ class BacklogDomainRepositoryImpl(BacklogDomainRepository):
         except Exception as e:
             print(f"Error updating backlog status: {e}")
             raise e
+
+    def findByBacklog(self, backlog):
+        try:
+            backlogDomain = BacklogDomain.objects.get(backlog=backlog)
+            return backlogDomain
+
+        except ObjectDoesNotExist:
+            raise ValueError(f"No backlog domain found for backlog ID {backlog.id}")
+
+        except Exception as e:
+            print(f"Error getting backlog status: {e}")
+            raise e

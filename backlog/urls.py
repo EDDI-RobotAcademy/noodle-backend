@@ -9,4 +9,5 @@ router.register(r'backlog', BacklogView, basename='backlog')
 urlpatterns = [
     path('', include(router.urls)),
     path('create', BacklogView.as_view({'post': 'createBacklog'}), name='create-backlog'),
+    path('get', BacklogView.as_view({'post': 'getBacklog'}), name="get-backlog")
 ]

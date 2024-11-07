@@ -58,6 +58,39 @@ class ReviewView(viewsets.ViewSet):
             print('리뷰 등록 과정 중 문제 발생:', e)
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    def modifyReview(self, request):
+        try:
+            data = request.data
+
+            id = data.get('reviewID')
+            content = data.get('content')
+
+            userToken = request.data.get('userToken')
+            if userToken == None:
+                print('userToken is None')
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
+            userid = self.redisService.getValueByKey(userToken)
+            userObj = self.accountService.findAccountByAccountId(userid)
+            name = userObj.username
+            if name == None:
+                name = 'anonymous'
+            if request.data.get('writer') != name:
+                print('not matching')
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+            review, type = self.reviewService.findReviewByReviewID(id)
+            if type == 'SELECTION':
+                ratingList = request.data.get('ratingList')
+                self.reviewService.modifySelectionReview(review, ratingList, content)
+                return Response({'response': True}, status=status.HTTP_200_OK)
+            else:
+                title = data.get('title')
+                self.reviewService.modifyWritingReview(review, title, content)
+                return Response({'response': True}, status=status.HTTP_200_OK)
+        except Exception as e:
+            print('리뷰 수정 과정 중 문제 발생:', e)
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     def registerNewSelectionReview(self, request):
         try:
             userToken = request.data.get('userToken')
@@ -89,4 +122,25 @@ class ReviewView(viewsets.ViewSet):
 
         except Exception as e:
             print("error occurred while reading review!", e)
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def deleteReview(self, request):
+        try:
+            userToken = request.data.get('userToken')
+            if userToken == None:
+                print('userToken is None')
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
+            id = self.redisService.getValueByKey(userToken)
+            userObj = self.accountService.findAccountByAccountId(id)
+            name = userObj.username
+            if name == None:
+                name = 'anonymous'
+            if request.data.get('writer') != name:
+                print('not matching')
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
+            reviewID = request.data.get("reviewID")
+            self.reviewService.deleteReivew(reviewID)
+            return Response(status=status.HTTP_200_OK)
+        except Exception as e:
+            print("error occurred while deleting review!", e)
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

@@ -65,6 +65,21 @@ INSTALLED_APPS = [
     "report_team_member",
     "report_skill_set",
     "report_skill",
+    "report_feature",
+    "report_feature_content",
+    "report_usage",
+    "report_improvement",
+    "report_improvement_content",
+    "report_completion",
+    "report_completion_secure",
+    "report_completion_maintain",
+    "report_completion_total",
+    "report_overview",
+    "ai_request",
+    "get_result_report",
+    "get_meeting_recording_summary",
+    "subscription",
+    "meeting_recording_summary",
 ]
 
 MIDDLEWARE = [

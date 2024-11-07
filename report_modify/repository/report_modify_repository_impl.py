@@ -18,5 +18,11 @@ class ResultReportModifyRepositoryImpl(ResultReportModifyRepository):
 
         return cls.__instance
 
-    def create(self, resultReportId, modifier):
-        ResultReportModify.objects.create(modifier=modifier, report_id=resultReportId)
+    def create(self, report, modifier):
+        ResultReportModify.objects.create(modifier=modifier, report=report)
+
+    def getModifierByResultReport(self, report):
+        return ResultReportModify.objects.get(report=report)
+
+    def delete(self, report):
+        ResultReportModify.objects.get(report=report).delete()
