@@ -24,12 +24,13 @@ class MeetingRecordingSummaryServiceImpl(MeetingRecordingSummaryService):
 
     def create(self, accountId, title, content):
         account = self.__accountRepository.findAccountByAccountId(accountId)
-        meetingRecordingSummary = self.__meetingRecordingSummaryRepository.createSummary(account.username, title, content)
+        meetingRecordingSummary = self.__meetingRecordingSummaryRepository.createSummary(account.username, title,
+                                                                                         content)
 
         return meetingRecordingSummary
 
     def list(self, offset, limit):
-        summaryList = self.__meetingRecordingSummaryRepository.getPagedSummaryList(offset, limit)
+        summaryList, count = self.__meetingRecordingSummaryRepository.getPagedSummaryList(offset, limit)
         meetingRecordingSummaryList = []
 
         for summary in summaryList:
@@ -38,14 +39,15 @@ class MeetingRecordingSummaryServiceImpl(MeetingRecordingSummaryService):
                 'title': summary.title,
                 'writer': summary.writer,
                 'content': summary.content,
-                'regData': summary.regDate
+                'regDate': summary.regDate
             })
 
-        return meetingRecordingSummaryList
+        return meetingRecordingSummaryList, count
 
     def read(self, meetingRecordingSummaryId):
         summary = (
-            self.__meetingRecordingSummaryRepository.getMeetingRecordingSummaryByMeetingRecordingSummaryId(meetingRecordingSummaryId))
+            self.__meetingRecordingSummaryRepository.getMeetingRecordingSummaryByMeetingRecordingSummaryId(
+                meetingRecordingSummaryId))
 
         meetingRecordingSummary = {
             "id": summary.id,
@@ -56,5 +58,3 @@ class MeetingRecordingSummaryServiceImpl(MeetingRecordingSummaryService):
         }
 
         return meetingRecordingSummary
-
-

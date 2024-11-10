@@ -55,9 +55,14 @@ class ResultReportView(viewsets.ViewSet):
 
         resultReportList = self.resultReportService.list(query=query)
         totalCount = len(resultReportList)
+        calculatedLimit = totalCount - (offset)
+        calculatedOffset = totalCount - (limit)
+        if calculatedOffset < 0:
+            calculatedOffset = 0
 
-        return Response({"resultReports": resultReportList[offset:limit], "totalCount": totalCount},
-                        status=status.HTTP_200_OK)
+        return Response(
+            {"resultReports": resultReportList[calculatedOffset:calculatedLimit], "totalCount": totalCount},
+            status=status.HTTP_200_OK)
 
     def read(self, request):
         data = request.data
