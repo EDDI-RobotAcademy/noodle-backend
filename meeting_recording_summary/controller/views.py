@@ -49,11 +49,6 @@ class MeetingRecordingSummaryView(viewsets.ViewSet):
         userToken = data.get("userToken")
         meetingRecordingSummaryId = data.get("meetingRecordingSummaryId")
 
-        try:
-            accountId = self.redisService.getValueByKey(userToken)
-        except Exception as e:
-            print("회의록 읽는 중 에러 발생:", e)
-            raise e
 
         meetingRecordingSummary = self.meetingRecordingSummaryService.read(meetingRecordingSummaryId)
 
