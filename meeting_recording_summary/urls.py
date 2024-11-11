@@ -10,5 +10,5 @@ urlpatterns = [
     path("", include(router.urls)),
     path("create", MeetingRecordingSummaryView.as_view({"post": "create"}), name="create-meeting-recording-summary"),
     path("list", MeetingRecordingSummaryView.as_view({"post": "list"}), name="list-meeting-recording-summary"),
-    path("read/<int:meetingRecordingSummaryId>", MeetingRecordingSummaryView.as_view({"post", "read"}), name="read-meeting-recording-summary"),
+    path("read", MeetingRecordingSummaryView.as_view({"post": "read"}), name="read-meeting-recording-summary"),
 ]
